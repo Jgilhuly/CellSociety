@@ -38,7 +38,7 @@ __Step 2 - Apply Changes__
 
 The GUI will have four main elements, the Grid, and Pause, Play, and Step buttons. The User can also click on any Cell to cycle through its possible States. Any errors will be communicated through popup dialog windows.
 
-![alt text](gui_drawning.png "GUI Drawing")
+![Alt text](https://github.com/duke-compsci308-spring2015/cellsociety_team01/blob/master/gui_drawing.png "GUI Drawing")
 
 Additionally, the User can supply an XML file to be read in at the start of the program. There will also be a menu bar along the top of the screen, through which the user can swap XML files while the program is running.
 
