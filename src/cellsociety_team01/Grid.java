@@ -8,7 +8,7 @@ public class Grid {
 	// private Cell[][] cells;
 	private GUI myView;
 	private boolean simRunning;
-	private int updateRate;
+	private double updateRate;
 
 	public Grid() {
 	}
@@ -30,13 +30,14 @@ public class Grid {
 	}
 
 	public void step() {
-
+		updateCells();
+		myView.update();
 	}
 
 	public void reset() {
 	}
 
-	public void changeUpdateRate(int newRate) {
+	public void changeUpdateRate(double newRate) {
 		updateRate = newRate;
 	}
 
@@ -49,7 +50,26 @@ public class Grid {
 	}
 
 	private void update() {
-		myView.update();
+			updateCells();
+			myView.update();
+	}
+	
+//	public Cell[][] getCells() {
+//		return cells;
+//	}
+
+	private void updateCells() {
+		// for (int i = 0; i < cells.length; i++) {
+		// for (int j = 0; j < cells[i].length; i++) {
+		//		cells[i][j].findNextState();
+		// }
+		// }
+		
+		// for (int i = 0; i < cells.length; i++) {
+		// for (int j = 0; j < cells[i].length; i++) {
+		//		cells[i][j].updateState();
+		// }
+		// }
 	}
 
 }
