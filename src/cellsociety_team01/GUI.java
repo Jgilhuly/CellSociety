@@ -1,10 +1,12 @@
 package cellsociety_team01;
 
 import java.awt.Dimension;
+import java.io.File;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class GUI {
@@ -24,7 +27,7 @@ public class GUI {
 	private Scene myScene;
 	private ResourceBundle myResources;
 	private Grid myModel;
-//	private Stage myStage;
+	private Stage myStage;
 
 	private Button playButton;
 	private Button pauseButton;
@@ -34,14 +37,14 @@ public class GUI {
 
 	public GUI(Grid gridIn, String language, Stage stageIn) {
 		myModel = gridIn;
-//		myStage = stageIn;
+		//		myStage = stageIn;
 
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
 				+ language);
 		BorderPane root = new BorderPane();
 		root.setBottom(makeButtons());
 		root.setTop(makeMenuBar());
-		 root.setCenter(makeGrid());
+		root.setCenter(makeGrid());
 
 		enableButtons();
 
@@ -83,13 +86,23 @@ public class GUI {
 	}
 
 	private void loadXML() {
-		System.out.println("CHECK");
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Resource File");
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+		
+		File file = fileChooser.showOpenDialog(myStage);
+		if (file != null) {
+			System.out.println(file.getName());
+		}
 	}
 
 	private Node makeGrid() {
 		grid = new GridPane();
 		setGridCellStates();
 		grid.setGridLinesVisible(true);
+		grid.setPadding(new Insets (10, 50, 10, 50));
+		//		grid.setHgap(1);
+		//		grid.setVgap(1);
 		return grid;
 	}
 
@@ -97,13 +110,13 @@ public class GUI {
 		Text t1 = new Text("Hello");
 		t1.setOnMouseClicked(e -> cellClicked(t1));
 		grid.add(t1, 2, 3);
-		
+
 		grid.add(new Text("Patrick"), 1, 1);
 		grid.add(new Text("Jangsoon"), 1, 2);
 		grid.add(new Text("John"), 5, 4);
 		grid.add(new Text("Peter"), 3, 4);
 	}
-	
+
 	private void cellClicked (Text t) {
 		t.setText("Checked");
 	}
