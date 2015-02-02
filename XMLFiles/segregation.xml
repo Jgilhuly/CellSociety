@@ -10,162 +10,162 @@
 	<grid width="10" height="5">
 		<row>
 			<cell>
-				<agent>A</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>NONE</agent>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<agent>NONE</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
-			</cell>
-		</row>
-		<row>
-			<cell>
-				<agent>A</agent>
-			</cell>
-			<cell>
-				<agent>B</agent>
-			</cell>
-			<cell>
-				<agent>B</agent>
-			</cell>
-			<cell>
-				<agent>NONE</agent>
-			</cell>
-			<cell>
-				<agent>A</agent>
-			</cell>
-			<cell>
-				<agent>A</agent>
-			</cell>
-			<cell>
-				<agent>A</agent>
-			</cell>
-			<cell>
-				<agent>B</agent>
-			</cell>
-			<cell>
-				<agent>NONE</agent>
-			</cell>
-			<cell>
-				<agent>B</agent>
+				<state>0000FF</state>
 			</cell>
 		</row>
 		<row>
 			<cell>
-				<agent>A</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>NONE</agent>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<agent>NONE</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
-			</cell>
-		</row>
-		<row>
-			<cell>
-				<agent>A</agent>
-			</cell>
-			<cell>
-				<agent>B</agent>
-			</cell>
-			<cell>
-				<agent>B</agent>
-			</cell>
-			<cell>
-				<agent>NONE</agent>
-			</cell>
-			<cell>
-				<agent>A</agent>
-			</cell>
-			<cell>
-				<agent>A</agent>
-			</cell>
-			<cell>
-				<agent>A</agent>
-			</cell>
-			<cell>
-				<agent>B</agent>
-			</cell>
-			<cell>
-				<agent>NONE</agent>
-			</cell>
-			<cell>
-				<agent>B</agent>
+				<state>0000FF</state>
 			</cell>
 		</row>
 		<row>
 			<cell>
-				<agent>A</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>NONE</agent>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>A</agent>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<agent>NONE</agent>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<agent>B</agent>
+				<state>0000FF</state>
+			</cell>
+		</row>
+		<row>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+		</row>
+		<row>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
 			</cell>
 		</row>
 	</grid>

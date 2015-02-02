@@ -18,7 +18,7 @@ import jdk.internal.org.xml.sax.SAXException;
 public class Parser {
 	
 	private File myFile;
-	private GUI myGui;
+	private Grid myGrid;
 	private String filename;
 	private Document dom;
 	private DocumentBuilderFactory dbf;
@@ -28,9 +28,9 @@ public class Parser {
 	int myWidth;
 	int myHeight;
 	
-	public Parser (File file, GUI gui) {
+	public Parser (File file, Grid grid) {
 		myFile = file;
-		myGui = gui;
+		myGrid = grid;
 		filename = myFile.getName();
 		dbf = DocumentBuilderFactory.newInstance();
 	}
@@ -71,10 +71,9 @@ public class Parser {
 	}
 
 	private void parseInfo(Element info) {
-		NodeList infoList = info.getChildNodes();
-		myGui.setName(infoList.item(0).getNodeValue());
-		myGui.setAuthor(infoList.item(1).getNodeValue());
-		myGui.setRule(infoList.item(2).getNodeValue());
+		myGrid.setName(getTextValue(info,"name"));
+		myGrid.setAuthor(getTextValue(info,"author"));
+		myGrid.setRule(getTextValue(info,"rule"));
 	}
 
 	private void parseConfig(Element config) {
@@ -92,6 +91,12 @@ public class Parser {
 		for(int i = 0 ; i < myHeight ; i++) {
 
 			Element row = (Element)rowList.item(i);
+			NodeList cellList = row.getChildNodes();
+			for (int j = 0 ; j < myWidth ; j++) {
+				Element cellEl = (Element)cellList.item(j);
+				String color = getTextValue(cellEl,"state");
+				Cell newCell = new Cell(j, i, getState(color));
+			}
 
 			//get the Employee object
 //			Employee e = getEmployee(element);
@@ -99,5 +104,21 @@ public class Parser {
 			//add it to list
 //			myEmpls.add(e);
 		}
+	}
+	
+	private String getTextValue(Element ele, String tagName) {
+		String textVal = null;
+		NodeList nl = ele.getElementsByTagName(tagName);
+		if(nl != null && nl.getLength() > 0) {
+			Element el = (Element)nl.item(0);
+			textVal = el.getFirstChild().getNodeValue();
+		}
+
+		return textVal;
+	}
+
+	private State getState(String color) {
+		int hexCode = Integer.parseInt(color);
+		return new State(hexCode, false);
 	}
 }
