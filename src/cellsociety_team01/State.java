@@ -23,7 +23,6 @@ Class State {
 		for(int i = 0; i < myName.length(); i++){
 			ret += myName.get(i) * (i + 1);
 		}
-		ret += myColor.hashCode();
 		return ret;
 	}
 
