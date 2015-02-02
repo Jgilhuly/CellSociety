@@ -14,15 +14,16 @@ public class GameOfLife extends Simulation{
 	//BLACK = ALIVE
 	//WHITE = DEAD
 	
-	public void initialize(){
-		public State dead = new State("Dead", Color.WHITE);
-		public State alive - new State("Alive", Color.WHITE);
-		myStates.addAll(dead, alive);
+	private void initialize(){
+		public State dead = new State("Dead", Color.WHITE, 0);
+		public State alive - new State("Alive", Color.BLACK, 0);
+		myStates.add(dead);
+		myStates.add(alive);
 		
-		myRules.add(new Rule(dead, alive, alive, 0, 2));
-		myRules.add(new Rule(alive, alive, alive, 2, 3));
-		myRules.add(new Rule(alive, dead, alive, 3, 8));
-		myRules.add(new Rule(dead, alive, alive, 3, 3));
+		myRules.add(new ThresholdRule(dead, alive, alive, 0, 2));
+		myRules.add(new ThresholdRule(alive, alive, alive, 2, 3));
+		myRules.add(new ThresholdRule(alive, dead, alive, 3, 8));
+		myRules.add(new ThresholdRule(dead, alive, alive, 3, 3));
 	}
 	
 	

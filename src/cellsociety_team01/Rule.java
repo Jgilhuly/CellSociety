@@ -5,15 +5,13 @@ public class Rule {
 	public State myStart;
 	public State myEnd;
 	public State myCause;
-	public int myMin;
-	public int myMax;
+
 	
-	public Rule(State start, State end, State cause, int min, int max){
+	public Rule(State start, State end, State cause){
 		myStart = start;
 		myEnd = end;
 		myCause = cause;
-		myMin = min;
-		myMax = max;
+		
 	}
 	
 	public State getStart(){
@@ -28,8 +26,8 @@ public class Rule {
 		return myCause;
 	}
 	
-	public boolean isInRange(int k){
-		return (k <= myMax && k >= myMin);
+	public boolean applies(int k){
+		return (k>0);
 	}
 	
 

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Simulation {
 	
-	public Rule[] myRules;
+	public ArrayList<Rule> myRules;
+	public ArrayList<State> myStates;
 	public String myName;
 	
 	public Simulation(){
@@ -19,9 +20,14 @@ public class Simulation {
 				for(Cell c: myNeighbors)
 					if (c.getState().equals(r.getCause()))
 						k++;
-			if(r.isInRange(k))
+			
+			//K IS A METRIC THAT WEIGHS THE SURROUNDING CELLS -  DIFFERENT RULES WILL DO WITH IT WHAT THEY WANT (BELOW)
+			
+			if(r.applies(k))
 				return r.getEnd();
 		}
+		
+		return curState;
 	}
 	
 
