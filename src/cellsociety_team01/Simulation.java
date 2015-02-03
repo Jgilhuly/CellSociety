@@ -18,10 +18,10 @@ public class Simulation {
 		return useDiags;
 	}
 	
-	public State applyRules(State curState, ArrayList<Cell> myNeighbors){
+	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		for (Rule r: myRules){
 			int k = 0;
-			if (curState.equals(r.getStart()))
+			if (cur.getCurState().equals(r.getStart()))
 				for(Cell c: myNeighbors)
 					if (c.getState().equals(r.getCause()))
 						k++;
