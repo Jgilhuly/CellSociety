@@ -18,7 +18,7 @@ public class Simulation {
 		myStates = new ArrayList<State>();
 	}
 	
-	public State applyRules(State curState, Cell[] myNeighbors){
+	public State applyRules(State curState, ArrayList<Cell> myNeighbors){
 		for (Rule r: myRules){
 			int k = 0;
 			if (curState.equals(r.getStart()))
