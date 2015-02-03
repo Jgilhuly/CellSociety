@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
+import cellsociety_team01.parser.Parser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -37,6 +38,7 @@ public class GUI {
 	private Button resetButton;
 	private Slider slider;
 	private GridPane grid; // the visual aspect of the grid
+	private Parser parser;
 
 	public GUI(Grid gridIn, String language, Stage stageIn) {
 		myModel = gridIn;
@@ -149,7 +151,10 @@ public class GUI {
 
 		File file = fileChooser.showOpenDialog(myStage);
 		if (file != null) {
-			System.out.println(file.getName()); // ADD LINK TO PARSER HERE
+			parser = new Parser(file, myModel);
+		}
+		else {
+			System.err.println("Error Loading XML File");
 		}
 	}
 
@@ -166,7 +171,7 @@ public class GUI {
 		//		grid.add(new Text("John"), 5, 4);
 		//		grid.add(new Text("Peter"), 3, 4);
 
-		Cell[][] cells = grid.getCells();
+		Cell[][] cells = myModel.getCells();
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; i++) {
 				Rectangle newCell = new Rectangle ();
