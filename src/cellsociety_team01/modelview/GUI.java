@@ -17,7 +17,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-//import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -85,7 +85,7 @@ public class GUI {
 
 		return result;
 	}
-	
+
 	public Stage getStage() {
 		return myStage;
 	}
@@ -111,10 +111,10 @@ public class GUI {
 	 * @return
 	 */
 	private Node makeMenuBar() {
-		Menu menu1 = new Menu("File");
-		Menu menu2 = new Menu("Help");
+		Menu menu1 = new Menu(myResources.getString("File"));
+		Menu menu2 = new Menu(myResources.getString("About"));
 
-		MenuItem loadXML = new MenuItem("Load XML");
+		MenuItem loadXML = new MenuItem(myResources.getString("LoadXML"));
 		loadXML.setOnAction(e -> loadXML());
 		menu1.getItems().add(loadXML);
 
@@ -143,7 +143,7 @@ public class GUI {
 	 */
 	private void loadXML() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Resource File");
+		fileChooser.setTitle(myResources.getString("OpenResourceFile"));
 		fileChooser.getExtensionFilters().add(
 				new FileChooser.ExtensionFilter("XML File", "*.xml"));
 
@@ -157,23 +157,24 @@ public class GUI {
 	 * Sets grid states based on the cell array in myModel
 	 */
 	private void setGridCellStates() {
-		Text t1 = new Text("Hello");
-		t1.setOnMouseClicked(e -> cellClicked(t1));
-		grid.add(t1, 2, 3);
+		//		Text t1 = new Text("Hello");
+		//		t1.setOnMouseClicked(e -> cellClicked(t1));
+		//		grid.add(t1, 2, 3);
+		//
+		//		grid.add(new Text("Patrick"), 1, 1);
+		//		grid.add(new Text("Jangsoon"), 1, 2);
+		//		grid.add(new Text("John"), 5, 4);
+		//		grid.add(new Text("Peter"), 3, 4);
 
-		grid.add(new Text("Patrick"), 1, 1);
-		grid.add(new Text("Jangsoon"), 1, 2);
-		grid.add(new Text("John"), 5, 4);
-		grid.add(new Text("Peter"), 3, 4);
-
-		// Cell[][] cells = grid.getCells();
-		// for (int i = 0; i < cells.length; i++) {
-		// for (int j = 0; j < cells[i].length; i++) {
-		//		Rectangle newCell = new Rectangle ();
-		//		newCell.setFill(cell[i][j].getColor());
-		// 		grid.add(newCell, i, j);
-		// }
-		// }
+		Cell[][] cells = grid.getCells();
+		for (int i = 0; i < cells.length; i++) {
+			for (int j = 0; j < cells[i].length; i++) {
+				Rectangle newCell = new Rectangle ();
+				newCell.setFill(cell[i][j].getColor());
+				newCell.setOnMouseClicked(e -> cellClicked(newCell));
+				grid.add(newCell, i, j);
+			}
+		}
 	}
 
 	/**
@@ -182,12 +183,11 @@ public class GUI {
 	 * @param t
 	 */
 	@SuppressWarnings("static-access")
-	private void cellClicked(Text t) {
-		t.setText("Checked");
-
+	private void cellClicked(Cell cell) {
 		// ADD CYCLE CELL STATES
-		System.out.println(grid.getColumnIndex(t).intValue());
-		System.out.println(grid.getRowIndex(t).intValue());
+
+		//		System.out.println(grid.getColumnIndex(t).intValue());
+		//		System.out.println(grid.getRowIndex(t).intValue());
 	}
 
 	/**

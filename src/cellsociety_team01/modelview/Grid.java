@@ -12,6 +12,7 @@ public class Grid {
 	private GUI myView;
 	private boolean simRunning;
 	private double updateRate;
+	private String author;
 
 	public Grid() {
 	}
@@ -54,6 +55,10 @@ public class Grid {
 
 	public void setTitle(String titleIn) {
 		myView.getStage().setTitle(titleIn);
+	}
+	
+	public void setAuthor(String authorIn) {
+		author = authorIn;
 	}
 
 	/**
