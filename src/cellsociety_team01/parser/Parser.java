@@ -18,12 +18,12 @@ import org.w3c.dom.NodeList;
 
 import cellsociety_team01.Cell;
 import cellsociety_team01.State;
-import cellsociety_team01.GameOfLife;
-import cellsociety_team01.PredatorPrey;
-import cellsociety_team01.Segregation;
-import cellsociety_team01.Simulation;
-import cellsociety_team01.SpreadingOfFire;
 import cellsociety_team01.modelview.Grid;
+import cellsociety_team01.simulations.GameOfLife;
+import cellsociety_team01.simulations.PredatorPrey;
+import cellsociety_team01.simulations.Segregation;
+import cellsociety_team01.simulations.Simulation;
+import cellsociety_team01.simulations.SpreadingOfFire;
 import jdk.internal.org.xml.sax.SAXException;
 
 
@@ -44,12 +44,12 @@ public class Parser {
 			"PredatorPrey",
 			"Fire",
 			"GameOfLife"));
-			
 	private Simulation[] myPossibleSimulations = {
 			new Segregation(),
 			new PredatorPrey(),
 			new SpreadingOfFire(),
 			new GameOfLife()};
+	private Simulation mySim;
 	
 	public Parser (File file, Grid grid) {
 		myFile = file;
@@ -101,12 +101,17 @@ public class Parser {
 
 	private void setRule(String textValue) {
 		int x = myPossibleSimulationsTXT.indexOf(textValue);
-		Simulation sim = myPossibleSimulations[x];
-		myGrid.setSimulation(sim);
+		mySim = myPossibleSimulations[x];
+		myGrid.setSimulation(mySim);
 	}
 
 	private void parseConfig(Element config) {
-		NodeList configList = config.getChildNodes();
+//		NodeList configList = config.getChildNodes();
+//		ArrayList<String> configVars = new ArrayList<String>();
+//		for (int i = 0 ; i < configList.getLength() ; i++){
+//			configVars.add(getTextValue(config, configList.item(i).getNodeName()));
+//		}
+//		mySim.setConfigs(configVars);
 	}
 
 	private void parseGrid(Element grid) {
@@ -143,8 +148,9 @@ public class Parser {
 		return textVal;
 	}
 
-	private Color getState(String color) {
+	private State getState(String color) {
 		Color c = Color.web(color);
-		return c;
+		State s = mySim.findState(c);
+		return s;
 	}
 }

@@ -20,7 +20,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -190,7 +189,6 @@ public class GUI {
 	 * 
 	 * @param t
 	 */
-	@SuppressWarnings("static-access")
 	private void cellClicked(Cell cell) {
 		// ADD CYCLE CELL STATES
 
