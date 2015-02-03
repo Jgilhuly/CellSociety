@@ -1,5 +1,4 @@
 package cellsociety_team01;
-import java.util.*;
 import javafx.scene.paint.Color;
 
 public class State {

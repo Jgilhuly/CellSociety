@@ -5,7 +5,7 @@
 		<rule>Fire</rule>
 	</info>
 	<config>
-		<flamability></flamability>
+		<flamability>0.6</flamability>
 	</config>
 	<grid width="10" height="5">
 		<row>

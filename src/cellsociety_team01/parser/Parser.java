@@ -110,19 +110,22 @@ public class Parser {
 	}
 
 	private void parseConfig(Element config) {
-				NodeList configList = config.getChildNodes();
-				ArrayList<String> configVars = new ArrayList<String>();
-				for (int i = 0 ; i < configList.getLength() ; i++){
-					configVars.add(getTextValue(config, configList.item(i).getNodeName()));
-				}
-				mySim.setConfigs(configVars);
+		NodeList configList = config.getChildNodes();
+		ArrayList<String> configVars = new ArrayList<String>();
+		for (int i = 0 ; i < configList.getLength() ; i++){
+			if (configList.item(i) instanceof Element == false)
+				continue;
+			
+			configVars.add(getTextValue(config, configList.item(i).getNodeName()));
+		}
+		mySim.setConfigs(configVars);
 	}
 
 	private void parseGrid(Element grid) {
-//		NamedNodeMap dimensions = grid.getAttributes();
-//		Element widthEl = (Element)dimensions.getNamedItem("width");
+		//		NamedNodeMap dimensions = grid.getAttributes();
+		//		Element widthEl = (Element)dimensions.getNamedItem("width");
 		myWidth = Integer.parseInt(grid.getAttribute("width"));
-//		Element heightEl = (Element)dimensions.getNamedItem("height");
+		//		Element heightEl = (Element)dimensions.getNamedItem("height");
 		myHeight = Integer.parseInt(grid.getAttribute("height"));
 
 		Cell[][] cells = new Cell[myWidth][myHeight];
@@ -138,7 +141,7 @@ public class Parser {
 			for (int j = 0 ; j < cellList.getLength() ; j++) {
 				if (cellList.item(j) instanceof Element == false)
 					continue;
-				
+
 				Element cellEl = (Element)cellList.item(j);
 				String color = getTextValue(cellEl,"state");
 				Cell newCell = new Cell(j, i, getState(color));
