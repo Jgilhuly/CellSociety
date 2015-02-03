@@ -10,7 +10,6 @@ import cellsociety_team01.State;
 public class PredatorPrey extends Simulation {
 	
 	Random myRandom = new Random();
-	
 	public PredatorPrey(){
 		super();
 		initialize();
@@ -73,7 +72,7 @@ public class PredatorPrey extends Simulation {
 	}
 	
 	//wrapped find 4 neighbors
-	
+	//written by John Gilhuly
 	public ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
