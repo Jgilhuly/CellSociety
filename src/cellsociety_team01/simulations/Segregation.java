@@ -81,19 +81,20 @@ public class Segregation extends Simulation {
 	}
 	
 	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
+		ArrayList<Cell> temp = new ArrayList<Cell>();
 		for (Cell c: myNeighbors)
 			if (!(c.getCurState().equals(new State(null, "empty")))) //REVISE THIS COMPARISON
-				myNeighbors.remove(c);
+				temp.add(c);
 			
-		int i  = (int) Math.floor(myRandom.nextDouble()*myNeighbors.size());
+		int i  = (int) Math.floor(myRandom.nextDouble()*temp.size());
+		Cell c = temp.get(i);
+		cur.setNextState(c.getCurState());
 		
-		cur.setNextState(myNeighbors.get(i).getCurState());
-		
-		myNeighbors.get(i).setNextState(cur.getCurState());
+		c.setNextState(cur.getCurState());
 		
 		cur.setCurState(cur.getNextState());
 		
-		myNeighbors.get(i).setCurState(myNeighbors.get(i).getNextState());
+		c.setCurState(c.getNextState());
 	}
 	
 	
