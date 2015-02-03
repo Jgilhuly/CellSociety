@@ -216,7 +216,7 @@ public class GUI {
 		if (myModel.isSimRunning()) {
 			 setGridCellStates();
 		}
-		//		System.out.println(slider.getValue());
+		System.out.println("update");
 		myModel.changeUpdateRate(slider.getValue()); //  Change This
 		enableButtons();
 	}

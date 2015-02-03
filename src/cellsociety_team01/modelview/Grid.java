@@ -70,7 +70,7 @@ public class Grid {
 	 */
 	public KeyFrame start(int frameRate) {
 		updateRate = frameRate;
-		return new KeyFrame(Duration.millis(1000 / updateRate), e -> update());
+		return new KeyFrame(Duration.millis(1000 / updateRate * 1000), e -> update());
 	}
 	
 	public Cell[][] getCells() {
