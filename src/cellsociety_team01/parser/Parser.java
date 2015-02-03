@@ -13,6 +13,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
+import ModelView.Grid;
+import cellsociety_team01.GameOfLife;
+import cellsociety_team01.PredatorPrey;
+import cellsociety_team01.Segregation;
+import cellsociety_team01.Simulation;
+import cellsociety_team01.SpreadingOfFire;
 import jdk.internal.org.xml.sax.SAXException;
 
 
@@ -90,7 +96,7 @@ public class Parser {
 	private void setRule(String textValue) {
 		int x = myPossibleSimulationsTXT.indexOf(textValue);
 		Simulation sim = myPossibleSimulations[x];
-		myGrid.setRule(sim);
+		myGrid.setSimulation(sim);
 	}
 
 	private void parseConfig(Element config) {
