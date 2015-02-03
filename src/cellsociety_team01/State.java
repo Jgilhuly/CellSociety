@@ -1,3 +1,4 @@
+package cellsociety_team01;
 import java.util.*;
 import javafx.scene.paint.Color;
 
@@ -21,7 +22,7 @@ public class State {
 	public int hashCode() {
 		int ret = 0;
 		for(int i = 0; i < myName.length(); i++){
-			ret += myName.get(i) * (i + 1);
+			ret += myName.charAt(i) * (i + 1);
 		}
 		ret += myColor.hashCode();
 		return ret;
@@ -33,5 +34,13 @@ public class State {
 
 	public void setColor(Color color) {
 		myColor = color;
+	}
+
+	public Color getColor() {
+		return myColor;
+	}
+
+	public boolean isActive() {
+		return myActive;
 	}
 }

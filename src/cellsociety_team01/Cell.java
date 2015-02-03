@@ -1,4 +1,6 @@
+package cellsociety_team01;
 import java.util.*;
+import javafx.scene.paint.Color;
 
 public class Cell {
 
@@ -7,10 +9,10 @@ public class Cell {
 	private State myCurState;
 	private State myNextState;
 
-	public Cell(int x, int y, Color c) {
+	public Cell(int x, int y, Color c, String name) {
 		myX = x;
 		myY = y;
-		myCurState = new State(c);
+		myCurState = new State(c, name);
 		myNextState = null;
 	}
 
@@ -18,8 +20,8 @@ public class Cell {
 		myCurState = myNextState;
 	}	
 
-	public State findNextState(Cell[] cellArray, Rule myRule) {
-		State s = myRule.determineNextState(myCurState, cellArray);
+	public State findNextState(ArrayList<Cell> cellArray, Simulation sim) {
+		State s = sim.applyRules(myCurState, cellArray);
 		myNextState = s;
 	}	
 

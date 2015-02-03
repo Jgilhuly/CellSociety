@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
+import cellsociety_team01.Cell;
 import cellsociety_team01.parser.Parser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -152,6 +153,7 @@ public class GUI {
 		File file = fileChooser.showOpenDialog(myStage);
 		if (file != null) {
 			parser = new Parser(file, myModel);
+			parser.parseXmlFile();
 		}
 		else {
 			System.err.println("Error Loading XML File");
@@ -175,7 +177,7 @@ public class GUI {
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; i++) {
 				Rectangle newCell = new Rectangle ();
-				newCell.setFill(cell[i][j].getColor());
+				newCell.setFill(cells[i][j].getCurState().getColor);
 				newCell.setOnMouseClicked(e -> cellClicked(newCell));
 				grid.add(newCell, i, j);
 			}
