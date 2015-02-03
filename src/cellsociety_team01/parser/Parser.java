@@ -28,14 +28,13 @@ import jdk.internal.org.xml.sax.SAXException;
 
 
 public class Parser {
-	
+
 	private File myFile;
 	private Grid myGrid;
 	private String filename;
 	private Document dom;
 	private DocumentBuilderFactory dbf;
 	private DocumentBuilder db;
-	private Element root;
 	private NodeList mainNL;
 	private int myWidth;
 	private int myHeight;
@@ -50,11 +49,11 @@ public class Parser {
 			new SpreadingOfFire(),
 			new GameOfLife()};
 	private Simulation mySim;
-	
+
 	public Parser (File file, Grid grid) {
 		myFile = file;
 		myGrid = grid;
-		filename = myFile.getName();
+		filename = myFile.getPath();
 		dbf = DocumentBuilderFactory.newInstance();
 	}
 
@@ -64,6 +63,7 @@ public class Parser {
 			//Using factory get an instance of document builder
 			db = dbf.newDocumentBuilder();
 
+			System.out.println(filename);
 			//parse using builder to get DOM representation of the XML file
 			dom = db.parse(filename);
 
@@ -74,19 +74,19 @@ public class Parser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		parseDocument();
-		
+
 	}
-	
+
 	private void parseDocument(){
 		//get the root element
-		root = dom.getDocumentElement();
+		Element root = dom.getDocumentElement();
 
 		mainNL = root.getChildNodes();
-		
+
 		//Pass 3 Types of mainNL elements to different handling functions
-		if(mainNL != null && mainNL.getLength() > 0) {
+		if (mainNL != null && mainNL.getLength() > 0){
 			parseInfo((Element)mainNL.item(0));
 			parseConfig((Element)mainNL.item(1));
 			parseGrid((Element)mainNL.item(2));
@@ -106,12 +106,12 @@ public class Parser {
 	}
 
 	private void parseConfig(Element config) {
-//		NodeList configList = config.getChildNodes();
-//		ArrayList<String> configVars = new ArrayList<String>();
-//		for (int i = 0 ; i < configList.getLength() ; i++){
-//			configVars.add(getTextValue(config, configList.item(i).getNodeName()));
-//		}
-//		mySim.setConfigs(configVars);
+		//		NodeList configList = config.getChildNodes();
+		//		ArrayList<String> configVars = new ArrayList<String>();
+		//		for (int i = 0 ; i < configList.getLength() ; i++){
+		//			configVars.add(getTextValue(config, configList.item(i).getNodeName()));
+		//		}
+		//		mySim.setConfigs(configVars);
 	}
 
 	private void parseGrid(Element grid) {
@@ -120,9 +120,9 @@ public class Parser {
 		myWidth = Integer.parseInt(widthEl.getNodeValue());
 		Element heightEl = (Element)dimensions.getNamedItem("height");
 		myHeight = Integer.parseInt(heightEl.getNodeValue());
-		
+
 		Cell[][] cells = new Cell[myWidth][myHeight];
-		
+
 		NodeList rowList = grid.getChildNodes();
 		for(int i = 0 ; i < myHeight ; i++) {
 			Element row = (Element)rowList.item(i);
@@ -136,7 +136,7 @@ public class Parser {
 		}
 		myGrid.updateGrid(cells);
 	}
-	
+
 	private String getTextValue(Element ele, String tagName) {
 		String textVal = null;
 		NodeList nl = ele.getElementsByTagName(tagName);
