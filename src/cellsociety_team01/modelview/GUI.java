@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import cellsociety_team01.Cell;
+import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.parser.Parser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

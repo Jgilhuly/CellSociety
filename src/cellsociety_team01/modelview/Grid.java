@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
-import cellsociety_team01.Cell;
+import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.simulations.Simulation;
 
 public class Grid {

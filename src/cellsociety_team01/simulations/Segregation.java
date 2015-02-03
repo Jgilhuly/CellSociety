@@ -3,8 +3,8 @@ package cellsociety_team01.simulations;
 import java.util.ArrayList;
 import java.util.Random;
 
-import cellsociety_team01.State;
-import cellsociety_team01.Cell;
+import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.CellState.State;
 import javafx.scene.paint.Color;
 
 public class Segregation extends Simulation {

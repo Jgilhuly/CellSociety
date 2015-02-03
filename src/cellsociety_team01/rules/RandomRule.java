@@ -2,7 +2,7 @@ package cellsociety_team01.rules;
 
 import java.util.Random;
 
-import cellsociety_team01.State;
+import cellsociety_team01.CellState.State;
 
 public class RandomRule extends Rule{
 	

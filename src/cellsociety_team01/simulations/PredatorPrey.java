@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.scene.paint.Color;
-import cellsociety_team01.Cell;
-import cellsociety_team01.State;
+import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.CellState.State;
 
 public class PredatorPrey extends Simulation {
 	
