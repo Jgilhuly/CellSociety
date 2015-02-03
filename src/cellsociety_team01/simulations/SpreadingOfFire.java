@@ -9,11 +9,11 @@ import javafx.scene.paint.Color;
 
 public class SpreadingOfFire extends Simulation {
 	
-	public double probCatch;
 	
+	private double[] myConfigs;
 	public SpreadingOfFire(){
 		super();
-		probCatch = 0.6; //HARD CODED
+		 //HARD CODED
 		initialize();
 	}
 	
@@ -26,12 +26,17 @@ public class SpreadingOfFire extends Simulation {
 		myStates.add(tree);
 		myStates.add(empty);
 		
-		myRules.add(new RandomRule(tree, burning, burning, probCatch));
+		myRules.add(new RandomRule(tree, burning, burning, myConfigs[0]));
 		myRules.add(new RandomRule(burning, empty, null, 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
 	}
 	
+	public void setConfigs(String[] configs){
+		myConfigs = new double[configs.length];
+		for(int i = 0; i< configs.length; i++)
+			myConfigs[i] = Double.parseDouble(configs[i]);
+	}
 	//unwrapped find 4
-	
+	//written by John Gilhuly
 	public ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 

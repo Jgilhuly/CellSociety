@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 public class Segregation extends Simulation {
 	
-	private double mySatisfaction;
+	private double[] myConfigs;
 	private Random myRandom;
 	
 	public Segregation(){
@@ -33,8 +33,15 @@ public class Segregation extends Simulation {
 
 	}
 	
-	//unwrapped find 4 neighbors
+	public void setConfigs(String[] configs){
+		myConfigs = new double[configs.length];
+		for(int i = 0; i< configs.length; i++)
+			myConfigs[i] = Double.parseDouble(configs[i]);
+	}
 	
+	//unwrapped find 4 neighbors
+	//written by John Gilhuly
+
 	public ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
@@ -63,7 +70,7 @@ public class Segregation extends Simulation {
 				if (c.getCurState().equals(cur.getCurState())) //if the neighbors have the same state as you
 					k = k + 1.0;
 		
-		if (k/myNeighbors.size() > mySatisfaction)
+		if (k/myNeighbors.size() > myConfigs[0])
 			return cur.getCurState();
 
 		switchEmptyAdjacent(cur, myNeighbors);
@@ -90,8 +97,6 @@ public class Segregation extends Simulation {
 	
 	
 	
-	public void setSatisfaction(double x){
-		mySatisfaction  = x;
-	}
+	
 
 }
