@@ -128,10 +128,11 @@ public class Parser {
 		Cell[][] cells = new Cell[myWidth][myHeight];
 
 		NodeList rowList = grid.getChildNodes();
+		int xcnt = 0;
+		int ycnt = 0;
 		for(int i = 0 ; i < rowList.getLength() ; i++) {
 			if (rowList.item(i) instanceof Element == false)
 				continue;
-			
 			Element row = (Element)rowList.item(i);
 			NodeList cellList = row.getChildNodes();
 			for (int j = 0 ; j < cellList.getLength() ; j++) {
@@ -141,8 +142,10 @@ public class Parser {
 				Element cellEl = (Element)cellList.item(j);
 				String color = getTextValue(cellEl,"state");
 				Cell newCell = new Cell(j, i, getState(color));
-				cells[j][i] = newCell;
+				cells[xcnt][ycnt] = newCell;
+				xcnt++;
 			}
+			ycnt++;
 		}
 		myGrid.updateGrid(cells);
 	}
