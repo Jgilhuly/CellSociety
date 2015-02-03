@@ -18,12 +18,12 @@ import org.w3c.dom.NodeList;
 
 import cellsociety_team01.Cell;
 import cellsociety_team01.State;
-import cellsociety_team01.GameOfLife;
-import cellsociety_team01.PredatorPrey;
-import cellsociety_team01.Segregation;
-import cellsociety_team01.Simulation;
-import cellsociety_team01.SpreadingOfFire;
 import cellsociety_team01.modelview.Grid;
+import cellsociety_team01.simulations.GameOfLife;
+import cellsociety_team01.simulations.PredatorPrey;
+import cellsociety_team01.simulations.Segregation;
+import cellsociety_team01.simulations.Simulation;
+import cellsociety_team01.simulations.SpreadingOfFire;
 import jdk.internal.org.xml.sax.SAXException;
 
 
