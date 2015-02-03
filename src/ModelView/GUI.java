@@ -1,4 +1,4 @@
-package cellsociety_team01;
+package ModelView;
 
 import java.awt.Dimension;
 import java.io.File;
@@ -17,6 +17,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+//import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -55,6 +56,7 @@ public class GUI {
 
 	/**
 	 * Makes the Buttons and Slider
+	 * 
 	 * @return
 	 */
 	private Node makeButtonsAndSlider() {
@@ -67,7 +69,7 @@ public class GUI {
 		result.getChildren().add(stepButton);
 		resetButton = makeButton("ResetCommand", event -> myModel.reset());
 		result.getChildren().add(resetButton);
-		
+
 		slider = new Slider();
 		slider.setMin(0);
 		slider.setMax(100);
@@ -76,16 +78,21 @@ public class GUI {
 		slider.setShowTickMarks(true);
 		slider.setMajorTickUnit(50);
 		slider.setMinorTickCount(5);
-		
+
 		result.getChildren().add(slider);
-		
+
 		result.setSpacing(10);
-		
+
 		return result;
+	}
+	
+	public Stage getStage() {
+		return myStage;
 	}
 
 	/**
 	 * Helper method to create buttons with labels and handlers
+	 * 
 	 * @param property
 	 * @param handler
 	 * @return
@@ -100,6 +107,7 @@ public class GUI {
 
 	/**
 	 * Configures the top menu bar
+	 * 
 	 * @return
 	 */
 	private Node makeMenuBar() {
@@ -114,9 +122,10 @@ public class GUI {
 		menuBar.getMenus().addAll(menu1, menu2);
 		return menuBar;
 	}
-	
+
 	/**
 	 * Configures the grid view
+	 * 
 	 * @return
 	 */
 	private Node makeGrid() {
@@ -160,19 +169,22 @@ public class GUI {
 		// Cell[][] cells = grid.getCells();
 		// for (int i = 0; i < cells.length; i++) {
 		// for (int j = 0; j < cells[i].length; i++) {
-		// grid.add(cell[i][j], i, j);
+		//		Rectangle newCell = new Rectangle ();
+		//		newCell.setFill(cell[i][j].getColor());
+		// 		grid.add(newCell, i, j);
 		// }
 		// }
 	}
 
 	/**
 	 * Helper method that handles the user clicking a cell
+	 * 
 	 * @param t
 	 */
 	@SuppressWarnings("static-access")
 	private void cellClicked(Text t) {
 		t.setText("Checked");
-		
+
 		// ADD CYCLE CELL STATES
 		System.out.println(grid.getColumnIndex(t).intValue());
 		System.out.println(grid.getRowIndex(t).intValue());
@@ -195,7 +207,8 @@ public class GUI {
 		if (myModel.isSimRunning()) {
 			// setGridCellStates();
 		}
-		myModel.changeUpdateRate(slider.getValue());			
+		//		System.out.println(slider.getValue());
+		myModel.changeUpdateRate(slider.getValue()); //  Change This
 		enableButtons();
 	}
 

@@ -1,4 +1,4 @@
-package cellsociety_team01;
+package ModelView;
 
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
@@ -40,6 +40,14 @@ public class Grid {
 	public void changeUpdateRate(double newRate) {
 		updateRate = newRate;
 	}
+	
+//	public void updateGrid(Cell[][] cellsIn) {
+//		cells = cellsIn;
+//	}
+	
+	public void setTitle(String titleIn) {
+		myView.getStage().setTitle(titleIn);
+	}
 
 	/**
 	 * Create the game's frame
@@ -50,13 +58,13 @@ public class Grid {
 	}
 
 	private void update() {
-			updateCells();
-			myView.update();
+		updateCells();
+		myView.update();
 	}
-	
-//	public Cell[][] getCells() {
-//		return cells;
-//	}
+
+	//	public Cell[][] getCells() {
+	//		return cells;
+	//	}
 
 	private void updateCells() {
 		// for (int i = 0; i < cells.length; i++) {
@@ -64,7 +72,7 @@ public class Grid {
 		//		cells[i][j].findNextState();
 		// }
 		// }
-		
+
 		// for (int i = 0; i < cells.length; i++) {
 		// for (int j = 0; j < cells[i].length; i++) {
 		//		cells[i][j].updateState();

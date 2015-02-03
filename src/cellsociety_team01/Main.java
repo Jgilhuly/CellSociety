@@ -1,5 +1,7 @@
 package cellsociety_team01;
 
+import ModelView.GUI;
+import ModelView.Grid;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
