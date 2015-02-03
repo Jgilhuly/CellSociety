@@ -27,7 +27,7 @@ public class SpreadingOfFire extends Simulation {
 		myStates.add(empty);
 		
 		myRules.add(new RandomRule(tree, burning, burning, myConfigs[0]));
-		myRules.add(new RandomRule(burning, empty, null, 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
+		myRules.add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
 	}
 	
 	public void setConfigs(String[] configs){
