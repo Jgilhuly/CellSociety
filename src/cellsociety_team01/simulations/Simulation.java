@@ -2,6 +2,7 @@ package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
 
+import javafx.scene.paint.Color;
 import cellsociety_team01.Cell;
 import cellsociety_team01.State;
 import cellsociety_team01.rules.Rule;
@@ -33,6 +34,14 @@ public class Simulation {
 		}
 		
 		return curState;
+	}
+	
+	public State findState(Color c){
+		for (State s: myStates)
+			if(s.getColor().equals(c))
+				return s;
+		
+		return null; // MIGHT CAUSE PROBLEMS IF THE COLORS DON'T COMPARE WELL
 	}
 	
 	public  ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col){

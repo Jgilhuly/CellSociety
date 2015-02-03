@@ -2,6 +2,9 @@ package cellsociety_team01.simulations;
 
 
 
+import java.util.ArrayList;
+
+import cellsociety_team01.Cell;
 import cellsociety_team01.State;
 import cellsociety_team01.rules.ThresholdRule;
 import javafx.scene.paint.Color;
@@ -30,6 +33,42 @@ public class GameOfLife extends Simulation{
 		myRules.add(new ThresholdRule(alive, dead, alive, 3, 8));
 		myRules.add(new ThresholdRule(dead, alive, alive, 3, 3));
 	}
+	
+	//unwrapped find 8 neighbors 
+	
+	public ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col) {
+		ArrayList<Cell> neighbors = new ArrayList<Cell>();
+
+		int rows = cells.length;
+		int cols = cells[0].length;
+
+		if (col < cols-2) {
+			neighbors.add(cells[row][col+1]);
+		}
+		if (col > 0) {
+			neighbors.add(cells[row][col-1]);
+		}
+		if (row > 0) {
+			neighbors.add(cells[row-1][col]);
+		}
+		if (row < rows-2) {
+			neighbors.add(cells[row+1][col]);
+		}
+		if (col < cols-2 && row < rows-2) {
+			neighbors.add(cells[row+1][col+1]);
+		}
+		if (row > 0 && col < cols-2) {
+			neighbors.add(cells[row-1][col+1]);
+		}
+		if (row < rows-2 && col > 0) {
+			neighbors.add(cells[row+1][col-1]);
+		}
+		if (row > 0 && col > 0)
+			neighbors.add(cells[row-1][col-1]);
+
+		return neighbors;
+	}
+	
 	}
 
 
