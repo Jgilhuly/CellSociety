@@ -1,4 +1,4 @@
-package ModelView;
+package cellsociety_team01.modelview;
 
 import java.awt.Dimension;
 import java.io.File;
