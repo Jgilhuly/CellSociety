@@ -9,12 +9,11 @@ import javafx.scene.paint.Color;
 
 public class Segregation extends Simulation {
 	
-	private double[] myConfigs;
+	private double[] myConfigs = new double[1];;
 	private Random myRandom;
 	
 	public Segregation(){
 		super();
-		myConfigs = new double[1];
 		myConfigs[0] = 0.5; //HARD CODED CONSTANT
 		initialize();
 	}

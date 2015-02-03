@@ -14,7 +14,6 @@ public class Grid {
 	private boolean simRunning;
 	private double updateRate;
 	private String author;
-//	private File startingFile;
 
 	public Grid() {
 	}
@@ -37,11 +36,7 @@ public class Grid {
 
 	public void step() {
 		updateCells();
-		myView.update();
-	}
-
-	public void reset() {
-		// NEEDS IMPLEMENTATION
+		myView.singleUpdate();
 	}
 
 	public void changeUpdateRate(double newRate) {
