@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
+import cellsociety_team01.Cell;
 import cellsociety_team01.parser.Parser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -175,9 +176,10 @@ public class GUI {
 		Cell[][] cells = myModel.getCells();
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; i++) {
+				Cell c = cells[i][j];
 				Rectangle newCell = new Rectangle ();
-				newCell.setFill(cell[i][j].getColor());
-				newCell.setOnMouseClicked(e -> cellClicked(newCell));
+				newCell.setFill(c.getCurState().getColor());
+				newCell.setOnMouseClicked(e -> cellClicked(c));
 				grid.add(newCell, i, j);
 			}
 		}
