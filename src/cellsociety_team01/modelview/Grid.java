@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
+import cellsociety_team01.Simulation;
 
 public class Grid {
 	Simulation simulation;
@@ -62,34 +63,29 @@ public class Grid {
 		updateRate = frameRate;
 		return new KeyFrame(Duration.millis(1000 / updateRate), e -> update());
 	}
+	
+	public Cell[][] getCells() {
+		return cells;
+	}
 
 	private void update() {
 		updateCells();
 		myView.update();
 	}
 
-	public Cell[][] getCells() {
-		return cells;
-	}
 
 	private void updateCells() {
 		Cell[] neighbors;
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; i++) {
-				if (simulation.useDiagonals())
-				{
-					neighbors = find8Neighbors(i, j);
-				}
-				else {
-					neighbors = find4Neighbors(i, j);
-				}
+				ArrayList<Cell> neighbors = simulation.findNeighbors(cells, int i, int j);
 				cells[i][j].findNextState(neighbors, simulation);
 				cells[i][j].updateState(neighbors, simulation);
 			}
 		}
 	}
 
-	private ArrayList<Cell> find8Neighbors(int row, int col) {
+	private ArrayList<Cell> find8Neighbors(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
 		int rows = cells.length;
@@ -122,7 +118,7 @@ public class Grid {
 		return neighbors;
 	}
 
-	private ArrayList<Cell> find4Neighbors(int row, int col) {
+	private ArrayList<Cell> find4Neighbors(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
 		int rows = cells.length;
@@ -143,7 +139,7 @@ public class Grid {
 		return neighbors;
 	}
 
-	private ArrayList<Cell> find8NeighborsWrap(int row, int col) {
+	private ArrayList<Cell> find8NeighborsWrap(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
 		int rows = cells.length;
@@ -208,7 +204,7 @@ public class Grid {
 		return neighbors;
 	}
 	
-	private ArrayList<Cell> find4NeighborsWrap(int row, int col) {
+	private ArrayList<Cell> find4NeighborsWrap(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
 		int rows = cells.length;
