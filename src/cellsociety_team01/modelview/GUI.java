@@ -152,6 +152,7 @@ public class GUI {
 		File file = fileChooser.showOpenDialog(myStage);
 		if (file != null) {
 			parser = new Parser(file, myModel);
+			parser.parseXmlFile();
 		}
 		else {
 			System.err.println("Error Loading XML File");
