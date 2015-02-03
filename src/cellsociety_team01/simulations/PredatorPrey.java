@@ -5,12 +5,13 @@ import java.util.Random;
 
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.CellState.IntState;
 import cellsociety_team01.CellState.State;
 
 public class PredatorPrey extends Simulation {
 	
 	Random myRandom = new Random();
-	private double[] myConfigs = new double[1];
+	private double[] myConfigs = new double[2];
 	
 	public PredatorPrey(){
 		super();
@@ -25,9 +26,9 @@ public class PredatorPrey extends Simulation {
 		//RACE MUST BE THE STATE FOR THE GUI'S SAKE
 		//CURRENTLY ONLY SUPPORTS 2 STATES (RACES)
 		
-		State fish = new intState(Color.BLUE, "fish", 0);
-		State shark = new intState(Color.RED, "shark", 0);
-		State kelp = new intState(Color.GREEN, "kelp", 0);
+		State fish = new IntState(Color.BLUE, "fish", 0);
+		State shark = new IntState(Color.RED, "shark", 0);
+		State kelp = new IntState(Color.GREEN, "kelp", 0);
 		myStates.add(fish);
 		myStates.add(shark);
 		myStates.add(kelp);
@@ -47,12 +48,12 @@ public class PredatorPrey extends Simulation {
 	}
 	
 	private void updateAlive(Cell cur){
-		cur.getCurState().setInt(cur.getInt() + 1);
+		cur.getCurState().setInt(cur.getCurState().getInt() + 1);
 		
 		if(cur.getCurState().equals(new State(null, "shark"))
 			&& (cur.getCurState().getInt() >= myConfigs[1])){
-			cur.setCurState(new intState(Color.GREEN, "kelp", 0));
-			cur.setNextState(new intState(Color.GREEN, "kelp", 0));	
+			cur.setCurState(new IntState(Color.GREEN, "kelp", 0));
+			cur.setNextState(new IntState(Color.GREEN, "kelp", 0));	
 		}
 	}
 	
@@ -62,7 +63,7 @@ public class PredatorPrey extends Simulation {
 		
 		Cell s = findEmptyAdjacent(cur, myNeighbors);
 		
-		s.setCurState(cur.getColor(), cur.getName(), 0);
+		s.setCurState(new IntState(cur.getCurState().getColor(), cur.getCurState().getName(), 0));
 		
 		
 	}
