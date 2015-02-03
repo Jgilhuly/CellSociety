@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
+import cellsociety_team01.Cell;
 import cellsociety_team01.Simulation;
 
 public class Grid {
@@ -80,12 +81,11 @@ public class Grid {
 
 
 	private void updateCells() {
-		Cell[] neighbors;
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; i++) {
-				ArrayList<Cell> neighbors = simulation.findNeighbors(cells, int i, int j);
+				ArrayList<Cell> neighbors = simulation.findNeighbors(cells, i, j);
 				cells[i][j].findNextState(neighbors, simulation);
-				cells[i][j].updateState(neighbors, simulation);
+				cells[i][j].update();
 			}
 		}
 	}
@@ -103,7 +103,7 @@ public class Grid {
 			neighbors.add(cells[row][col-1]);
 		}
 		if (row > 0) {
-			neighbors[2].add(cells[row-1][col]);
+			neighbors.add(cells[row-1][col]);
 		}
 		if (row < rows-2) {
 			neighbors.add(cells[row+1][col]);
@@ -136,7 +136,7 @@ public class Grid {
 			neighbors.add(cells[row][col-1]);
 		}
 		if (row > 0) {
-			neighbors[2].add(cells[row-1][col]);
+			neighbors.add(cells[row-1][col]);
 		}
 		if (row < rows-2) {
 			neighbors.add(cells[row+1][col]);
@@ -165,10 +165,10 @@ public class Grid {
 		}
 		
 		if (row > 0) {
-			neighbors[2].add(cells[row-1][col]);
+			neighbors.add(cells[row-1][col]);
 		}
 		else {
-			neighbors[2].add(cells[rows][col]);
+			neighbors.add(cells[rows][col]);
 		}
 		
 		if (row < rows-2) {
@@ -230,10 +230,10 @@ public class Grid {
 		}
 		
 		if (row > 0) {
-			neighbors[2].add(cells[row-1][col]);
+			neighbors.add(cells[row-1][col]);
 		}
 		else {
-			neighbors[2].add(cells[rows][col]);
+			neighbors.add(cells[rows][col]);
 		}
 		
 		if (row < rows-2) {
@@ -242,5 +242,7 @@ public class Grid {
 		else {
 			neighbors.add(cells[0][col]);
 		}
+		
+		return neighbors;
 	}
 }
