@@ -18,7 +18,6 @@ public class PredatorPrey extends Simulation {
 	
 	private void initialize(){
 		
-		
 	    //RACE IS THE STATE, SATISFIED WILL BE THE STRING'
 		//RACE MUST BE THE STATE FOR THE GUI'S SAKE
 		//CURRENTLY ONLY SUPPORTS 2 STATES (RACES)
@@ -29,9 +28,6 @@ public class PredatorPrey extends Simulation {
 		myStates.add(fish);
 		myStates.add(shark);
 		myStates.add(kelp);
-		
-		
-		
 	}
 	
 	private void eat (Cell fish, Cell shark){
@@ -59,7 +55,6 @@ public class PredatorPrey extends Simulation {
 					return;
 				}
 
-		
 		switchEmptyAdjacent(cur, myNeighbors);
 	}
 	

@@ -28,14 +28,14 @@ public class GameOfLife extends Simulation{
 		myStates.add(alive);
 		
 		
-		myRules.add(new ThresholdRule(dead, alive, alive, 0, 2));
+		myRules.add(new ThresholdRule(alive, dead, alive, 0, 1));
 		myRules.add(new ThresholdRule(alive, alive, alive, 2, 3));
-		myRules.add(new ThresholdRule(alive, dead, alive, 3, 8));
+		myRules.add(new ThresholdRule(alive, dead, alive, 4, 8));
 		myRules.add(new ThresholdRule(dead, alive, alive, 3, 3));
 	}
 	
 	//unwrapped find 8 neighbors 
-	
+	//written by John Gilhuly
 	public ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
