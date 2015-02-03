@@ -34,7 +34,7 @@ public class Simulation {
 		return cur.getCurState();
 	}
 	
-	public void setConfigs(String[] configs){
+	public void setConfigs(ArrayList<String> configs){
 	}
 	
 	

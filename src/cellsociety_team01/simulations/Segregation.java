@@ -33,10 +33,10 @@ public class Segregation extends Simulation {
 
 	}
 	
-	public void setConfigs(String[] configs){
-		myConfigs = new double[configs.length];
-		for(int i = 0; i< configs.length; i++)
-			myConfigs[i] = Double.parseDouble(configs[i]);
+	public void setConfigs(ArrayList<String> configs){
+		myConfigs = new double[configs.size()];
+		for(int i = 0; i< configs.size(); i++)
+			myConfigs[i] = Double.parseDouble(configs.get(i));
 	}
 	
 	//unwrapped find 4 neighbors
