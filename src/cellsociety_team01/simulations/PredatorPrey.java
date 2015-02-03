@@ -1,10 +1,15 @@
 package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import javafx.scene.paint.Color;
 import cellsociety_team01.Cell;
+import cellsociety_team01.State;
 
 public class PredatorPrey extends Simulation {
+	
+	Random myRandom = new Random();
 	
 	public PredatorPrey(){
 		super();
@@ -14,12 +19,64 @@ public class PredatorPrey extends Simulation {
 	private void initialize(){
 		
 		
+	    //RACE IS THE STATE, SATISFIED WILL BE THE STRING'
+		//RACE MUST BE THE STATE FOR THE GUI'S SAKE
+		//CURRENTLY ONLY SUPPORTS 2 STATES (RACES)
 		
+		State fish = new State(Color.BLUE, "fish");
+		State shark = new State(Color.RED, "shark");
+		State kelp = new State(Color.WHITE, "green");
+		myStates.add(fish);
+		myStates.add(shark);
+		myStates.add(kelp);
+		
+		
+		
+	}
+	
+	private void eat (Cell fish, Cell shark){
+		fish.setNextState(shark.getCurState());
+		shark.setNextState(fish.getCurState());
+		
+		fish.setCurState(fish.getNextState());
+		shark.setCurState(shark.getNextState());
+	}
+	
+	public void applyRules(Cell cur, ArrayList<Cell> myNeighbors){
+		
+		//EGREGIOUS SWITCH STATEMENT
+		
+		if(cur.getCurState().getColor().equals(Color.BLUE))
+			for(Cell c: myNeighbors)
+				if(c.getCurState().getColor().equals(Color.RED)){	
+					eat(cur,c);
+					return;
+				}
+		if(cur.getCurState().getColor().equals(Color.RED))
+			for(Cell c: myNeighbors)
+				if(c.getCurState().getColor().equals(Color.BLUE)){
+					eat(c, cur);
+					return;
+				}
+
+		
+		switchEmptyAdjacent(cur, myNeighbors);
+	}
+	
+	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
+		for (Cell c: myNeighbors)
+			if (!(c.getCurState().equals(new State(null, "kelp")))) //REVISE THIS COMPARISON
+				myNeighbors.remove(c);
+			
+		int i  = (int) Math.floor(myRandom.nextDouble()*myNeighbors.size());
+		
+		cur.setNextState(myNeighbors.get(i).getCurState());
+		myNeighbors.get(i).setNextState(cur.getCurState());
 	}
 	
 	//wrapped find 4 neighbors
 	
-	public ArrayList<Cell> find4NeighborsWrap(Cell[][] cells, int row, int col) {
+	public ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col) {
 		ArrayList<Cell> neighbors = new ArrayList<Cell>();
 
 		int rows = cells.length;
