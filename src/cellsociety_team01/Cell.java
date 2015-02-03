@@ -22,7 +22,7 @@ public class Cell {
 		myCurState = myNextState;
 	}	
 
-	public State findNextState(ArrayList<Cell> cellArray, Simulation sim) {
+	public void findNextState(ArrayList<Cell> cellArray, Simulation sim) {
 		State s = sim.applyRules(myCurState, cellArray);
 		myNextState = s;
 	}	
