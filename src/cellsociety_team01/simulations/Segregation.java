@@ -81,6 +81,7 @@ public class Segregation extends Simulation {
 	}
 	
 	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
+		ArrayList<Cell> temp = new ArrayList
 		for (Cell c: myNeighbors)
 			if (!(c.getCurState().equals(new State(null, "empty")))) //REVISE THIS COMPARISON
 				myNeighbors.remove(c);
