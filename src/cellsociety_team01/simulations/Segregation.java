@@ -68,6 +68,8 @@ public class Segregation extends Simulation {
 
 		switchEmptyAdjacent(cur, myNeighbors);
 		
+		return null;
+		
 	}
 	
 	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
