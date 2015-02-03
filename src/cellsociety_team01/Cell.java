@@ -1,4 +1,4 @@
-package cellsociety_team01
+package cellsociety_team01;
 import java.util.*;
 import javafx.scene.paint.Color;
 
@@ -9,10 +9,10 @@ public class Cell {
 	private State myCurState;
 	private State myNextState;
 
-	public Cell(int x, int y, Color c) {
+	public Cell(int x, int y, Color c, String name) {
 		myX = x;
 		myY = y;
-		myCurState = new State(c);
+		myCurState = new State(c, name);
 		myNextState = null;
 	}
 
