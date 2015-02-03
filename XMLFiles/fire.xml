@@ -1,7 +1,7 @@
 <simulation>
 	<info>
 		<name>Fire Simulation</name>
-		<author>team01</author>
+		<author>Peter Moseley</author>
 		<rule>Fire</rule>
 	</info>
 	<config>
@@ -10,162 +10,162 @@
 	<grid width="10" height="5">
 		<row>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
-			</cell>
-		</row>
-		<row>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>2</state>
-			</cell>
-			<cell>
-				<state>2</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 		</row>
 		<row>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>2</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>0</state>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>0</state>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>2</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
-			</cell>
-		</row>
-		<row>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>2</state>
-			</cell>
-			<cell>
-				<state>2</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
-			</cell>
-			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 		</row>
 		<row>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
 			</cell>
 			<cell>
-				<state>1</state>
+				<state>00FF00</state>
+			</cell>
+		</row>
+		<row>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+		</row>
+		<row>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
+			</cell>
+			<cell>
+				<state>00FF00</state>
 			</cell>
 		</row>
 	</grid>

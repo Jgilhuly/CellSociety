@@ -1,7 +1,7 @@
 <simulation>
 	<info>
 		<name>Game of Life Simulation</name>
-		<author>team01</author>
+		<author>Peter Moseley</author>
 		<rule>GameOfLife</rule>
 	</info>
 	<config>
@@ -10,162 +10,162 @@
 	<grid width="10" height="5">
 		<row>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
-			</cell>
-		</row>
-		<row>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
-			</cell>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
-			</cell>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
-			</cell>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
-			</cell>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 		</row>
 		<row>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
-			</cell>
-		</row>
-		<row>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
-			</cell>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
-			</cell>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
-			</cell>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
-			</cell>
-			<cell>
-				<state>Live</state>
-			</cell>
-			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 		</row>
 		<row>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
 			</cell>
 			<cell>
-				<state>Live</state>
+				<state>000000</state>
 			</cell>
 			<cell>
-				<state>Dead</state>
+				<state>FFFFFF</state>
+			</cell>
+		</row>
+		<row>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+		</row>
+		<row>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
 			</cell>
 		</row>
 	</grid>

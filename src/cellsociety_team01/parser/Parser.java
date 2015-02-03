@@ -1,7 +1,8 @@
-package cellsociety_team01;
+package cellsociety_team01.parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,9 +25,19 @@ public class Parser {
 	private DocumentBuilderFactory dbf;
 	private DocumentBuilder db;
 	private Element root;
-	NodeList mainNL;
-	int myWidth;
-	int myHeight;
+	private NodeList mainNL;
+	private int myWidth;
+	private int myHeight;
+	private ArrayList<String> myPossibleSimulationsTXT = (
+			"Segregation",
+			"PredatorPrey",
+			"Fire",
+			"GameOfLife");
+	private Simulation[] myPossibleSimulations = {
+			new Segregation(),
+			new PredatorPrey(),
+			new SpreadingOfFire(),
+			new GameOfLife()};
 	
 	public Parser (File file, Grid grid) {
 		myFile = file;
@@ -71,9 +82,15 @@ public class Parser {
 	}
 
 	private void parseInfo(Element info) {
-		myGrid.setName(getTextValue(info,"name"));
+		myGrid.setTitle(getTextValue(info,"name"));
 		myGrid.setAuthor(getTextValue(info,"author"));
-		myGrid.setRule(getTextValue(info,"rule"));
+		setRule(getTextValue(info,"rule"));
+	}
+
+	private void setRule(String textValue) {
+		int x = myPossibleSimulationsTXT.indexOf(textValue);
+		Simulation sim = myPossibleSimulations[x];
+		myGrid.setRule(sim);
 	}
 
 	private void parseConfig(Element config) {
@@ -87,23 +104,20 @@ public class Parser {
 		Element heightEl = (Element)dimensions.getNamedItem("height");
 		myHeight = Integer.parseInt(heightEl.getNodeValue());
 		
+		Cell[][] cells = new Cell[myWidth][myHeight];
+		
 		NodeList rowList = grid.getChildNodes();
 		for(int i = 0 ; i < myHeight ; i++) {
-
 			Element row = (Element)rowList.item(i);
 			NodeList cellList = row.getChildNodes();
 			for (int j = 0 ; j < myWidth ; j++) {
 				Element cellEl = (Element)cellList.item(j);
 				String color = getTextValue(cellEl,"state");
 				Cell newCell = new Cell(j, i, getState(color));
+				cells[j][i] = newCell;
 			}
-
-			//get the Employee object
-//			Employee e = getEmployee(element);
-
-			//add it to list
-//			myEmpls.add(e);
 		}
+		myGrid.setCells(cells);
 	}
 	
 	private String getTextValue(Element ele, String tagName) {

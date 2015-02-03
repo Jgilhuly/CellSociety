@@ -1,7 +1,7 @@
 <simulation>
 	<info>
 		<name>Predator-Prey Simulation</name>
-		<author>team01</author>
+		<author>Peter Moseley</author>
 		<rule>PredatorPrey</rule>
 	</info>
 	<config>
@@ -9,64 +9,164 @@
 	</config>
 	<grid width="10" height="5">
 		<row>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
 		</row>
 		<row>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
 		</row>
 		<row>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
 		</row>
 		<row>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
 		</row>
 		<row>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
-			<cell></cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
+			<cell>
+				<state>000000</state>
+			</cell>
+			<cell>
+				<state>FFFFFF</state>
+			</cell>
 		</row>
 	</grid>
 </simulation>

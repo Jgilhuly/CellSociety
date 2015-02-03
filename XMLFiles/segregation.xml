@@ -1,7 +1,7 @@
 <simulation>
 	<info>
 		<name>Segregation Simulation</name>
-		<author>team01</author>
+		<author>Peter Moseley</author>
 		<rule>Segregation</rule>
 	</info>
 	<config>
