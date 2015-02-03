@@ -24,7 +24,9 @@ public class Cell {
 
 	public void findNextState(ArrayList<Cell> cellArray, Simulation sim) {
 		State s = sim.applyRules(myCurState, cellArray);
-		myNextState = s;
+		if (s != null) {
+			myNextState = s;
+		}
 	}	
 
 	public void setX(int x) {
