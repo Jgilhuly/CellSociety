@@ -13,11 +13,12 @@ public class SpreadingOfFire extends Simulation {
 	private double[] myConfigs;
 	public SpreadingOfFire(){
 		super();
-		 //HARD CODED
+		myConfigs[0] = 0.5; //HARD CODED CONSTANT
 		initialize();
 	}
 	
 	private void initialize(){
+		
 		State burning = new State(Color.RED, "burning");
 		State tree = new State(Color.GREEN, "tree");
 		State empty = new State(Color.YELLOW, "empty");
