@@ -110,12 +110,12 @@ public class Parser {
 	}
 
 	private void parseConfig(Element config) {
-		//		NodeList configList = config.getChildNodes();
-		//		ArrayList<String> configVars = new ArrayList<String>();
-		//		for (int i = 0 ; i < configList.getLength() ; i++){
-		//			configVars.add(getTextValue(config, configList.item(i).getNodeName()));
-		//		}
-		//		mySim.setConfigs(configVars);
+				NodeList configList = config.getChildNodes();
+				ArrayList<String> configVars = new ArrayList<String>();
+				for (int i = 0 ; i < configList.getLength() ; i++){
+					configVars.add(getTextValue(config, configList.item(i).getNodeName()));
+				}
+				mySim.setConfigs(configVars);
 	}
 
 	private void parseGrid(Element grid) {
