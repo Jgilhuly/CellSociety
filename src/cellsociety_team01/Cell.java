@@ -18,8 +18,8 @@ Class Cell {
 		myCurState = myNextState;
 	}	
 
-	public State findNextState(Cell[] cellArray, Rule myRule) {
-		State s = myRule.determineNextState(myCurState, cellArray);
+	public void findNextState(Cell[] cellArray, Simulation sim) {
+		State s = sim.applyRules(myCurState, cellArray);
 		myNextState = s;
 	}	
 
