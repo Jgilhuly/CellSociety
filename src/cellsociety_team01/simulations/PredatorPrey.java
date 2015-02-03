@@ -101,17 +101,17 @@ public class PredatorPrey extends Simulation {
 	}
 	
 	public Cell findEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
+		ArrayList temp = new ArrayList<Cell>();
 		for (Cell c: myNeighbors)
 			if (!(c.getCurState().equals(new State(null, "kelp")))) //REVISE THIS COMPARISON
-				myNeighbors.remove(c);
+				temp.add(c);
 			
-		int i  = (int) Math.floor(myRandom.nextDouble()*myNeighbors.size());
+		int i  = (int) Math.floor(myRandom.nextDouble()*temp.size());
 		
-		Cell empty = myNeighbors.get(i);
+		Cell empty = temp.get(i);
 		
 		return empty;
-		
-		
+
 	}
 	
 	//wrapped find 4 neighbors

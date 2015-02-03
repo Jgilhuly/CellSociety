@@ -15,7 +15,7 @@ public class RandomRule extends Rule{
 	}
 	
 	public boolean applies(int k){
-	if(k == 1.0)
+	if(myProb == 1.0)
 		return true;
 		
 		while (k > 0){
