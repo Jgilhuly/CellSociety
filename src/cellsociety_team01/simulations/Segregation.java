@@ -77,7 +77,12 @@ public class Segregation extends Simulation {
 		int i  = (int) Math.floor(myRandom.nextDouble()*myNeighbors.size());
 		
 		cur.setNextState(myNeighbors.get(i).getCurState());
+		
 		myNeighbors.get(i).setNextState(cur.getCurState());
+		
+		cur.setCurState(cur.getNextState());
+		
+		myNeighbors.get(i).setCurState(myNeighbors.get(i).getNextState());
 	}
 	
 	
