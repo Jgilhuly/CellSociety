@@ -132,7 +132,6 @@ public class GUI {
 	 */
 	private Node makeGrid() {
 		grid = new GridPane();
-		setGridCellStates();
 		grid.setGridLinesVisible(true);
 		grid.setPadding(new Insets(10, 50, 10, 50));
 		grid.setHgap(5);
@@ -211,7 +210,7 @@ public class GUI {
 	 */
 	public void update() {
 		if (myModel.isSimRunning()) {
-			// setGridCellStates();
+			 setGridCellStates();
 		}
 		//		System.out.println(slider.getValue());
 		myModel.changeUpdateRate(slider.getValue()); //  Change This
