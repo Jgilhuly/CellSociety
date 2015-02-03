@@ -83,13 +83,17 @@ public class Parser {
 		//get the root element
 		Element root = dom.getDocumentElement();
 
-		mainNL = root.getChildNodes();
+		NodeList infoNL = root.getElementsByTagName("info");
+		NodeList configNL = root.getElementsByTagName("config");
+		NodeList gridNL = root.getElementsByTagName("grid");
 
 		//Pass 3 Types of mainNL elements to different handling functions
-		if (mainNL != null && mainNL.getLength() > 0){
-			parseInfo((Element)mainNL.item(0));
-			parseConfig((Element)mainNL.item(1));
-			parseGrid((Element)mainNL.item(2));
+		if ((infoNL != null && infoNL.getLength() > 0) &&
+				(configNL != null && configNL.getLength() > 0) &&
+				(gridNL != null && gridNL.getLength() > 0)){
+			parseInfo((Element)infoNL.item(0));
+			parseConfig((Element)configNL.item(0));
+			parseGrid((Element)gridNL.item(0));
 		}
 	}
 
@@ -115,24 +119,33 @@ public class Parser {
 	}
 
 	private void parseGrid(Element grid) {
-		NamedNodeMap dimensions = grid.getAttributes();
-		Element widthEl = (Element)dimensions.getNamedItem("width");
-		myWidth = Integer.parseInt(widthEl.getNodeValue());
-		Element heightEl = (Element)dimensions.getNamedItem("height");
-		myHeight = Integer.parseInt(heightEl.getNodeValue());
+//		NamedNodeMap dimensions = grid.getAttributes();
+//		Element widthEl = (Element)dimensions.getNamedItem("width");
+		myWidth = Integer.parseInt(grid.getAttribute("width"));
+//		Element heightEl = (Element)dimensions.getNamedItem("height");
+		myHeight = Integer.parseInt(grid.getAttribute("height"));
 
 		Cell[][] cells = new Cell[myWidth][myHeight];
 
 		NodeList rowList = grid.getChildNodes();
-		for(int i = 0 ; i < myHeight ; i++) {
+		int xcnt = 0;
+		int ycnt = 0;
+		for(int i = 0 ; i < rowList.getLength() ; i++) {
+			if (rowList.item(i) instanceof Element == false)
+				continue;
 			Element row = (Element)rowList.item(i);
 			NodeList cellList = row.getChildNodes();
-			for (int j = 0 ; j < myWidth ; j++) {
+			for (int j = 0 ; j < cellList.getLength() ; j++) {
+				if (cellList.item(j) instanceof Element == false)
+					continue;
+				
 				Element cellEl = (Element)cellList.item(j);
 				String color = getTextValue(cellEl,"state");
 				Cell newCell = new Cell(j, i, getState(color));
-				cells[j][i] = newCell;
+				cells[xcnt][ycnt] = newCell;
+				xcnt++;
 			}
+			ycnt++;
 		}
 		myGrid.updateGrid(cells);
 	}
