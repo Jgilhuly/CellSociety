@@ -9,7 +9,7 @@ public class RandomRule extends Rule{
 	private double myProb;
 	Random myGen = new Random();
 	
-	public RandomRule(State start, State end, State cause, int prob){
+	public RandomRule(State start, State end, State cause, double prob){
 		super(start, end, cause);
 		myProb = prob;
 	}
