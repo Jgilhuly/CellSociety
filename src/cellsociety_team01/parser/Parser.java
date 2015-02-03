@@ -3,6 +3,9 @@ package cellsociety_team01.parser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import javafx.scene.paint.Color;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,12 +16,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
-import ModelView.Grid;
+import cellsociety_team01.Cell;
+import cellsociety_team01.State;
 import cellsociety_team01.GameOfLife;
 import cellsociety_team01.PredatorPrey;
 import cellsociety_team01.Segregation;
 import cellsociety_team01.Simulation;
 import cellsociety_team01.SpreadingOfFire;
+import cellsociety_team01.modelview.Grid;
 import jdk.internal.org.xml.sax.SAXException;
 
 
@@ -34,11 +39,12 @@ public class Parser {
 	private NodeList mainNL;
 	private int myWidth;
 	private int myHeight;
-	private ArrayList<String> myPossibleSimulationsTXT = (
+	private ArrayList<String> myPossibleSimulationsTXT = new ArrayList<>(Arrays.asList(
 			"Segregation",
 			"PredatorPrey",
 			"Fire",
-			"GameOfLife");
+			"GameOfLife"));
+			
 	private Simulation[] myPossibleSimulations = {
 			new Segregation(),
 			new PredatorPrey(),
@@ -123,7 +129,7 @@ public class Parser {
 				cells[j][i] = newCell;
 			}
 		}
-		myGrid.setCells(cells);
+		myGrid.updateGrid(cells);
 	}
 	
 	private String getTextValue(Element ele, String tagName) {
@@ -137,8 +143,8 @@ public class Parser {
 		return textVal;
 	}
 
-	private State getState(String color) {
-		int hexCode = Integer.parseInt(color);
-		return new State(hexCode, false);
+	private Color getState(String color) {
+		Color c = Color.web(color);
+		return c;
 	}
 }
