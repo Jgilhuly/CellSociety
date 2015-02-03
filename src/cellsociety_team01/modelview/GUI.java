@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import cellsociety_team01.Cell;
+import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.parser.Parser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -39,6 +39,7 @@ public class GUI {
 	private Slider slider;
 	private GridPane grid; // the visual aspect of the grid
 	private Parser parser;
+	private File file;
 
 	public GUI(Grid gridIn, String language, Stage stageIn) {
 		myModel = gridIn;
@@ -69,7 +70,7 @@ public class GUI {
 		result.getChildren().add(pauseButton);
 		stepButton = makeButton("StepCommand", event -> myModel.step());
 		result.getChildren().add(stepButton);
-		resetButton = makeButton("ResetCommand", event -> myModel.reset());
+		resetButton = makeButton("ResetCommand", event -> reset());
 		result.getChildren().add(resetButton);
 
 		slider = new Slider();
@@ -86,6 +87,12 @@ public class GUI {
 		result.setSpacing(10);
 
 		return result;
+	}
+
+	public void reset() {
+		parser = new Parser(file, myModel);
+		parser.parseXmlFile();
+		setGridCellStates();
 	}
 
 	public Stage getStage() {
@@ -132,7 +139,7 @@ public class GUI {
 	 */
 	private Node makeGrid() {
 		grid = new GridPane();
-		grid.setGridLinesVisible(true);
+		//		grid.setGridLinesVisible(true);
 		grid.setPadding(new Insets(10, 50, 10, 50));
 		grid.setHgap(5);
 		grid.setVgap(5);
@@ -148,7 +155,7 @@ public class GUI {
 		fileChooser.getExtensionFilters().add(
 				new FileChooser.ExtensionFilter("XML File", "*.xml"));
 
-		File file = fileChooser.showOpenDialog(myStage);
+		file = fileChooser.showOpenDialog(myStage);
 		if (file != null) {
 			parser = new Parser(file, myModel);
 			parser.parseXmlFile();
@@ -156,7 +163,7 @@ public class GUI {
 		else {
 			System.err.println("Error Loading XML File");
 		}
-		
+
 		setGridCellStates();
 	}
 
@@ -164,15 +171,6 @@ public class GUI {
 	 * Sets grid states based on the cell array in myModel
 	 */
 	private void setGridCellStates() {
-		//		Text t1 = new Text("Hello");
-		//		t1.setOnMouseClicked(e -> cellClicked(t1));
-		//		grid.add(t1, 2, 3);
-		//
-		//		grid.add(new Text("Patrick"), 1, 1);
-		//		grid.add(new Text("Jangsoon"), 1, 2);
-		//		grid.add(new Text("John"), 5, 4);
-		//		grid.add(new Text("Peter"), 3, 4);
-
 		Cell[][] cells = myModel.getCells();
 		for (int i = 0; i < cells.length; i++) {
 			for (int j = 0; j < cells[i].length; j++) {
@@ -214,8 +212,15 @@ public class GUI {
 	 */
 	public void update() {
 		if (myModel.isSimRunning()) {
-			 setGridCellStates();
+			setGridCellStates();
 		}
+		System.out.println("update");
+		myModel.changeUpdateRate(slider.getValue()); //  Change This
+		enableButtons();
+	}
+
+	public void singleUpdate() {
+		setGridCellStates();
 		System.out.println("update");
 		myModel.changeUpdateRate(slider.getValue()); //  Change This
 		enableButtons();

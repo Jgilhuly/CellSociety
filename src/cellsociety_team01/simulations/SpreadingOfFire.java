@@ -1,8 +1,8 @@
 package cellsociety_team01.simulations;
 import java.util.ArrayList;
 
-import cellsociety_team01.Cell;
-import cellsociety_team01.State;
+import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.CellState.State;
 import cellsociety_team01.rules.RandomRule;
 import javafx.scene.paint.Color;
 

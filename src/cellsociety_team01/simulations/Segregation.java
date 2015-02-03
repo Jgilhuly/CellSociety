@@ -3,18 +3,17 @@ package cellsociety_team01.simulations;
 import java.util.ArrayList;
 import java.util.Random;
 
-import cellsociety_team01.State;
-import cellsociety_team01.Cell;
+import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.CellState.State;
 import javafx.scene.paint.Color;
 
 public class Segregation extends Simulation {
 	
-	private double[] myConfigs;
+	private double[] myConfigs = new double[1];;
 	private Random myRandom;
 	
 	public Segregation(){
 		super();
-		myConfigs = new double[1];
 		myConfigs[0] = 0.5; //HARD CODED CONSTANT
 		initialize();
 	}
@@ -65,7 +64,7 @@ public class Segregation extends Simulation {
 		return neighbors;
 	}
 	
-	
+	@Override
 	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		double k = 0.0;
 			for(Cell c: myNeighbors)

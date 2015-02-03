@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
 import javafx.util.Duration;
-import cellsociety_team01.Cell;
+import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.simulations.Simulation;
 
 public class Grid {
@@ -14,7 +14,6 @@ public class Grid {
 	private boolean simRunning;
 	private double updateRate;
 	private String author;
-//	private File startingFile;
 
 	public Grid() {
 	}
@@ -37,11 +36,7 @@ public class Grid {
 
 	public void step() {
 		updateCells();
-		myView.update();
-	}
-
-	public void reset() {
-		// NEEDS IMPLEMENTATION
+		myView.singleUpdate();
 	}
 
 	public void changeUpdateRate(double newRate) {

@@ -5,8 +5,7 @@
 		<rule>Segregation</rule>
 	</info>
 	<config>
-		<var></var>
-	</config>
+	<satisfaction_threshold>0.4</satisfaction_threshold></config>
 	<grid width="10" height="5">
 		<row>
 			<cell>

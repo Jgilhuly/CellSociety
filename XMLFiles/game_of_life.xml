@@ -5,7 +5,6 @@
 		<rule>GameOfLife</rule>
 	</info>
 	<config>
-		<var></var>
 	</config>
 	<grid width="10" height="5">
 		<row>

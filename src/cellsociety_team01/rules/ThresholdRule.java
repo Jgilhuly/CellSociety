@@ -1,6 +1,6 @@
 package cellsociety_team01.rules;
 
-import cellsociety_team01.State;
+import cellsociety_team01.CellState.State;
 
 public class ThresholdRule extends Rule {
 

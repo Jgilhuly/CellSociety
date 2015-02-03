@@ -16,8 +16,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
-import cellsociety_team01.Cell;
-import cellsociety_team01.State;
+import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.CellState.State;
 import cellsociety_team01.modelview.Grid;
 import cellsociety_team01.simulations.GameOfLife;
 import cellsociety_team01.simulations.PredatorPrey;
