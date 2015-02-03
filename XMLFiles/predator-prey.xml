@@ -9,63 +9,31 @@
 	<grid width="10" height="5">
 		<row>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>008000</state>
-			</cell>
-			<cell>
-				<state>FF0000</state>
-			</cell>
-		</row>
-		<row>
-			<cell>
-				<state>008000</state>
-			</cell>
-			<cell>
-				<state>FF0000</state>
-			</cell>
-			<cell>
-				<state>008000</state>
-			</cell>
-			<cell>
-				<state>0000FF</state>
-			</cell>
-			<cell>
-				<state>008000</state>
-			</cell>
-			<cell>
-				<state>0000FF</state>
-			</cell>
-			<cell>
-				<state>008000</state>
-			</cell>
-			<cell>
-				<state>FF0000</state>
-			</cell>
-			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
@@ -73,31 +41,31 @@
 		</row>
 		<row>
 			<cell>
-				<state>008000</state>
-			</cell>
-			<cell>
-				<state>0000FF</state>
-			</cell>
-			<cell>
-				<state>008000</state>
-			</cell>
-			<cell>
-				<state>0000FF</state>
-			</cell>
-			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FFFF00</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
@@ -105,31 +73,63 @@
 		</row>
 		<row>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FFFF00</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+		</row>
+		<row>
+			<cell>
+				<state>FFFF00</state>
+			</cell>
+			<cell>
+				<state>0000FF</state>
+			</cell>
+			<cell>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
+			</cell>
+			<cell>
+				<state>FF0000</state>
+			</cell>
+			<cell>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>0000FF</state>
@@ -137,31 +137,31 @@
 		</row>
 		<row>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>0000FF</state>
 			</cell>
 			<cell>
-				<state>008000</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>

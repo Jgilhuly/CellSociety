@@ -26,9 +26,9 @@ public class PredatorPrey extends Simulation {
 		//RACE MUST BE THE STATE FOR THE GUI'S SAKE
 		//CURRENTLY ONLY SUPPORTS 2 STATES (RACES)
 		
-		State fish = new IntState(Color.BLUE, "fish", 0);
+		State fish = new IntState(Color.BLUE, "ocean", 0);
 		State shark = new IntState(Color.RED, "shark", 0);
-		State kelp = new IntState(Color.GREEN, "kelp", 0);
+		State kelp = new IntState(Color.YELLOW, "fish", 0);
 		myStates.add(fish);
 		myStates.add(shark);
 		myStates.add(kelp);
@@ -44,17 +44,21 @@ public class PredatorPrey extends Simulation {
 	}
 	
 	private void reproduce(Cell cur, ArrayList<Cell> myNeighbors){
-		
+		Cell s = findEmptyAdjacent(cur, myNeighbors);
+		s.setCurState(cur.getCurState());
+		s.setNextState(cur.getCurState());
+		s.getCurState().setInt(0);
+		s.getNextState().setInt(0);
 		
 	}
 	
 	private void updateAlive(Cell cur){
-		cur.getCurState().setInt(cur.getCurState().getInt() + 1);
+		cur.getCurState().setInt(cur.getCurState().getInt() +1);
 		
 		if(cur.getCurState().equals(new State(null, "shark"))
 			&& (cur.getCurState().getInt() >= myConfigs[1])){
-			cur.setCurState(new IntState(Color.GREEN, "kelp", 0));
-			cur.setNextState(new IntState(Color.GREEN, "kelp", 0));	
+			cur.setCurState(new IntState(Color.BLUE, "ocean", 0));
+			cur.setNextState(new IntState(Color.BLUE, "ocean", 0));	
 		}
 	}
 	
@@ -78,15 +82,16 @@ public class PredatorPrey extends Simulation {
 		
 		
 		
-		if(cur.getCurState().getColor().equals(Color.BLUE))
+		if(cur.getCurState().getColor().equals(Color.YELLOW))
 			for(Cell c: myNeighbors)
 				if(c.getCurState().getColor().equals(Color.RED)){	
 					eat(cur,c);
 					return null;
 				}
+		
 		if(cur.getCurState().getColor().equals(Color.RED))
 			for(Cell c: myNeighbors)
-				if(c.getCurState().getColor().equals(Color.BLUE)){
+				if(c.getCurState().getColor().equals(Color.YELLOW)){
 					eat(c, cur);
 					return null;
 				}
