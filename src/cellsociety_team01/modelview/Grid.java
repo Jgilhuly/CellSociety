@@ -2,7 +2,9 @@ package cellsociety_team01.modelview;
 
 import java.util.ArrayList;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.util.Duration;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.simulations.Simulation;
@@ -14,6 +16,7 @@ public class Grid {
 	private boolean simRunning;
 	private double updateRate;
 	private String author;
+	private Timeline myLoop;
 
 	public Grid() {
 	}
@@ -26,6 +29,10 @@ public class Grid {
 		return simRunning;
 	}
 
+	public void setAnimationLoop(Timeline anIn) {
+		myLoop = anIn;
+	}
+	
 	public void play() {
 		simRunning = true;
 	}
@@ -39,8 +46,12 @@ public class Grid {
 		myView.singleUpdate();
 	}
 
-	public void changeUpdateRate(double newRate) {
-		updateRate = newRate;
+	public void changeUpdateRate(double newRate) {	
+		myLoop.stop();
+		KeyFrame frame = start(newRate);
+		myLoop.setCycleCount(Animation.INDEFINITE);
+		myLoop.getKeyFrames().add(frame);
+		myLoop.play();
 	}
 
 	public void setSimulation(Simulation simulationIn) {
@@ -62,7 +73,7 @@ public class Grid {
 	/**
 	 * Create the game's frame
 	 */
-	public KeyFrame start(int frameRate) {
+	public KeyFrame start(double frameRate) {
 		updateRate = frameRate;
 		return new KeyFrame(Duration.millis(1000 / updateRate * 1000), e -> update());
 	}

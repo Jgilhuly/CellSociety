@@ -31,6 +31,8 @@ public class Main extends Application {
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Animation.INDEFINITE);
 		animation.getKeyFrames().add(frame);
+		grid.setAnimationLoop(animation);
 		animation.play();
+		
 	}
 }

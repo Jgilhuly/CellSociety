@@ -75,12 +75,12 @@ public class GUI {
 
 		slider = new Slider();
 		slider.setMin(0);
-		slider.setMax(100);
-		slider.setValue(50);
+		slider.setMax(1000);
+		slider.setValue(500);
 		slider.setShowTickLabels(true);
 		slider.setShowTickMarks(true);
-		slider.setMajorTickUnit(50);
-		slider.setMinorTickCount(5);
+		slider.setMajorTickUnit(500);
+		slider.setMinorTickCount(10);
 
 		result.getChildren().add(slider);
 
@@ -176,8 +176,8 @@ public class GUI {
 			for (int j = 0; j < cells[i].length; j++) {
 				Cell c = cells[i][j];
 				Rectangle newCell = new Rectangle ();
-				newCell.setHeight(25);
-				newCell.setWidth(25);
+				newCell.setHeight(myStage.getHeight()/(cells[0].length+50));
+				newCell.setWidth(myStage.getWidth()/(cells.length+50));
 				newCell.setFill(c.getCurState().getColor());
 				newCell.setOnMouseClicked(e -> cellClicked(c));
 				grid.add(newCell, i, j);
