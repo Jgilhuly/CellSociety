@@ -1,6 +1,6 @@
 import java.util.*;
 
-Class Cell {
+public class Cell {
 
 	private int myX;
 	private int myY;

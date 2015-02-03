@@ -1,7 +1,7 @@
 import java.util.*;
 import javafx.scene.paint.Color;
 
-Class State {
+public class State {
 	private boolean myActive;
 	private Color myColor;
 	private String myName;
