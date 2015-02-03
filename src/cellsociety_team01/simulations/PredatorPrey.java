@@ -10,8 +10,12 @@ import cellsociety_team01.State;
 public class PredatorPrey extends Simulation {
 	
 	Random myRandom = new Random();
+	private double[] myConfigs = new double[1];
+	
 	public PredatorPrey(){
 		super();
+		myConfigs[0] = 5; //reproduction threshold for sharks and fish
+		myConfigs[1] = 2; //death threshold for sharks
 		initialize();
 	}
 	
@@ -21,9 +25,9 @@ public class PredatorPrey extends Simulation {
 		//RACE MUST BE THE STATE FOR THE GUI'S SAKE
 		//CURRENTLY ONLY SUPPORTS 2 STATES (RACES)
 		
-		State fish = new State(Color.BLUE, "fish");
-		State shark = new State(Color.RED, "shark");
-		State kelp = new State(Color.WHITE, "green");
+		State fish = new intState(Color.BLUE, "fish", 0);
+		State shark = new intState(Color.RED, "shark", 0);
+		State kelp = new intState(Color.GREEN, "kelp", 0);
 		myStates.add(fish);
 		myStates.add(shark);
 		myStates.add(kelp);
@@ -37,11 +41,40 @@ public class PredatorPrey extends Simulation {
 		shark.setCurState(shark.getNextState());
 	}
 	
+	private void reproduce(Cell cur, ArrayList<Cell> myNeighbors){
+		
+		
+	}
+	
+	private void updateAlive(Cell cur){
+		cur.getCurState().setInt(cur.getInt() + 1);
+		
+		if(cur.getCurState().equals(new State(null, "shark"))
+			&& (cur.getCurState().getInt() >= myConfigs[1])){
+			cur.setCurState(new intState(Color.GREEN, "kelp", 0));
+			cur.setNextState(new intState(Color.GREEN, "kelp", 0));	
+		}
+	}
+	
+	private void checkReproduce(Cell cur, ArrayList<Cell> myNeighbors){
+		if(!(cur.getCurState().getInt() >= myConfigs[0]))
+			return;
+		
+		Cell s = findEmptyAdjacent(cur, myNeighbors);
+		
+		s.setCurState(cur.getColor(), cur.getName(), 0);
+		
+		
+	}
 	
 	//returning null if there is no 
 	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		
+		updateAlive(cur);
+		checkReproduce(cur, myNeighbors);
 		//EGREGIOUS SWITCH STATEMENT
+		
+		
 		
 		if(cur.getCurState().getColor().equals(Color.BLUE))
 			for(Cell c: myNeighbors)
@@ -56,19 +89,29 @@ public class PredatorPrey extends Simulation {
 					return null;
 				}
 
-		switchEmptyAdjacent(cur, myNeighbors);
+		Cell s = findEmptyAdjacent(cur, myNeighbors);
+		
+		cur.setNextState(s.getCurState());
+		s.setNextState(cur.getCurState());
+		
+		cur.setCurState(cur.getCurState());
+		s.setCurState(s.getCurState());
+		
 		return null;
 	}
 	
-	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
+	public Cell findEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
 		for (Cell c: myNeighbors)
 			if (!(c.getCurState().equals(new State(null, "kelp")))) //REVISE THIS COMPARISON
 				myNeighbors.remove(c);
 			
 		int i  = (int) Math.floor(myRandom.nextDouble()*myNeighbors.size());
 		
-		cur.setNextState(myNeighbors.get(i).getCurState());
-		myNeighbors.get(i).setNextState(cur.getCurState());
+		Cell empty = myNeighbors.get(i);
+		
+		return empty;
+		
+		
 	}
 	
 	//wrapped find 4 neighbors
