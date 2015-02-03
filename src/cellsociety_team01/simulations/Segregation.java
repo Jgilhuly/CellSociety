@@ -57,16 +57,17 @@ public class Segregation extends Simulation {
 	}
 	
 	
-	public void applyRules(Cell cur, ArrayList<Cell> myNeighbors){
+	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		double k = 0.0;
 			for(Cell c: myNeighbors)
 				if (c.getCurState().equals(cur.getCurState())) //if the neighbors have the same state as you
 					k = k + 1.0;
 		
 		if (k/myNeighbors.size() > mySatisfaction)
-			return;
-		
+			return cur.getCurState();
+
 		switchEmptyAdjacent(cur, myNeighbors);
+		
 	}
 	
 	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){

@@ -11,29 +11,27 @@ public class Simulation {
 	
 	protected ArrayList<Rule> myRules;
 	protected ArrayList<State> myStates;
-	protected String myName; 
-	
 	
 	public Simulation(){
 		myRules = new ArrayList<Rule>();
 		myStates = new ArrayList<State>();
 	}
 	
-	public State applyRules(State curState, ArrayList<Cell> myNeighbors){
+	//default implementation - used for SoF and GoL
+	//essentially sums affecting neighbors and determines if they meet the threshold
+	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		for (Rule r: myRules){
 			int k = 0;
-			if (curState.equals(r.getStart()))
+			if (cur.getCurState().equals(r.getStart()))
 				for(Cell c: myNeighbors)
-					if (c.getCurState().equals(r.getCause()))
+					if(c.getCurState().equals(r.getCause()))
 						k++;
-			
-			//K IS A METRIC THAT WEIGHS THE SURROUNDING CELLS -  DIFFERENT RULES WILL DO WITH IT WHAT THEY WANT (BELOW)
 			
 			if(r.applies(k))
 				return r.getEnd();
 		}
 		
-		return curState;
+		return cur.getCurState();
 	}
 	
 	public State findState(Color c){
