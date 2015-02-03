@@ -1,5 +1,7 @@
 package cellsociety_team01;
 import java.util.*;
+
+import cellsociety_team01.simulations.Simulation;
 import javafx.scene.paint.Color;
 
 public class Cell {
@@ -9,10 +11,10 @@ public class Cell {
 	private State myCurState;
 	private State myNextState;
 
-	public Cell(int x, int y, Color c, String name) {
+	public Cell(int x, int y, State s) {
 		myX = x;
 		myY = y;
-		myCurState = new State(c, name);
+		myCurState = s;
 		myNextState = null;
 	}
 
