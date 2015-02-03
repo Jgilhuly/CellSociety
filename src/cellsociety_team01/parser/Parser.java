@@ -145,6 +145,7 @@ public class Parser {
 				cells[xcnt][ycnt] = newCell;
 				xcnt++;
 			}
+			xcnt = 0;
 			ycnt++;
 		}
 		myGrid.updateGrid(cells);

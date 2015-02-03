@@ -156,6 +156,8 @@ public class GUI {
 		else {
 			System.err.println("Error Loading XML File");
 		}
+		
+		setGridCellStates();
 	}
 
 	/**
