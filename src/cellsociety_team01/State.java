@@ -35,4 +35,12 @@ public class State {
 	public void setColor(Color color) {
 		myColor = color;
 	}
+
+	public Color getColor() {
+		return myColor;
+	}
+
+	public boolean isActive() {
+		return myActive;
+	}
 }
