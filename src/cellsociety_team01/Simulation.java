@@ -7,13 +7,18 @@ public class Simulation {
 	public ArrayList<Rule> myRules;
 	public ArrayList<State> myStates;
 	public String myName;
+	public boolean useDiags;
 	
 	public Simulation(){
 		myRules = new ArrayList<Rule>();
 		myStates = new ArrayList<State>();
 	}
 	
-	public State applyRules(State curState, Cell[] myNeighbors){
+	public boolean useDiagonals(){
+		return useDiags;
+	}
+	
+	public State applyRules(State curState, ArrayList<Cell> myNeighbors){
 		for (Rule r: myRules){
 			int k = 0;
 			if (curState.equals(r.getStart()))
@@ -26,9 +31,6 @@ public class Simulation {
 			if(r.applies(k))
 				return r.getEnd();
 		}
-		
 		return curState;
 	}
-	
-
 }

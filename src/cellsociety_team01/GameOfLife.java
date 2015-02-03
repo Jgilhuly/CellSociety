@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 public class GameOfLife extends Simulation{
 
 	public GameOfLife(){
+		useDiags = true;
 		super();
 		initialize();
 	}

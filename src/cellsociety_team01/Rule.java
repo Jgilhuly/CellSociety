@@ -8,6 +8,7 @@ public class Rule {
 
 	
 	public Rule(State start, State end, State cause){
+		
 		myStart = start;
 		myEnd = end;
 		myCause = cause;
