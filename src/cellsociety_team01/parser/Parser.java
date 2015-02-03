@@ -63,7 +63,6 @@ public class Parser {
 			//Using factory get an instance of document builder
 			db = dbf.newDocumentBuilder();
 
-			System.out.println(filename);
 			//parse using builder to get DOM representation of the XML file
 			dom = db.parse(filename);
 

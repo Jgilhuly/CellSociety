@@ -16,7 +16,7 @@ public class PredatorPrey extends Simulation {
 	public PredatorPrey(){
 		super();
 		myConfigs[0] = 5; //reproduction threshold for sharks and fish
-		myConfigs[1] = 2; //death threshold for sharks
+		myConfigs[1] = 5; //death threshold for sharks
 		initialize();
 	}
 	
@@ -35,6 +35,7 @@ public class PredatorPrey extends Simulation {
 	}
 	
 	private void eat (Cell fish, Cell shark){
+		shark.getCurState().setInt(0);
 		fish.setNextState(shark.getCurState());
 		shark.setNextState(fish.getCurState());
 		
@@ -135,14 +136,14 @@ public class PredatorPrey extends Simulation {
 			neighbors.add(cells[row][col-1]);
 		}
 		else {
-			neighbors.add(cells[row][cols]);
+			neighbors.add(cells[row][cols-1]);
 		}
 		
 		if (row > 0) {
 			neighbors.add(cells[row-1][col]);
 		}
 		else {
-			neighbors.add(cells[rows][col]);
+			neighbors.add(cells[rows-1][col]);
 		}
 		
 		if (row < rows-2) {
