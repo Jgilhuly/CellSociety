@@ -1,6 +1,5 @@
 package cellsociety_team01.modelview;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
@@ -15,7 +14,7 @@ public class Grid {
 	private boolean simRunning;
 	private double updateRate;
 	private String author;
-	private File startingFile;
+//	private File startingFile;
 
 	public Grid() {
 	}

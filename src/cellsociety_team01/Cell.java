@@ -2,7 +2,6 @@ package cellsociety_team01;
 import java.util.*;
 
 import cellsociety_team01.simulations.Simulation;
-import javafx.scene.paint.Color;
 
 public class Cell {
 
