@@ -64,7 +64,7 @@ public class Segregation extends Simulation {
 		return neighbors;
 	}
 	
-	
+	@Override
 	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		double k = 0.0;
 			for(Cell c: myNeighbors)
