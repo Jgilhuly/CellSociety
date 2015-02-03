@@ -86,10 +86,10 @@
 				<state>FF0000</state>
 			</cell>
 			<cell>
-				<state>0000FF</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
-				<state>0000FF</state>
+				<state>FFFF00</state>
 			</cell>
 			<cell>
 				<state>FF0000</state>
