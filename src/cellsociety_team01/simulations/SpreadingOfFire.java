@@ -13,6 +13,7 @@ public class SpreadingOfFire extends Simulation {
 	private double[] myConfigs;
 	public SpreadingOfFire(){
 		super();
+		myConfigs = new double[1];
 		myConfigs[0] = 0.5; //HARD CODED CONSTANT
 		initialize();
 	}
