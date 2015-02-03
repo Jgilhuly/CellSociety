@@ -1,4 +1,4 @@
-package cellsociety_team01;
+package cellsociety_team01.CellState;
 import javafx.scene.paint.Color;
 
 public class State {
@@ -11,7 +11,7 @@ public class State {
 	}
 
 	public boolean equals(State s) {
-		if(this.hashCode() == s.hashCode())
+		if(this.getName().equals(s.getName()))
 			return true;
 		return false;
 	}
@@ -40,5 +40,11 @@ public class State {
 	public Color getColor() {
 		return myColor;
 	}
+	
+	public int getInt() {
+		return 0;
+	}
 
+	public void setInt (int i) {
+	}
 }

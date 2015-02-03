@@ -5,7 +5,7 @@ public class IntState extends State {
 
 	private int stateNum;
 
-	public IntState(int i, Color c, String s){
+	public IntState(Color c, String s, int i){
 		super(c, s);
 		stateNum = i;
 	}
