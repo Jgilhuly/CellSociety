@@ -175,9 +175,11 @@ public class GUI {
 
 		Cell[][] cells = myModel.getCells();
 		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[i].length; i++) {
+			for (int j = 0; j < cells[i].length; j++) {
 				Cell c = cells[i][j];
 				Rectangle newCell = new Rectangle ();
+				newCell.setHeight(25);
+				newCell.setWidth(25);
 				newCell.setFill(c.getCurState().getColor());
 				newCell.setOnMouseClicked(e -> cellClicked(c));
 				grid.add(newCell, i, j);

@@ -34,6 +34,10 @@ public class Simulation {
 		return cur.getCurState();
 	}
 	
+	public void setConfigs(String[] configs){
+	}
+	
+	
 	public State findState(Color c){
 		for (State s: myStates)
 			if(s.getColor().equals(c))
