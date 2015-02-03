@@ -1,13 +1,11 @@
-package cellsociety_team01.CellState;
+package cellsociety_team01;
 import javafx.scene.paint.Color;
 
 public class State {
-	private boolean myActive;
 	private Color myColor;
 	private String myName;
 
 	public State(Color c, String s) {
-		myActive = false;
 		myName = s;
 		myColor = c;
 	}
@@ -27,19 +25,20 @@ public class State {
 		return ret;
 	}
 
-	public void setActive(boolean active) {
-		myActive = active;
-	} 
-
 	public void setColor(Color color) {
 		myColor = color;
+	}
+
+	public void setName(String s) {
+		myName = s;
+	}
+
+	public String getName() {
+		return myName;
 	}
 
 	public Color getColor() {
 		return myColor;
 	}
 
-	public boolean isActive() {
-		return myActive;
-	}
 }
