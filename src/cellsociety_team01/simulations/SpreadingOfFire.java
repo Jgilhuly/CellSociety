@@ -27,7 +27,7 @@ public class SpreadingOfFire extends Simulation {
 		myStates.add(empty);
 		
 		myRules.add(new RandomRule(tree, burning, burning, probCatch));
-		myRules.add(new RandomRule(burning, empty, null, 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
+		myRules.add(new RandomRule(burning, empty, empty, 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
 	}
 	
 	//unwrapped find 4
