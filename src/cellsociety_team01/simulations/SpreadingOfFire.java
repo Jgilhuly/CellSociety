@@ -22,6 +22,10 @@ public class SpreadingOfFire extends Simulation {
 		State tree = new State(Color.GREEN, "tree");
 		State empty = new State(Color.YELLOW, "empty");
 		
+		myStates.add(burning);
+		myStates.add(tree);
+		myStates.add(empty);
+		
 		myRules.add(new RandomRule(tree, burning, burning, probCatch));
 		myRules.add(new RandomRule(burning, empty, null, 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
 	}

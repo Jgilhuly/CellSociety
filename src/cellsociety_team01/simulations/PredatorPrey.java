@@ -38,7 +38,9 @@ public class PredatorPrey extends Simulation {
 		shark.setCurState(shark.getNextState());
 	}
 	
-	public void applyRules(Cell cur, ArrayList<Cell> myNeighbors){
+	
+	//returning null if there is no 
+	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		
 		//EGREGIOUS SWITCH STATEMENT
 		
@@ -46,16 +48,17 @@ public class PredatorPrey extends Simulation {
 			for(Cell c: myNeighbors)
 				if(c.getCurState().getColor().equals(Color.RED)){	
 					eat(cur,c);
-					return;
+					return null;
 				}
 		if(cur.getCurState().getColor().equals(Color.RED))
 			for(Cell c: myNeighbors)
 				if(c.getCurState().getColor().equals(Color.BLUE)){
 					eat(c, cur);
-					return;
+					return null;
 				}
 
 		switchEmptyAdjacent(cur, myNeighbors);
+		return null;
 	}
 	
 	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
