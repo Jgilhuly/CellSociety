@@ -8,9 +8,10 @@ import cellsociety_team01.rules.Rule;
 
 public class Simulation {
 	
-	public ArrayList<Rule> myRules;
-	public ArrayList<State> myStates;
-	public String myName;
+	protected ArrayList<Rule> myRules;
+	protected ArrayList<State> myStates;
+	protected String myName; 
+	
 	
 	public Simulation(){
 		myRules = new ArrayList<Rule>();
@@ -22,7 +23,7 @@ public class Simulation {
 			int k = 0;
 			if (curState.equals(r.getStart()))
 				for(Cell c: myNeighbors)
-					if (c.getState().equals(r.getCause()))
+					if (c.getCurState().equals(r.getCause()))
 						k++;
 			
 			//K IS A METRIC THAT WEIGHS THE SURROUNDING CELLS -  DIFFERENT RULES WILL DO WITH IT WHAT THEY WANT (BELOW)
@@ -32,6 +33,10 @@ public class Simulation {
 		}
 		
 		return curState;
+	}
+	
+	public  ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col){
+		return null;
 	}
 	
 
