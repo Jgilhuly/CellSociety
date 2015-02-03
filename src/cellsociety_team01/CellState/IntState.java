@@ -1,4 +1,4 @@
-package cellsociety_team01.CellState;
+package cellsociety_team01;
 import javafx.scene.paint.Color;
 
 public class IntState extends State {
@@ -12,5 +12,9 @@ public class IntState extends State {
 
 	public int getInt() {
 		return stateNum;
+	}
+
+	public void setInt(int i) {
+		stateNum = i;
 	}
 }
