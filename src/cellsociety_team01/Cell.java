@@ -18,9 +18,10 @@ Class Cell {
 		myCurState = myNextState;
 	}	
 
-	public void findNextState(Cell[] cellArray, Simulation sim) {
+	public State findNextState(Cell[] cellArray, Simulation sim) {
 		State s = sim.applyRules(myCurState, cellArray);
 		myNextState = s;
+		return s;
 	}	
 
 	public void setX(int x) {
