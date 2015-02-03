@@ -44,12 +44,12 @@ public class Parser {
 			"PredatorPrey",
 			"Fire",
 			"GameOfLife"));
-			
 	private Simulation[] myPossibleSimulations = {
 			new Segregation(),
 			new PredatorPrey(),
 			new SpreadingOfFire(),
 			new GameOfLife()};
+	private Simulation mySim;
 	
 	public Parser (File file, Grid grid) {
 		myFile = file;
@@ -101,12 +101,17 @@ public class Parser {
 
 	private void setRule(String textValue) {
 		int x = myPossibleSimulationsTXT.indexOf(textValue);
-		Simulation sim = myPossibleSimulations[x];
-		myGrid.setSimulation(sim);
+		mySim = myPossibleSimulations[x];
+		myGrid.setSimulation(mySim);
 	}
 
 	private void parseConfig(Element config) {
 		NodeList configList = config.getChildNodes();
+		ArrayList<String> configVars = new ArrayList<String>();
+		for (int i = 0 ; i < configList.getLength() ; i++){
+			configVars.add(getTextValue(config, configList.item(i).getNodeName()));
+		}
+		mySim.setConfigs(configVars);
 	}
 
 	private void parseGrid(Element grid) {
