@@ -19,6 +19,14 @@ public class Simulation {
 
 	//default implementation - used for SoF and GoL
 	//essentially sums affecting neighbors and determines if they meet the threshold
+	
+	public void updateGrid(ArrayList<ArrayList<Cell>> grid){
+		
+		
+		return;
+	}
+	
+	
 	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		for (Rule r: myRules){
 			int k = 0;
