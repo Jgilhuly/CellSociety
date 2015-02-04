@@ -2,6 +2,7 @@ package cellsociety_team01.modelview;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import cellsociety_team01.CellState.Cell;
@@ -171,13 +172,16 @@ public class GUI {
 	 * Sets grid states based on the cell array in myModel
 	 */
 	private void setGridCellStates() {
-		Cell[][] cells = myModel.getCells();
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[i].length; j++) {
-				Cell c = cells[i][j];
-				Rectangle newCell = new Rectangle ();
-				newCell.setHeight(myStage.getHeight()/(cells[0].length+50));
-				newCell.setWidth(myStage.getWidth()/(cells.length+50));
+		ArrayList<ArrayList<Cell>> cells = myModel.getCells();
+		for (int i = 0; i < cells.size(); i++) {
+			for (int j = 0; j < cells.get(i).size(); j++) {
+				Cell c = cells.get(i).get(j);
+				Rectangle newCell = new Rectangle();
+				newCell.setHeight(myStage.getHeight()/(cells.get(0).size()+50));
+				newCell.setWidth(myStage.getWidth()/(cells.get(0).size()+50));
+				/*System.out.println("1"+c);
+				System.out.println("2"+c.getState());
+				System.out.println("3"+c.getState().getColor());*/
 				newCell.setFill(c.getState().getColor());
 				newCell.setOnMouseClicked(e -> cellClicked(c));
 				grid.add(newCell, i, j);

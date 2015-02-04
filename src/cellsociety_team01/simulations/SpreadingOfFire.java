@@ -25,6 +25,8 @@ public class SpreadingOfFire extends Simulation {
 		State tree = new State(Color.GREEN, "tree");
 		State empty = new State(Color.YELLOW, "empty");
 		
+		
+		
 		myStates.add(burning);
 		myStates.add(tree);
 		myStates.add(empty);
@@ -36,11 +38,12 @@ public class SpreadingOfFire extends Simulation {
 	}
 	
 public void update(Cell cur, ArrayList<Cell> myNeighbors){
+
 	for (Rule r: myRules){
 		int k = 0;
 		if (cur.getState().equals(r.getStart())){
 			for(Cell c: myNeighbors)
-				if(c.getState().equals(r.getCause()))
+				if(c.getState().equals(r.getCause())&&(!c.isUpdated())) //MAYBE PUT THE UPDATED CHECK IN GETNEIGHBORS?
 					k++;
 
 			if(r.applies(k)){

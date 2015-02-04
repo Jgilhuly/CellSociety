@@ -143,14 +143,25 @@ public class Parser {
 
 				Element cellEl = (Element)cellList.item(j);
 				String color = getTextValue(cellEl,"state");
-				Cell newCell = new Cell(j, i, getState(color));
+				Cell newCell = new Cell(j, i, getState(color)); // THIS LINE CAUSES ERRORS BC of the comparison. Somewhere in the XML - doesn't parse colors well
 				cells[xcnt][ycnt] = newCell;
 				xcnt++;
 			}
 			xcnt = 0;
 			ycnt++;
 		}
-		myGrid.updateGrid(cells);
+		
+		
+		
+		myGrid.updateGrid(convert(cells));
+	}
+	
+	private ArrayList<ArrayList<Cell>> convert(Cell[][] grid){
+		ArrayList<ArrayList<Cell>> cells = new ArrayList<ArrayList<Cell>>();
+		for(Cell[] x : grid)
+			cells.add(new ArrayList<Cell>(Arrays.asList(x)));
+				
+		return cells;
 	}
 
 	private String getTextValue(Element ele, String tagName) {
@@ -167,6 +178,7 @@ public class Parser {
 	private State getState(String color) {
 		Color c = Color.web(color);
 		State s = mySim.findState(c);
+		System.out.println(s.getName());
 		return s;
 	}
 }

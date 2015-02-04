@@ -5,20 +5,33 @@ import java.util.ArrayList;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Point2D;
 import javafx.util.Duration;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.simulations.Simulation;
 
 public class Grid {
 	Simulation simulation;
-	private Cell[][] cells;
+	private ArrayList<ArrayList<Cell>> cells;
 	private GUI myView;
 	private boolean simRunning;
 	private double updateRate;
 	private String author;
 	private Timeline myLoop;
+	private ArrayList<Point2D> myNeighborCoords;
 
 	public Grid() {
+		initialize4Neighbors();
+	}
+	
+	public void initialize4Neighbors(){
+		myNeighborCoords = new ArrayList<Point2D>();
+		
+		myNeighborCoords.add(new Point2D(-1, 0));
+		myNeighborCoords.add(new Point2D(1, 0));
+		myNeighborCoords.add(new Point2D(0, -1));
+		myNeighborCoords.add(new Point2D(0, 1));
+		
 	}
 
 	public void setView(GUI viewIn) {
@@ -42,7 +55,7 @@ public class Grid {
 	}
 
 	public void step() {
-		updateCells();
+		update();
 		myView.singleUpdate();
 	}
 
@@ -58,8 +71,37 @@ public class Grid {
 		simulation = simulationIn;
 	}
 
-	public void updateGrid(Cell[][] cellsIn) {
+	public void updateGrid(ArrayList<ArrayList<Cell>> cellsIn) {
 		cells = cellsIn;
+	}
+	
+	public ArrayList<Cell> getNeighbors(Cell c){
+		int x = 0;
+		int y = 0;
+		for (ArrayList<Cell> list: cells)
+			for (Cell temp : list)
+				if(temp.equals(c)){
+					x = cells.indexOf(list);
+					y = list.indexOf(temp);
+				}
+		
+		
+		
+		ArrayList<Cell> ret = new ArrayList<Cell>();
+		
+		//COME BACK TO THIS -- MIGHT WORK FOR HEXAGONAL / TRIANGLES
+		
+		for(Point2D p: myNeighborCoords)
+			if(     (x+(int)p.getX() <= (cells.size()-1))&&
+					(x+(int)p.getX() >= 0)&&
+					(y+(int)p.getY() <= (cells.get(0).size()-1))&&
+					(y+(int)p.getY() >= 0)){
+				ret.add(cells.get(x+(int)p.getX()).get(y+(int)p.getY()));
+				
+			}
+		
+		
+		return ret;
 	}
 
 	public void setTitle(String titleIn) {
@@ -78,23 +120,27 @@ public class Grid {
 		return new KeyFrame(Duration.millis(1000 / updateRate * 1000), e -> update());
 	}
 	
-	public Cell[][] getCells() {
+	public ArrayList<ArrayList<Cell>> getCells() {
 		return cells;
 	}
 
 	private void update() {
 		if (simRunning) {			
-			updateCells();
+			updateGrid(simulation.updateGrid(this));
 		}
+		setNotUpdated();
 		myView.update();
 	}
 
-	private void setNotUpdated(){
-		//IMPLEMENT THIS--just call each Cell's setUpdated(false)
+	public void setNotUpdated(){
+		for(ArrayList<Cell> list: cells)
+			for(Cell c: list)
+				c.setUpdated(false);
 	}
 	
 	private void updateGrid() {
 		//IMPLEMEMENT THIS - JUST CALL simulation.update() with the arraylist<arraylist<Cell>> once you have it
 		//which will return an updated grid
+		simulation.updateGrid(this);
 	}
 }
