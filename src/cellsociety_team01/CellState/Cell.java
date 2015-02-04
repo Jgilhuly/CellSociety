@@ -7,26 +7,42 @@ public class Cell {
 
 	private int myX;
 	private int myY;
-	private State myCurState;
-	private State myNextState;
+	/*private State myCurState;
+	private State myNextState;*/
+	private State myState;
+	private boolean updated;
 
 	public Cell(int x, int y, State s) {
 		myX = x;
 		myY = y;
-		myCurState = s;
-		myNextState = null;
+		/*myCurState = s;
+		myNextState = null;*/
+		myState = s;
+	}
+	
+	public void setUpdated(boolean target){
+		updated = target;
+	}
+	
+	public ArrayList<Cell> getNeighbors(){
+		//IMPLEMENT THIS
+		return null;
+	}
+	
+	public boolean isUpdated(){
+		return updated;
 	}
 
-	public void update() {
+	/*public void update() {
 		myCurState = myNextState;
-	}	
+	}	*/
 
-	public void findNextState(ArrayList<Cell> cellArray, Simulation sim) {
+	/*public void findNextState(ArrayList<Cell> cellArray, Simulation sim) {
 		State s = sim.applyRules(this, cellArray);
 		if (s != null) {
-			myNextState = s;
+			myCurState = s;
 		}
-	}	
+	}*/	
 
 	public void setX(int x) {
 		myX = x;
@@ -44,7 +60,7 @@ public class Cell {
 		return myY;
 	}
 
-	public State getCurState() {
+	/*public State getCurState() {
 		return myCurState;
 	}
 
@@ -58,6 +74,14 @@ public class Cell {
 
 	public void setNextState(State s) {
 		myNextState = s;
+	}*/
+	
+	public State getState(){
+		return myState;
+	}
+	
+	public void setState(State s){
+		myState = s;
 	}
 
 }

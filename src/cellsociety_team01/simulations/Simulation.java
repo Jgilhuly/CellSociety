@@ -1,10 +1,12 @@
 package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
+import cellsociety_team01.modelview.Grid;
 import cellsociety_team01.rules.Rule;
 
 public class Simulation {
@@ -20,14 +22,44 @@ public class Simulation {
 	//default implementation - used for SoF and GoL
 	//essentially sums affecting neighbors and determines if they meet the threshold
 	
-	public void updateGrid(ArrayList<ArrayList<Cell>> grid){
+	public ArrayList<ArrayList<Cell>> getShuffledCopy(ArrayList<ArrayList<Cell>> g){
+		ArrayList<ArrayList<Cell>> copy = new ArrayList<ArrayList<Cell>>(g);
+		for(ArrayList<Cell> a: copy)
+			Collections.shuffle(a);
+		Collections.shuffle(copy);
+		return copy;
+	}
+	
+	//REALLY WANT EACH CELL TO HAVE A GETNEIGHBORS
+	
+	public ArrayList<ArrayList<Cell>> updateGrid(ArrayList<ArrayList<Cell>> g){ // MAKE SURE THIS ONLY GETS PASSED AN ITERABLE
+		
+		ArrayList<ArrayList<Cell>> copy = getShuffledCopy(g);
+		
+		
+		for (State s: myStates) // organized in order of which move first
+			for (ArrayList<Cell> a: copy) //iterating through the SHUFFLED VERSION
+				for (Cell c: a)
+					if (!(g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)).isUpdated()))
+						update (g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)), 
+								g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)).getNeighbors());
+	
+		return g;
+	
+	}
+	
+	public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		
 		
 		return;
 	}
 	
 	
-	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
+	public void setUpdated(Cell c){
+		c.setUpdated(true);
+	}
+	
+	/*public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
 		for (Rule r: myRules){
 			int k = 0;
 			if (cur.getCurState().equals(r.getStart())){
@@ -41,7 +73,7 @@ public class Simulation {
 		}
 
 		return cur.getCurState();
-	}
+	}*/
 
 	public void setConfigs(ArrayList<String> configs){
 	}

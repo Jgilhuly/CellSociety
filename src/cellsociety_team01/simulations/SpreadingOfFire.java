@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
 import cellsociety_team01.rules.RandomRule;
+import cellsociety_team01.rules.Rule;
 import javafx.scene.paint.Color;
 
 
@@ -32,6 +33,22 @@ public class SpreadingOfFire extends Simulation {
 
 		myRules.add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
 
+	}
+	
+public void update(Cell cur, ArrayList<Cell> myNeighbors){
+	for (Rule r: myRules){
+		int k = 0;
+		if (cur.getState().equals(r.getStart())){
+			for(Cell c: myNeighbors)
+				if(c.getState().equals(r.getCause()))
+					k++;
+
+			if(r.applies(k)){
+				cur.setState(r.getEnd());
+				setUpdated(cur);
+			}
+		}
+	}
 	}
 	
 	public void setConfigs(ArrayList<String> configs){

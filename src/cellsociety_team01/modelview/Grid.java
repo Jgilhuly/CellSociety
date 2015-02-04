@@ -89,14 +89,12 @@ public class Grid {
 		myView.update();
 	}
 
-
-	private void updateCells() {
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[i].length; j++) {
-				ArrayList<Cell> neighbors = simulation.findNeighbors(cells, i, j);
-				cells[i][j].findNextState(neighbors, simulation);
-				cells[i][j].update();
-			}
-		}
+	private void setNotUpdated(){
+		//IMPLEMENT THIS--just call each Cell's setUpdated(false)
+	}
+	
+	private void updateGrid() {
+		//IMPLEMEMENT THIS - JUST CALL simulation.update() with the arraylist<arraylist<Cell>> once you have it
+		//which will return an updated grid
 	}
 }

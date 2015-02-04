@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
+import cellsociety_team01.rules.Rule;
 import cellsociety_team01.rules.ThresholdRule;
 import javafx.scene.paint.Color;
 
@@ -33,6 +34,22 @@ public class GameOfLife extends Simulation{
 		myRules.add(new ThresholdRule(alive, dead, alive, 4, 8));
 		myRules.add(new ThresholdRule(dead, alive, alive, 3, 3));
 	}
+	
+	public void update(Cell cur, ArrayList<Cell> myNeighbors){
+		for (Rule r: myRules){
+			int k = 0;
+			if (cur.getState().equals(r.getStart())){
+				for(Cell c: myNeighbors)
+					if(c.getState().equals(r.getCause()))
+						k++;
+
+				if(r.applies(k)){
+					cur.setState(r.getEnd());
+					setUpdated(cur);
+				}
+			}
+		}
+		}
 	
 	//unwrapped find 8 neighbors 
 	//written by John Gilhuly

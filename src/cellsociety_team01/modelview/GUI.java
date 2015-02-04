@@ -178,7 +178,7 @@ public class GUI {
 				Rectangle newCell = new Rectangle ();
 				newCell.setHeight(myStage.getHeight()/(cells[0].length+50));
 				newCell.setWidth(myStage.getWidth()/(cells.length+50));
-				newCell.setFill(c.getCurState().getColor());
+				newCell.setFill(c.getState().getColor());
 				newCell.setOnMouseClicked(e -> cellClicked(c));
 				grid.add(newCell, i, j);
 			}
