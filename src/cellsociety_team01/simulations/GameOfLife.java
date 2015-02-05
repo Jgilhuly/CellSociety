@@ -36,17 +36,21 @@ public class GameOfLife extends Simulation{
 	
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		for (Rule r: myRules){
+			System.out.println("RULE  " + myRules.indexOf(r));
 			int k = 0;
-			if (cur.getCurState().equals(r.getStart())&&(!cur.isUpdated())){
+			if (cur.getCurState().equals(r.getStart())){
 				for(Cell c: myNeighbors)
-					if(c.getCurState().equals(r.getCause())&&(!c.isUpdated()))
+					if(c.getCurState().equals(r.getCause()))
 						k++;
 				if(r.applies(k)){
+					System.out.println("RULE APPLIED");
 					cur.setNextState(r.getEnd());
 					setUpdated(cur);
+					return;
 				}
 			}
 		}
+		cur.setNextState(cur.getCurState());
 		}
 	
 	//unwrapped find 8 neighbors 

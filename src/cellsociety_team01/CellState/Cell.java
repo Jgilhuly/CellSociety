@@ -82,7 +82,7 @@ public class Cell {
 	}
 
 	public void setNextState(State s) {
-		System.out.println("Cell.setNextState");
+		
 		myNextState = s;
 	}
 	

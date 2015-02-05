@@ -102,6 +102,14 @@ public class Simulation {
 
 		return new State(Color.BLACK, "test");//new State(Color.WHITE, "white"); // MIGHT CAUSE PROBLEMS IF THE COLORS DON'T COMPARE WELL
 	}
+	
+	public ArrayList<State> getStates(){ //FOR JOHN
+		return myStates;
+	}
+	
+	public State cycleNextState(State s){ // FOR JOHN
+		return myStates.get(myStates.indexOf(s) + 1);
+	}
 
 	/*public  ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col){
 		return null;

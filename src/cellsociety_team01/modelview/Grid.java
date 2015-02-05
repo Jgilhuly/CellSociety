@@ -22,7 +22,7 @@ public class Grid {
 	int i = 0; //FOR TESTING
 
 	public Grid() {
-		initialize4Neighbors();
+		initialize8Neighbors();
 	}
 	
 	public void initialize4Neighbors(){
@@ -46,8 +46,6 @@ public class Grid {
 		myNeighborCoords.add(new Point2D(1, -1));
 		myNeighborCoords.add(new Point2D(1, 1));
 		myNeighborCoords.add(new Point2D(-1, 1));
-		
-		
 	}
 
 	public void setView(GUI viewIn) {
