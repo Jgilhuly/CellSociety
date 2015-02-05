@@ -150,10 +150,8 @@ public class Parser {
 			xcnt = 0;
 			ycnt++;
 		}
-		
-		
-		
 		myGrid.updateGrid(convert(cells));
+		//myGrid.update();
 	}
 	
 	private ArrayList<ArrayList<Cell>> convert(Cell[][] grid){
@@ -178,7 +176,7 @@ public class Parser {
 	private State getState(String color) {
 		Color c = Color.web(color);
 		State s = mySim.findState(c);
-		System.out.println(s.getName());
+		//System.out.println(s.getName());
 		return s;
 	}
 }

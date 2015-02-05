@@ -167,11 +167,14 @@ public class GUI {
 
 		setGridCellStates();
 	}
+	
+	
 
 	/**
 	 * Sets grid states based on the cell array in myModel
 	 */
 	private void setGridCellStates() {
+		
 		ArrayList<ArrayList<Cell>> cells = myModel.getCells();
 		for (int i = 0; i < cells.size(); i++) {
 			for (int j = 0; j < cells.get(i).size(); j++) {
@@ -179,10 +182,9 @@ public class GUI {
 				Rectangle newCell = new Rectangle();
 				newCell.setHeight(myStage.getHeight()/(cells.get(0).size()+50));
 				newCell.setWidth(myStage.getWidth()/(cells.get(0).size()+50));
-				/*System.out.println("1"+c);
-				System.out.println("2"+c.getState());
-				System.out.println("3"+c.getState().getColor());*/
-				newCell.setFill(c.getState().getColor());
+				if(c.getCurState() == null)
+					System.out.println("STATE is null");
+				newCell.setFill(c.getCurState().getColor());
 				newCell.setOnMouseClicked(e -> cellClicked(c));
 				grid.add(newCell, i, j);
 			}
@@ -195,7 +197,7 @@ public class GUI {
 	 * @param t
 	 */
 	private void cellClicked(Cell cell) {
-		// ADD CYCLE CELL STATES
+		//      ADD CYCLE CELL STATES
 
 		//		System.out.println(grid.getColumnIndex(t).intValue());
 		//		System.out.println(grid.getRowIndex(t).intValue());

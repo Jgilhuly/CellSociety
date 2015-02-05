@@ -25,33 +25,32 @@ public class SpreadingOfFire extends Simulation {
 		State tree = new State(Color.GREEN, "tree");
 		State empty = new State(Color.YELLOW, "empty");
 		
-		
-		
-		myStates.add(burning);
 		myStates.add(tree);
+		myStates.add(burning);
 		myStates.add(empty);
 		
+		
 		myRules.add(new RandomRule(tree, burning, burning, myConfigs[0]));
-
 		myRules.add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
 
 	}
 	
 public void update(Cell cur, ArrayList<Cell> myNeighbors){
-
 	for (Rule r: myRules){
 		int k = 0;
-		if (cur.getState().equals(r.getStart())){
+		if (cur.getCurState().equals(r.getStart())){
 			for(Cell c: myNeighbors)
-				if(c.getState().equals(r.getCause())&&(!c.isUpdated())) //MAYBE PUT THE UPDATED CHECK IN GETNEIGHBORS?
+				if(c.getCurState().equals(r.getCause())) //MAYBE PUT THE "UPDATED" CHECK IN GETNEIGHBORS?
 					k++;
-
 			if(r.applies(k)){
-				cur.setState(r.getEnd());
+				System.out.println("RULE APPLIED");
+				cur.setNextState(r.getEnd());
 				setUpdated(cur);
+				return;
 			}
 		}
 	}
+	cur.setNextState(cur.getCurState());
 	}
 	
 	public void setConfigs(ArrayList<String> configs){
@@ -59,27 +58,4 @@ public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		for(int i = 0; i< configs.size(); i++)
 			myConfigs[i] = Double.parseDouble(configs.get(i));
 	}
-	//unwrapped find 4
-	//written by John Gilhuly
-	public ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col) {
-		ArrayList<Cell> neighbors = new ArrayList<Cell>();
-
-		int rows = cells.length;
-		int cols = cells[0].length;
-
-		if (col < cols-2) {
-			neighbors.add(cells[row][col+1]);
-		}
-		if (col > 0) {
-			neighbors.add(cells[row][col-1]);
-		}
-		if (row > 0) {
-			neighbors.add(cells[row-1][col]);
-		}
-		if (row < rows-2) {
-			neighbors.add(cells[row+1][col]);
-		}
-		return neighbors;
-	}
-
 }

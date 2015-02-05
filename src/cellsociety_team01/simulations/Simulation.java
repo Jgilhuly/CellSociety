@@ -33,29 +33,28 @@ public class Simulation {
 	//REALLY WANT EACH CELL TO HAVE A GETNEIGHBORS
 	
 	public ArrayList<ArrayList<Cell>> updateGrid(Grid grid){ // MAKE SURE THIS ONLY GETS PASSED AN ITERABLE
-		
+	
 		ArrayList<ArrayList<Cell>> g = grid.getCells();
+		//ArrayList<ArrayList<Cell>> copy = getShuffledCopy(g);
 		
-		ArrayList<ArrayList<Cell>> copy = getShuffledCopy(g);
-		
-		
-		for (State s: myStates) // organized in order of which move first
+		/*for (State s: myStates) // organized in order of which move first
 			for (ArrayList<Cell> a: copy) //iterating through the SHUFFLED VERSION
 				for (Cell c: a)
-					if ((!(g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)).isUpdated()))&&(c.getState().equals(s))){
-						
-						
-						
-						
-						update (g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)), 
-								grid.getNeighbors(c));
-						
-					}
+					if ((!(g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)).isUpdated()))&&(c.getCurState().equals(s)) ){
+						update(g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)), 
+								grid.getNeighbors(c));				
+					}*/
+		
+		for (State s: myStates) 
+			for (ArrayList<Cell> a: g) 
+				for (Cell cur: a){ // cur = each cell in the grid
+					if ((cur.getCurState().equals(s))){
+						update(cur, grid.getNeighbors(cur));				
+					}}
 		return g;
 	}
 	
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
-		
 		
 		return;
 	}
@@ -86,24 +85,27 @@ public class Simulation {
 
 	public boolean colorEquals(Color a, Color b){
 		
-		return (((a.getBlue() >= b.getBlue())&&(a.getBlue() <= b.getBlue()))&&
-				((a.getGreen() >= b.getGreen())&&(a.getGreen() <= b.getGreen()))&&
-				((a.getRed() >= b.getRed())&&(a.getRed() <= b.getRed())));
+		return (((a.getBlue() >= b.getBlue()-.1 )&&(a.getBlue() <= b.getBlue()+.1 ))&&
+				((a.getGreen() >= b.getGreen()-.1)&&(a.getGreen() <= b.getGreen()+.1))&&
+				((a.getRed() >= b.getRed()-.1)&&(a.getRed() <= b.getRed()+.1)));
 	}
 
 	public State findState(Color c){
-		
+		//System.out.println("INCOMING COLOR:");
+		//System.out.println(c.getRed() + "  " + c.getBlue() + "  " + c.getGreen());
+		//System.out.println("myStates:");
 		for (State s: myStates){
+			//System.out.println(s.getName() + "  " +s.getColor().getRed()+ "  " + s.getColor().getBlue() + "  "+ s.getColor().getGreen());
 			if(colorEquals(c, s.getColor()))//if(s.getColor().equals(c))
 				return s;
 		}
 
-		return null;//new State(Color.WHITE, "white"); // MIGHT CAUSE PROBLEMS IF THE COLORS DON'T COMPARE WELL
+		return new State(Color.BLACK, "test");//new State(Color.WHITE, "white"); // MIGHT CAUSE PROBLEMS IF THE COLORS DON'T COMPARE WELL
 	}
 
-	public  ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col){
+	/*public  ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col){
 		return null;
 	}
-
+*/
 
 }

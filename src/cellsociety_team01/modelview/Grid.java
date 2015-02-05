@@ -12,13 +12,14 @@ import cellsociety_team01.simulations.Simulation;
 
 public class Grid {
 	Simulation simulation;
-	private ArrayList<ArrayList<Cell>> cells;
+	private ArrayList<ArrayList<Cell>> cells = new ArrayList<ArrayList<Cell>>();
 	private GUI myView;
 	private boolean simRunning;
 	private double updateRate;
 	private String author;
 	private Timeline myLoop;
 	private ArrayList<Point2D> myNeighborCoords;
+	int i = 0; //FOR TESTING
 
 	public Grid() {
 		initialize4Neighbors();
@@ -31,6 +32,21 @@ public class Grid {
 		myNeighborCoords.add(new Point2D(1, 0));
 		myNeighborCoords.add(new Point2D(0, -1));
 		myNeighborCoords.add(new Point2D(0, 1));
+	}
+	
+	public void initialize8Neighbors(){
+		myNeighborCoords = new ArrayList<Point2D>();
+		
+		myNeighborCoords.add(new Point2D(-1, 0));
+		myNeighborCoords.add(new Point2D(1, 0));
+		myNeighborCoords.add(new Point2D(0, -1));
+		myNeighborCoords.add(new Point2D(0, 1));
+
+		myNeighborCoords.add(new Point2D(-1, -1));
+		myNeighborCoords.add(new Point2D(1, -1));
+		myNeighborCoords.add(new Point2D(1, 1));
+		myNeighborCoords.add(new Point2D(-1, 1));
+		
 		
 	}
 
@@ -56,7 +72,14 @@ public class Grid {
 
 	public void step() {
 		update();
+		
 		myView.singleUpdate();
+	}
+	
+	public void updateCurStates(){
+		for(ArrayList<Cell> list : cells)
+			for(Cell c : list)
+				c.updateCurState();
 	}
 
 	public void changeUpdateRate(double newRate) {	
@@ -68,10 +91,13 @@ public class Grid {
 	}
 
 	public void setSimulation(Simulation simulationIn) {
+
 		simulation = simulationIn;
 	}
 
 	public void updateGrid(ArrayList<ArrayList<Cell>> cellsIn) {
+		System.out.println(i);
+		i++;
 		cells = cellsIn;
 	}
 	
@@ -84,12 +110,9 @@ public class Grid {
 					x = cells.indexOf(list);
 					y = list.indexOf(temp);
 				}
-		
-		
-		
 		ArrayList<Cell> ret = new ArrayList<Cell>();
 		
-		//COME BACK TO THIS -- MIGHT WORK FOR HEXAGONAL / TRIANGLES
+		//COME BACK TO THIS -- MIGHT also WORK FOR HEXAGONAL / TRIANGLES
 		
 		for(Point2D p: myNeighborCoords)
 			if(     (x+(int)p.getX() <= (cells.size()-1))&&
@@ -99,8 +122,7 @@ public class Grid {
 				ret.add(cells.get(x+(int)p.getX()).get(y+(int)p.getY()));
 				
 			}
-		
-		
+
 		return ret;
 	}
 
@@ -117,30 +139,31 @@ public class Grid {
 	 */
 	public KeyFrame start(double frameRate) {
 		updateRate = frameRate;
+		
+		
 		return new KeyFrame(Duration.millis(1000 / updateRate * 1000), e -> update());
 	}
 	
 	public ArrayList<ArrayList<Cell>> getCells() {
+		 
 		return cells;
 	}
 
-	private void update() {
+	public void update() {
+		
 		if (simRunning) {			
 			updateGrid(simulation.updateGrid(this));
+			updateCurStates();
 		}
-		setNotUpdated();
 		myView.update();
+		setNotUpdated();
+		
+		
 	}
 
-	public void setNotUpdated(){
+	public void setNotUpdated(){	
 		for(ArrayList<Cell> list: cells)
 			for(Cell c: list)
 				c.setUpdated(false);
-	}
-	
-	private void updateGrid() {
-		//IMPLEMEMENT THIS - JUST CALL simulation.update() with the arraylist<arraylist<Cell>> once you have it
-		//which will return an updated grid
-		simulation.updateGrid(this);
 	}
 }

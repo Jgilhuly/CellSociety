@@ -2,6 +2,7 @@ package cellsociety_team01.CellState;
 import java.util.*;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import cellsociety_team01.simulations.Simulation;
 
 public class Cell {
@@ -9,28 +10,25 @@ public class Cell {
 	private int myX;
 	private int myY;
 	
-	/*private State myCurState;
-	private State myNextState;*/
-	private State myState;
+	private State myCurState;
+	private State myNextState;
+	//private State myState;
 	private boolean updated;
 
 	public Cell(int x, int y, State s){
 		myX = x;
 		myY = y;
 		
-		/*myCurState = s;
-		myNextState = null;*/
-		myState = s;
+		myCurState = s;
+		myNextState = null;
+		//myState = s;
 	}
 	
 	public void setUpdated(boolean target){
 		updated = target;
 	}
 	
-	public ArrayList<Cell> getNeighbors(){
-		//IMPLEMENT THIS
-		return null;
-	}
+	
 	
 	public boolean isUpdated(){
 		return updated;
@@ -63,12 +61,20 @@ public class Cell {
 		return myY;
 	}
 
-	/*public State getCurState() {
+	public State getCurState() {
 		return myCurState;
 	}
 
 	public State getNextState() {
 		return myNextState;
+	}
+	public void updateCurState(){
+		//if (myNextState == null) return;
+		myCurState = myNextState;
+		myNextState = new State(Color.PINK, "future - shouldn't show");
+
+		
+		
 	}
 
 	public void setCurState(State s) {
@@ -76,15 +82,16 @@ public class Cell {
 	}
 
 	public void setNextState(State s) {
+		System.out.println("Cell.setNextState");
 		myNextState = s;
-	}*/
+	}
 	
-	public State getState(){
+	/*public State getState(){
 		return myState;
 	}
 	
 	public void setState(State s){
 		myState = s;
-	}
+	}*/
 
 }

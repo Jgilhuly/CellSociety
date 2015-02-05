@@ -25,9 +25,8 @@ public class GameOfLife extends Simulation{
 		State dead = new State(Color.WHITE, "Dead");
 		State alive = new State(Color.BLACK, "Alive");
 		
-		myStates.add(dead);
 		myStates.add(alive);
-		
+		myStates.add(dead);
 		
 		myRules.add(new ThresholdRule(alive, dead, alive, 0, 1));
 		myRules.add(new ThresholdRule(alive, alive, alive, 2, 3));
@@ -38,13 +37,12 @@ public class GameOfLife extends Simulation{
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		for (Rule r: myRules){
 			int k = 0;
-			if (cur.getState().equals(r.getStart())){
+			if (cur.getCurState().equals(r.getStart())&&(!cur.isUpdated())){
 				for(Cell c: myNeighbors)
-					if(c.getState().equals(r.getCause()))
+					if(c.getCurState().equals(r.getCause())&&(!c.isUpdated()))
 						k++;
-
 				if(r.applies(k)){
-					cur.setState(r.getEnd());
+					cur.setNextState(r.getEnd());
 					setUpdated(cur);
 				}
 			}
