@@ -19,7 +19,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		Grid grid = new Grid();
-		GUI gui = new GUI(grid, "English", stage);
+		GUI gui = new GUI("English", stage);
 		grid.setView(gui);
 		
 		stage.setTitle(TITLE);
