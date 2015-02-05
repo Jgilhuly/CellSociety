@@ -11,6 +11,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -19,6 +21,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -37,24 +41,29 @@ public class GUI {
 	private Button stepButton;
 	private Button resetButton;
 	private Slider slider;
-	private GridPane grid; // the visual aspect of the grid
+	private Canvas gridCanvas;
+	private GridView gridView;
 	private Parser parser;
 	private File file;
+	private int myWidth;
+	private int myHeight;
 
 	public GUI(Grid gridIn, String language, Stage stageIn) {
 		myModel = gridIn;
 		myStage = stageIn;
+		myWidth = DEFAULT_SIZE.width;
+		myHeight = DEFAULT_SIZE.height;
 
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
 				+ language);
 		BorderPane root = new BorderPane();
 		root.setBottom(makeButtonsAndSlider());
 		root.setTop(makeMenuBar());
-		root.setCenter(makeGrid());
+		root.setCenter(makeGrid(myWidth, myHeight, 10, 10));
 
 		enableButtons();
 
-		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
+		myScene = new Scene(root, myWidth, myHeight);
 	}
 
 	/**
@@ -90,7 +99,7 @@ public class GUI {
 	}
 
 	public void reset() {
-		parser = new Parser(file, myModel);
+		parser = new Parser(file);
 		parser.parseXmlFile();
 		setGridCellStates();
 	}
@@ -137,13 +146,10 @@ public class GUI {
 	 * 
 	 * @return
 	 */
-	private Node makeGrid() {
-		grid = new GridPane();
-		//		grid.setGridLinesVisible(true);
-		grid.setPadding(new Insets(10, 50, 10, 50));
-		grid.setHgap(5);
-		grid.setVgap(5);
-		return grid;
+	private Node makeGrid(int sceneWidth, int sceneHeight, int rows, int cols) {
+		gridView = new SquareGrid(sceneWidth, sceneHeight, rows, cols);
+		gridCanvas = gridView.makeGrid(new Canvas(sceneWidth/1.5, sceneHeight/1.5));
+		return gridCanvas;
 	}
 
 	/**
@@ -157,7 +163,7 @@ public class GUI {
 
 		file = fileChooser.showOpenDialog(myStage);
 		if (file != null) {
-			parser = new Parser(file, myModel);
+			parser = new Parser(file);
 			parser.parseXmlFile();
 		}
 		else {
@@ -171,18 +177,28 @@ public class GUI {
 	 * Sets grid states based on the cell array in myModel
 	 */
 	private void setGridCellStates() {
-		Cell[][] cells = myModel.getCells();
-		for (int i = 0; i < cells.length; i++) {
-			for (int j = 0; j < cells[i].length; j++) {
-				Cell c = cells[i][j];
-				Rectangle newCell = new Rectangle ();
-				newCell.setHeight(myStage.getHeight()/(cells[0].length+50));
-				newCell.setWidth(myStage.getWidth()/(cells.length+50));
-				newCell.setFill(c.getState().getColor());
-				newCell.setOnMouseClicked(e -> cellClicked(c));
-				grid.add(newCell, i, j);
-			}
-		}
+//		Cell[][] cells = myModel.getCells();
+//		for (int i = 0; i < cells.length; i++) {
+//			for (int j = 0; j < cells[i].length; j++) {
+//				Cell c = cells[i][j];
+//				Polygon newCell = new Polygon ();
+////				newCell.setHeight(myStage.getHeight()/(cells[0].length+50));
+////				newCell.setWidth(myStage.getWidth()/(cells.length+50));
+//				newCell.getPoints().addAll(new Double[] {
+//						300.0, 200.0,
+//						250.0, 250.0,
+//						250.0, 300.0,
+//						300.0, 350.0,
+//						350.0, 300.0,
+//						350.0, 250.0
+//				});
+//				newCell.setFill(c.getCurState().getColor());
+//				newCell.setOnMouseClicked(e -> cellClicked(c));
+//				grid.add(newCell, i, j);
+//			}
+//		}
+
+		gridView.setGridCellStates(gridCanvas.getGraphicsContext2D(), myModel.getCells());
 	}
 
 	/**
@@ -191,10 +207,7 @@ public class GUI {
 	 * @param t
 	 */
 	private void cellClicked(Cell cell) {
-		// ADD CYCLE CELL STATES
-
-		//		System.out.println(grid.getColumnIndex(t).intValue());
-		//		System.out.println(grid.getRowIndex(t).intValue());
+		
 	}
 
 	/**

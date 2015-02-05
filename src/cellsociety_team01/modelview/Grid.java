@@ -11,7 +11,7 @@ import cellsociety_team01.simulations.Simulation;
 
 public class Grid {
 	Simulation simulation;
-	private Cell[][] cells;
+	private ArrayList<Cell> cells;
 	private GUI myView;
 	private boolean simRunning;
 	private double updateRate;
@@ -42,7 +42,7 @@ public class Grid {
 	}
 
 	public void step() {
-		updateCells();
+//		updateCells();
 		myView.singleUpdate();
 	}
 
@@ -58,7 +58,7 @@ public class Grid {
 		simulation = simulationIn;
 	}
 
-	public void updateGrid(Cell[][] cellsIn) {
+	public void updateGrid(ArrayList<Cell> cellsIn) {
 		cells = cellsIn;
 	}
 
@@ -78,13 +78,13 @@ public class Grid {
 		return new KeyFrame(Duration.millis(1000 / updateRate * 1000), e -> update());
 	}
 	
-	public Cell[][] getCells() {
+	public ArrayList<Cell> getCells() {
 		return cells;
 	}
 
 	private void update() {
 		if (simRunning) {			
-			updateCells();
+//			updateCells();
 		}
 		myView.update();
 	}
