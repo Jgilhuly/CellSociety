@@ -5,6 +5,12 @@
 		<rule>GameOfLife</rule>
 	</info>
 	<config>
+		<cell_shape>Square</cell_shape>
+		<grid_edge>Finite</grid_edge>
+		<grid_outline>Yes</grid_outline>
+		<cell_placement>Given</cell_placement>
+		<color_scheme>BlackWhite</color_scheme>
+		<cell_neighbors>Cardinal</cell_neighbors>
 	</config>
 	<grid width="10" height="5">
 		<row>
