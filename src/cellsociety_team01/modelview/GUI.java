@@ -48,8 +48,7 @@ public class GUI {
 	private int myWidth;
 	private int myHeight;
 
-	public GUI(Grid gridIn, String language, Stage stageIn) {
-		myModel = gridIn;
+	public GUI(String language, Stage stageIn) {
 		myStage = stageIn;
 		myWidth = DEFAULT_SIZE.width;
 		myHeight = DEFAULT_SIZE.height;
@@ -99,7 +98,7 @@ public class GUI {
 	}
 
 	public void reset() {
-		parser = new Parser(file);
+		parser = new Parser(file, myModel);
 		parser.parseXmlFile();
 		setGridCellStates();
 	}
@@ -147,7 +146,7 @@ public class GUI {
 	 * @return
 	 */
 	private Node makeGrid(int sceneWidth, int sceneHeight, int rows, int cols) {
-		gridView = new SquareGrid(sceneWidth, sceneHeight, rows, cols);
+		gridView = new SquareGridView(sceneWidth, sceneHeight, rows, cols);
 		gridCanvas = gridView.makeGrid(new Canvas(sceneWidth/1.5, sceneHeight/1.5));
 		return gridCanvas;
 	}
@@ -163,7 +162,7 @@ public class GUI {
 
 		file = fileChooser.showOpenDialog(myStage);
 		if (file != null) {
-			parser = new Parser(file);
+			parser = new Parser(file, myModel);
 			parser.parseXmlFile();
 		}
 		else {

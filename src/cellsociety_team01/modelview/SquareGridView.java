@@ -7,11 +7,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class SquareGrid implements GridView {
+public class SquareGridView implements GridView {
 	int sceneWidth, sceneHeight, rows, cols;
 	double gridCanvasWidth, gridCanvasHeight, cellWidth, cellHeight;
 	
-	public SquareGrid(int sceneWidthIn, int sceneHeightIn, int rowsIn, int colsIn) {
+	public SquareGridView(int sceneWidthIn, int sceneHeightIn, int rowsIn, int colsIn) {
 		sceneWidth = sceneWidthIn;
 		sceneHeight = sceneHeightIn;
 		rows = rowsIn;
