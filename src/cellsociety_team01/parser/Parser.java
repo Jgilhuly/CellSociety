@@ -3,6 +3,8 @@ package cellsociety_team01.parser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import javafx.scene.paint.Color;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -16,6 +18,7 @@ import org.w3c.dom.NodeList;
 
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
+import cellsociety_team01.exceptions.ElementValueException;
 import cellsociety_team01.exceptions.SimulationTypeException;
 import cellsociety_team01.modelview.Grid;
 import cellsociety_team01.simulations.GameOfLife;
@@ -26,6 +29,8 @@ import cellsociety_team01.simulations.SpreadingOfFire;
 
 
 public class Parser {
+	
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/DefVals";
 
 	private File myFile;
 	private Grid myGrid;
@@ -35,8 +40,9 @@ public class Parser {
 	private int myHeight;
 	private Simulation mySim;
 
-	public Parser (File file) {
+	public Parser (File file, Grid grid) {
 		myFile = file;
+		myGrid = grid;
 		myFilename = myFile.getPath();
 	}
 
@@ -62,18 +68,19 @@ public class Parser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		parseInfo((Element)myRoot.getElementsByTagName("info").item(0));
 		parseConfig((Element)myRoot.getElementsByTagName("config").item(0));
 		parseGrid((Element)myRoot.getElementsByTagName("grid").item(0));
 
 	}
 
-	private void parseInfo(Element info) {
-		myGrid.setTitle(getTextValue(info,"name"));
-		myGrid.setAuthor(getTextValue(info,"author"));
-		mySim = makeSim(getTextValue(info,"type"));
-		myGrid.setSimulation(mySim);
+	private void parseInfo(Element info) {		
+		HashMap<String, String> infoMap = getChildValues(info);
+		myGrid.setTitle(infoMap.get("name"));
+		myGrid.setAuthor(infoMap.get("author"));
+		mySim = makeSim(infoMap.get("type"));
+		myGrid.setSimulation(mySim);		
 	}
 
 	private Simulation makeSim(String textValue) {
@@ -104,21 +111,33 @@ public class Parser {
 	}
 
 	private void parseConfig(Element config) {
-		NodeList configList = config.getChildNodes();
-		ArrayList<String> configVars = new ArrayList<String>();
-		for (int i = 0 ; i < configList.getLength() ; i++){
-			if (configList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-				configVars.add(getTextValue(config, configList.item(i).getNodeName()));
+		HashMap<String, String> configMap = getChildValues(config);
+		
+	}
+
+	private HashMap<String, String> getChildValues(Element element) {
+		NodeList nl = element.getChildNodes();
+		HashMap<String, String> values = new HashMap<>();
+		for (int i = 0 ; i < nl.getLength() ; i++){
+			if (nl.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				String tagName = nl.item(i).getNodeName();
+				String tagValue = null;
+				try {
+					tagValue = getTextValue(element, tagName);
+				} catch (ElementValueException e) {
+					tagValue = e.handleException();
+				}
+				values.put(tagName, tagValue);
 			}
 		}
-		mySim.setConfigs(configVars);
+		return values;
 	}
 
 	private void parseGrid(Element grid) {
 		myWidth = Integer.parseInt(grid.getAttribute("width"));
 		myHeight = Integer.parseInt(grid.getAttribute("height"));
 
-		Cell[][] cells = new Cell[myWidth][myHeight];
+		ArrayList<Cell> cells = new ArrayList<Cell>();
 
 		NodeList rowList = grid.getChildNodes();
 		int xcnt = 0;
@@ -130,9 +149,9 @@ public class Parser {
 				for (int j = 0 ; j < cellList.getLength() ; j++) {
 					if (cellList.item(j).getNodeType() == Node.ELEMENT_NODE) {
 						Element cellEl = (Element)cellList.item(j);
-						String color = getTextValue(cellEl,"state");
-						Cell newCell = new Cell(j, i, getState(color));
-						cells[xcnt][ycnt] = newCell;
+//						String color = getTextValue(cellEl,"state");
+//						Cell newCell = new Cell(j, i, getState(color));
+//						cells.add(newCell);
 						xcnt++;
 					}
 				}
@@ -143,14 +162,15 @@ public class Parser {
 		myGrid.updateGrid(cells);
 	}
 
-	private String getTextValue(Element ele, String tagName) {
+	private String getTextValue(Element element, String tagName) throws ElementValueException {
 		String textVal = null;
-		NodeList nl = ele.getElementsByTagName(tagName);
+		NodeList nl = element.getElementsByTagName(tagName);
 		if(nl != null && nl.getLength() > 0) {
 			Element el = (Element)nl.item(0);
 			textVal = el.getFirstChild().getNodeValue();
+		} else {
+			throw new ElementValueException(tagName, DEFAULT_RESOURCE_PACKAGE);
 		}
-
 		return textVal;
 	}
 
