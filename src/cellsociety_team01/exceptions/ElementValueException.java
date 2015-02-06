@@ -5,12 +5,12 @@ import java.util.ResourceBundle;
 public class ElementValueException extends Exception {
 	private static final String myErrorMessage = "Incorect Value Given: ";
 	private String myTag;
-	private ResourceBundle myDefaults;
+	private ResourceBundle myDefVals;
 	
-	public ElementValueException(String tagName, String Def) {
+	public ElementValueException(String tagName, ResourceBundle defVals) {
 		super();
 		setTag(tagName);
-		myDefaults = ResourceBundle.getBundle(Def+"General");
+		myDefVals = defVals;
 	}
 
 	public String errorMessage() {
@@ -28,15 +28,11 @@ public class ElementValueException extends Exception {
 	public String handleException() {
 		System.out.println(myErrorMessage+myTag);
 		String ret = null;
-		if (this.getTag().matches("author|cell_shape|grid_edge|grid_outline|cell_placement|color_scheme|cell_neighbors")){
-			ret = getDefault();
+		if (myDefVals.containsKey(this.getTag())) {
+			ret = myDefVals.getString(this.getTag());
 		} else {
 			this.printStackTrace();
 		}
 		return ret;
-	}
-
-	private String getDefault() {
-		return myDefaults.getString(this.getTag());
 	}
 }

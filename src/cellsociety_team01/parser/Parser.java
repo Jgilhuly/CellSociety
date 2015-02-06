@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javafx.scene.paint.Color;
 
@@ -30,7 +32,7 @@ import cellsociety_team01.simulations.SpreadingOfFire;
 
 public class Parser {
 	
-	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/DefVals";
+	public static final String DEFVALS_RESOURCE_PACKAGE = "resources/DefVals/DefVals";
 
 	private File myFile;
 	private Grid myGrid;
@@ -104,15 +106,20 @@ public class Parser {
 				throw new SimulationTypeException();
 			}
 		} catch (SimulationTypeException e) {
-			System.out.println(e.errorMessage());
-			e.printStackTrace();
+			e.handleException();
 			return null;
 		}
 	}
 
 	private void parseConfig(Element config) {
 		HashMap<String, String> configMap = getChildValues(config);
-		
+		configMap = checkFilled(configMap);
+		//setters for all the different configs
+	}
+
+	private HashMap<String, String> checkFilled(HashMap<String, String> configMap) {
+		//possibly checking for whether element tag is there at all (not just empty)
+		return configMap;
 	}
 
 	private HashMap<String, String> getChildValues(Element element) {
@@ -139,24 +146,13 @@ public class Parser {
 
 		ArrayList<Cell> cells = new ArrayList<Cell>();
 
-		NodeList rowList = grid.getChildNodes();
-		int xcnt = 0;
-		int ycnt = 0;
-		for(int i = 0 ; i < rowList.getLength() ; i++) {
-			if (rowList.item(i).getNodeType() == Node.ELEMENT_NODE)	{
-				Element row = (Element)rowList.item(i);
-				NodeList cellList = row.getChildNodes();
-				for (int j = 0 ; j < cellList.getLength() ; j++) {
-					if (cellList.item(j).getNodeType() == Node.ELEMENT_NODE) {
-						Element cellEl = (Element)cellList.item(j);
-//						String color = getTextValue(cellEl,"state");
-//						Cell newCell = new Cell(j, i, getState(color));
-//						cells.add(newCell);
-						xcnt++;
-					}
-				}
-				xcnt = 0;
-				ycnt++;
+		NodeList cellList = grid.getChildNodes();
+		for(int i = 0 ; i < cellList.getLength() ; i++) {
+			if (cellList.item(i).getNodeType() == Node.ELEMENT_NODE)	{
+				Element cell = (Element)cellList.item(i);
+				//						String color = getTextValue(cellEl,"state");
+				//						Cell newCell = new Cell(j, i, getState(color));
+				//						cells.add(newCell);
 			}
 		}
 		myGrid.updateGrid(cells);
@@ -169,7 +165,8 @@ public class Parser {
 			Element el = (Element)nl.item(0);
 			textVal = el.getFirstChild().getNodeValue();
 		} else {
-			throw new ElementValueException(tagName, DEFAULT_RESOURCE_PACKAGE);
+			ResourceBundle defVals = ResourceBundle.getBundle(DEFVALS_RESOURCE_PACKAGE, new Locale(mySim.getClass().getName()));
+			throw new ElementValueException(tagName, defVals);
 		}
 		return textVal;
 	}
