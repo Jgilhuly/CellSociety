@@ -48,7 +48,8 @@ public class GUI {
 	private int myWidth;
 	private int myHeight;
 
-	public GUI(String language, Stage stageIn) {
+	public GUI(Grid gridIn, String language, Stage stageIn) {
+		myModel = gridIn;
 		myStage = stageIn;
 		myWidth = DEFAULT_SIZE.width;
 		myHeight = DEFAULT_SIZE.height;
