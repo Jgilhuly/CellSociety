@@ -22,7 +22,7 @@ public class Grid {
 	int i = 0; //FOR TESTING
 
 	public Grid() {
-		initialize8Neighbors();
+		initialize4Neighbors();
 	}
 	
 	public void initialize4Neighbors(){
@@ -94,7 +94,7 @@ public class Grid {
 	}
 
 	public void updateGrid(ArrayList<ArrayList<Cell>> cellsIn) {
-		System.out.println(i);
+		System.out.println("UPDATE CYCLE   "+i);
 		i++;
 		cells = cellsIn;
 	}
@@ -118,9 +118,7 @@ public class Grid {
 					(y+(int)p.getY() <= (cells.get(0).size()-1))&&
 					(y+(int)p.getY() >= 0)){
 				ret.add(cells.get(x+(int)p.getX()).get(y+(int)p.getY()));
-				
 			}
-
 		return ret;
 	}
 
@@ -137,26 +135,20 @@ public class Grid {
 	 */
 	public KeyFrame start(double frameRate) {
 		updateRate = frameRate;
-		
-		
 		return new KeyFrame(Duration.millis(1000 / updateRate * 1000), e -> update());
 	}
 	
 	public ArrayList<ArrayList<Cell>> getCells() {
-		 
 		return cells;
 	}
 
 	public void update() {
-		
 		if (simRunning) {			
 			updateGrid(simulation.updateGrid(this));
 			updateCurStates();
 		}
 		myView.update();
-		setNotUpdated();
-		
-		
+		setNotUpdated();	
 	}
 
 	public void setNotUpdated(){	

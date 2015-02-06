@@ -41,10 +41,12 @@ public class State {
 		return myColor;
 	}
 	
-	public int getInt() {
-		return 0;
-	}
+	//public void setInt(int a, int b){}
+	public int getInt(int a){return 0;}
 
-	public void setInt (int i) {
+	public void setInt(int a, int b) {}
+		// TODO Auto-generated method stub
+		
 	}
-}
+	
+

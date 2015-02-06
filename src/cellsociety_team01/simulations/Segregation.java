@@ -43,40 +43,22 @@ public class Segregation extends Simulation {
 	//unwrapped find 4 neighbors
 	//written by John Gilhuly
 
-	public ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col) {
-		ArrayList<Cell> neighbors = new ArrayList<Cell>();
-
-		int rows = cells.length;
-		int cols = cells[0].length;
-
-		if (col < cols-2) {
-			neighbors.add(cells[row][col+1]);
-		}
-		if (col > 0) {
-			neighbors.add(cells[row][col-1]);
-		}
-		if (row > 0) {
-			neighbors.add(cells[row-1][col]);
-		}
-		if (row < rows-2) {
-			neighbors.add(cells[row+1][col]);
-		}
-		return neighbors;
-	}
+	
 	
 	@Override
-	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
+	public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		double k = 0.0;
 			for(Cell c: myNeighbors)
 				if (c.getCurState().equals(cur.getCurState())) //if the neighbors have the same state as you
-					k = k + 1.0;
+					k = k + 1.0; // k = # neighbors that have same state as you
 		
 		if (k/myNeighbors.size() > myConfigs[0])
-			return cur.getCurState();
+			return;
 
 		switchEmptyAdjacent(cur, myNeighbors);
 		
-		return null;
+		
+		return;
 		
 	}
 	
@@ -95,6 +77,8 @@ public class Segregation extends Simulation {
 		cur.setCurState(cur.getNextState());
 		
 		c.setCurState(c.getNextState());
+		cur.setUpdated(true);
+		c.setUpdated(true);
 	}
 	
 	
