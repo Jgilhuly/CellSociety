@@ -6,7 +6,6 @@ import java.util.Collections;
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
-import cellsociety_team01.modelview.Grid;
 import cellsociety_team01.rules.Rule;
 
 public class Simulation {

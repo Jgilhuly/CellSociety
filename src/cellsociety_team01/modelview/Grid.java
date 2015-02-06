@@ -75,7 +75,7 @@ public class Grid {
 	 */
 	public KeyFrame start(double frameRate) {
 		updateRate = frameRate;
-		return new KeyFrame(Duration.millis(1000 / updateRate * 1000), e -> update());
+		return new KeyFrame(Duration.millis(1/updateRate), e -> update());
 	}
 	
 	public ArrayList<Cell> getCells() {

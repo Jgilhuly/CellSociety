@@ -71,7 +71,23 @@ public class GUI {
 	 * 
 	 * @return
 	 */
-	private Node makeButtonsAndSlider() {
+	private Node makeButtonsAndSlider(){
+		setUpSlider();
+		return setUpHBox();
+	}
+	
+	private void setUpSlider() {
+		slider = new Slider();
+		slider.setMin(0);
+		slider.setMax(1000);
+		slider.setValue(500);
+		slider.setShowTickLabels(true);
+		slider.setShowTickMarks(true);
+		slider.setMajorTickUnit(500);
+		slider.setMinorTickCount(10);
+	}
+	
+	private HBox setUpHBox() {
 		HBox result = new HBox();
 		playButton = makeButton("PlayCommand", event -> myModel.play());
 		result.getChildren().add(playButton);
@@ -81,18 +97,8 @@ public class GUI {
 		result.getChildren().add(stepButton);
 		resetButton = makeButton("ResetCommand", event -> reset());
 		result.getChildren().add(resetButton);
-
-		slider = new Slider();
-		slider.setMin(0);
-		slider.setMax(1000);
-		slider.setValue(500);
-		slider.setShowTickLabels(true);
-		slider.setShowTickMarks(true);
-		slider.setMajorTickUnit(500);
-		slider.setMinorTickCount(10);
-
+		
 		result.getChildren().add(slider);
-
 		result.setSpacing(10);
 
 		return result;

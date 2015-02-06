@@ -1,0 +1,7 @@
+Discussion
+
+John asked me (Eric Saba ets18) to look at his GUI, Grid, Main and GridView classes. The code in these classes was very good so I made few changes.
+I made a small change where he made a calculation with some double x as (1000/x*1000). I changed this to 1/x to be more simplified. I also made a few extra
+private methods in GUI to make his makeButtonsAndSlider() method more clean. Near the end of class I decided that his code was fine and didn't need to be
+focused on so I looked at the Simulation class. Just with the glance I got before time was called, this class needs a lot of work. The updateGrid() method
+is really messy and difficult to understand. I think the entire data structure of lists within lists within lists is not a good idea for this project.
