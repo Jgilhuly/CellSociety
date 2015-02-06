@@ -14,7 +14,7 @@ public class Segregation extends Simulation {
 	
 	public Segregation(){
 		super();
-		myConfigs[0] = 0.7; //HARD CODED CONSTANT
+		myConfigs[0] = 0.5; //HARD CODED CONSTANT
 		initialize();
 	}
 	

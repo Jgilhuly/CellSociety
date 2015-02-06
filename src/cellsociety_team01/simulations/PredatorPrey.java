@@ -10,12 +10,12 @@ import cellsociety_team01.CellState.State;
 
 public class PredatorPrey extends Simulation {
 	
-	Random myRandom = new Random();
+	
 	private double[] myConfigs = new double[2];
 	
 	public PredatorPrey(){
 		super();
-		myConfigs[0] = 5; //reproduction threshold for sharks and fish
+		myConfigs[0] = 1; //reproduction threshold for sharks and fish
 		myConfigs[1] = 10; //death threshold for sharks
 		initialize();
 	}
@@ -89,12 +89,14 @@ public class PredatorPrey extends Simulation {
 		cur.getCurState().setInt(0, cur.getCurState().getInt(0) + 1);
 		if(!(cur.getCurState().getInt(0) >= myConfigs[0])) //checking turns since reproducing
 			return;
-		Cell s = findRandomEmptyAdjacent(cur, myNeighbors);
+		Cell s = findRandomAdjacentState(myNeighbors, myStates.get(myStates.size() -1));
+		if(s == null)
+			return;
 		s.setCurState(new IntState(cur.getCurState().getColor(), cur.getCurState().getName(), 2)); // NEEDS to have 2 ints
 		s.getCurState().setInt(0, 0);
 		s.getCurState().setInt(1,0);
 		s.setUpdated(true);
-		cur.setUpdated(true);
+		cur.setUpdated(true); // DO WE NEED THIS?
 		cur.getCurState().setInt(0,0);
 	}
 	
@@ -128,8 +130,8 @@ public class PredatorPrey extends Simulation {
 					return;
 				}}
 		
-// ONLY REACH THIS IF YOU HAVENT EATEN YET
-			Cell s = findRandomEmptyAdjacent(cur, myNeighbors);
+// ONLY REACH THIS IF YOU HAVENT EATEN/BEEN EATEN YET
+			Cell s = findRandomAdjacentState(myNeighbors, myStates.get(myStates.size() -1));
 			
 			if(!(s == null)){
 				cur.setNextState(s.getCurState());
@@ -143,6 +145,7 @@ public class PredatorPrey extends Simulation {
 			}
 			
 			else{
+				
 				cur.setNextState(cur.getCurState());
 				cur.setUpdated(true);
 				return;
@@ -150,16 +153,5 @@ public class PredatorPrey extends Simulation {
 		
 	}
 	
-	public Cell findRandomEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
-		ArrayList<Cell> temp = new ArrayList<Cell>();
-		for (Cell c: myNeighbors)
-			if (!(c.getCurState().equals(new State(null, "kelp")))&&(!(c.isUpdated()))) //REVISE THIS COMPARISON
-				temp.add(c);
-			
-		if(temp.size() == 0)
-			return null;
-		int i  = (int) Math.floor(myRandom.nextDouble()*temp.size());
-		Cell empty = temp.get(i);
-		return empty;
-	}
+
 }

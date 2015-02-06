@@ -2,6 +2,7 @@ package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
@@ -11,6 +12,7 @@ import cellsociety_team01.rules.Rule;
 
 public class Simulation {
 
+	Random myRandom = new Random();
 	protected ArrayList<Rule> myRules;
 	protected ArrayList<State> myStates;
 
@@ -109,6 +111,20 @@ public class Simulation {
 	
 	public State cycleNextState(State s){ // FOR JOHN
 		return myStates.get(myStates.indexOf(s) + 1);
+	}
+	
+	//finds a random adjacent Cell with target State, returns NULL if none
+	public Cell findRandomAdjacentState(ArrayList<Cell> myNeighbors, State target){
+		ArrayList<Cell> temp = new ArrayList<Cell>();
+		for (Cell c: myNeighbors)
+			if (c.getCurState().equals(target)&&(!(c.isUpdated()))) //REVISE THIS COMPARISON
+				temp.add(c);
+			
+		if(temp.size() == 0)
+			return null;
+		int i  = (int) Math.floor(myRandom.nextDouble()*temp.size());
+		Cell empty = temp.get(i);
+		return empty;
 	}
 
 	/*public  ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col){
