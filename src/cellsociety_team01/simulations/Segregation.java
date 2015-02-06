@@ -14,7 +14,7 @@ public class Segregation extends Simulation {
 	
 	public Segregation(){
 		super();
-		myConfigs[0] = 0.5; //HARD CODED CONSTANT
+		myConfigs[0] = 0.7; //HARD CODED CONSTANT
 		initialize();
 	}
 	
@@ -47,36 +47,43 @@ public class Segregation extends Simulation {
 	
 	@Override
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
+		if(cur.isUpdated())
+			return;
+		
+		
 		double k = 0.0;
 			for(Cell c: myNeighbors)
 				if (c.getCurState().equals(cur.getCurState())) //if the neighbors have the same state as you
 					k = k + 1.0; // k = # neighbors that have same state as you
 		
-		if (k/myNeighbors.size() > myConfigs[0])
+		if (k/myNeighbors.size() > myConfigs[0]){
+			cur.setNextState(cur.getCurState());
 			return;
-
+		}
 		switchEmptyAdjacent(cur, myNeighbors);
-		
-		
+
 		return;
-		
-	}
+			}
 	
 	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
 		ArrayList<Cell> temp = new ArrayList<Cell>();
 		for (Cell c: myNeighbors)
-			if (!(c.getCurState().equals(new State(null, "empty")))) //REVISE THIS COMPARISON
+			if ((!(c.getCurState().equals(new State(null, "empty"))))&&(!(c.isUpdated()))) //REVISE THIS COMPARISON
 				temp.add(c);
-			
+		
+		if(temp.size() == 0){
+			cur.setNextState(cur.getCurState());
+			return;
+		}
 		int i  = (int) Math.floor(myRandom.nextDouble()*temp.size());
 		Cell c = temp.get(i);
 		cur.setNextState(c.getCurState());
-		
 		c.setNextState(cur.getCurState());
 		
-		cur.setCurState(cur.getNextState());
+		cur.setCurState(c.getCurState());
+		c.setCurState(cur.getCurState());
 		
-		c.setCurState(c.getNextState());
+		
 		cur.setUpdated(true);
 		c.setUpdated(true);
 	}

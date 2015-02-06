@@ -134,8 +134,9 @@ public class PredatorPrey extends Simulation {
 			if(!(s == null)){
 				cur.setNextState(s.getCurState());
 				s.setNextState(cur.getCurState());
-				cur.setCurState(cur.getCurState());
-				s.setCurState(s.getCurState());
+				
+				cur.setCurState(s.getCurState());
+				s.setCurState(cur.getCurState());
 				s.setUpdated(true);
 				cur.setUpdated(true);
 				return;
