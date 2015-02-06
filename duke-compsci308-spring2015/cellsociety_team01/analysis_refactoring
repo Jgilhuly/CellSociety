@@ -1,0 +1,3 @@
+Patrick Wickham
+
+What I refactored with my code was the method findRandomEmptyAdjacent, which is used by any simulation that handles movement or the consumption of other cells (or anything that involves finding a random empty cell of a certain type). Complete implementation is not complete yet, but this method will be refactored into the master Simulation class, and will allow for calling with a target state (i.e. if you are looking for a random fish vs. a random empty Cell). 
