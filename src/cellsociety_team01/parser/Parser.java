@@ -146,10 +146,23 @@ public class Parser {
 
 		ArrayList<Cell> cells = new ArrayList<Cell>();
 
-		NodeList cellList = grid.getChildNodes();
-		for(int i = 0 ; i < cellList.getLength() ; i++) {
-			if (cellList.item(i).getNodeType() == Node.ELEMENT_NODE)	{
-				Element cell = (Element)cellList.item(i);
+		NodeList gridList = grid.getChildNodes();
+		for(int i = 0 ; i < gridList.getLength() ; i++) {
+			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE)	{
+				Element team = (Element)gridList.item(i);
+				String[] xvals = null;
+				String[] yvals = null;
+				try {
+					xvals = (getTextValue(team, "xvals").split(" "));
+					yvals = (getTextValue(team, "yvals").split(" "));
+				} catch (ElementValueException e) {
+					e.handleException();
+				}
+				for (int j = 0 ; j < xvals.length ; j++ ) {
+					Cell newCell = new Cell(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j]), getState("000000"));
+					cells.add(newCell);
+				}
+				
 				//						String color = getTextValue(cellEl,"state");
 				//						Cell newCell = new Cell(j, i, getState(color));
 				//						cells.add(newCell);

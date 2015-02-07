@@ -13,10 +13,6 @@ public class ElementValueException extends Exception {
 		myDefVals = defVals;
 	}
 
-	public String errorMessage() {
-		return myErrorMessage;
-	}
-
 	public String getTag() {
 		return myTag;
 	}
