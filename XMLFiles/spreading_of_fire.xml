@@ -1,4 +1,4 @@
-<simulation>
+<!DOCTYPE simulation SYSTEM "simulation.dtd"><simulation>
 	<info>
 		<name>Fire Simulation</name>
 		<author>Peter Moseley</author>
@@ -26,7 +26,16 @@
 		<cell x="3" y="0">
 			<state>008000</state>
 		</cell>
-		<cell>
+		<cell x="4" y="0">
+			<state>008000</state>
+		</cell>
+		<cell x="5" y="0">
+			<state>008000</state>
+		</cell>
+		<cell x="6" y="0">
+			<state>008000</state>
+		</cell>
+		<cell x="7" y="0">
 			<state>008000</state>
 		</cell>
 		<cell>
@@ -38,19 +47,10 @@
 		<cell>
 			<state>008000</state>
 		</cell>
-		<cell>
+		<cell x="0" y="1">
 			<state>008000</state>
 		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
+		<cell x="1" y="1">
 			<state>008000</state>
 		</cell>
 		<cell>
