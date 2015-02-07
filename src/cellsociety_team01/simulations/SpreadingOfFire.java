@@ -15,7 +15,7 @@ public class SpreadingOfFire extends Simulation {
 	public SpreadingOfFire(){
 		super();
 		myConfigs = new double[1];
-		myConfigs[0] = 0.99; //HARD CODED CONSTANT
+		myConfigs[0] = 0.5; //HARD CODED CONSTANT
 		initialize();
 	}
 	
@@ -31,7 +31,7 @@ public class SpreadingOfFire extends Simulation {
 		
 		
 		myRules.add(new RandomRule(tree, burning, burning, myConfigs[0]));
-		myRules.add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
+		myRules.add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0)); 
 
 	}
 	
@@ -40,22 +40,20 @@ public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		int k = 0;
 		if (cur.getCurState().equals(r.getStart())){
 			for(Cell c: myNeighbors)
-				if(c.getCurState().equals(r.getCause())) //MAYBE PUT THE "UPDATED" CHECK IN GETNEIGHBORS?
+				if(c.getCurState().equals(r.getCause())) 
 					k++;
 			if(r.applies(k)){
-				System.out.println("RULE APPLIED");
 				cur.setNextState(r.getEnd());
-				setUpdated(cur);
 				return;
+				}
 			}
 		}
-	}
-	cur.setNextState(cur.getCurState());
+		cur.setNextState(cur.getCurState());
 	}
 	
-	public void setConfigs(ArrayList<String> configs){
-		myConfigs = new double[configs.size()];
-		for(int i = 0; i< configs.size(); i++)
-			myConfigs[i] = Double.parseDouble(configs.get(i));
-	}
+public void setConfigs(ArrayList<String> configs){
+	myConfigs = new double[configs.size()];
+	for(int i = 0; i< configs.size(); i++)
+		myConfigs[i] = Double.parseDouble(configs.get(i));
+}
 }

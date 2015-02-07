@@ -15,7 +15,7 @@ public class PredatorPrey extends Simulation {
 	
 	public PredatorPrey(){
 		super();
-		myConfigs[0] = 1; //reproduction threshold for sharks and fish
+		myConfigs[0] = 9; //reproduction threshold for sharks and fish
 		myConfigs[1] = 10; //death threshold for sharks
 		initialize();
 	}
@@ -36,17 +36,20 @@ public class PredatorPrey extends Simulation {
 		myStates.add(shark);
 		myStates.add(fish);
 		myStates.add(ocean);
+		
+		
 	}
 	
 	private void eat (Cell fish, Cell shark){
-		/*shark.getCurState().setInt(1, 0); // resetting turns since eaten
-*/		fish.setNextState(shark.getCurState());
+		//shark.getCurState().setInt(1, 0); // resetting turns since eaten
+		 fish.setCurState(shark.getCurState());
+    	fish.setNextState(shark.getCurState());
 		shark.setNextState(myStates.get(myStates.size()-1)); //GOOD WAY TO DO THIS?
 		shark.setCurState(myStates.get(myStates.size()-1)); //config: a shark's vacated place CAN be taken immediately by the another object
 		
 		fish.getNextState().setInt(1, 0); //resetting turns since eaten
 		fish.setUpdated(true); //config: BUT, the place it takes IS updated
-		System.out.println("EAT");
+	
 		/*fish.setCurState(fish.getNextState());
 		shark.setCurState(shark.getNextState());*/
 	}
@@ -64,11 +67,7 @@ public class PredatorPrey extends Simulation {
 	}*/
 	
 	private void updateAlive(Cell cur){
-		//THROWS ERROR -- 
-		//next state is null on first cycle
-		System.out.println(cur.getCurState().getName() + cur.getCurState().getInt(1));
 		cur.getCurState().setInt(1, (cur.getCurState().getInt(1) + 1)); //update turns since eating
-
 		if((cur.getCurState().getInt(1) >= myConfigs[1])){ //killing off if turns since eaten is too big
 			cur.setCurState(new IntState(Color.BLUE, "ocean", 2));
 			cur.setNextState(new IntState(Color.BLUE, "ocean", 2));	
@@ -86,15 +85,18 @@ public class PredatorPrey extends Simulation {
 		}
 	
 	private void checkReproduce(Cell cur, ArrayList<Cell> myNeighbors){
+		
+		System.out.println(cur.getCurState().getInt(0));
+		
 		cur.getCurState().setInt(0, cur.getCurState().getInt(0) + 1);
 		if(!(cur.getCurState().getInt(0) >= myConfigs[0])) //checking turns since reproducing
 			return;
 		Cell s = findRandomAdjacentState(myNeighbors, myStates.get(myStates.size() -1));
 		if(s == null)
 			return;
-		s.setCurState(new IntState(cur.getCurState().getColor(), cur.getCurState().getName(), 2)); // NEEDS to have 2 ints
-		s.getCurState().setInt(0, 0);
-		s.getCurState().setInt(1,0);
+		s.setNextState(new IntState(cur.getCurState().getColor(), cur.getCurState().getName(), 2)); // NEEDS to have 2 ints
+		s.getNextState().setInt(0, 0);
+		s.getNextState().setInt(1,0);
 		s.setUpdated(true);
 		cur.setUpdated(true); // DO WE NEED THIS?
 		cur.getCurState().setInt(0,0);
@@ -145,7 +147,6 @@ public class PredatorPrey extends Simulation {
 			}
 			
 			else{
-				
 				cur.setNextState(cur.getCurState());
 				cur.setUpdated(true);
 				return;

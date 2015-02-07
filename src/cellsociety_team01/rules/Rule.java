@@ -16,6 +16,14 @@ public class Rule {
 		
 	}
 	
+	public void update(Cell cur){
+		if(cur.isUpdated())
+			return;
+		
+		
+		
+	}
+	
 	public State getStart(){
 		return myStart;
 	}

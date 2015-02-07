@@ -14,16 +14,13 @@ public class Segregation extends Simulation {
 	
 	public Segregation(){
 		super();
-		myConfigs[0] = 0.5; //HARD CODED CONSTANT
+		myConfigs[0] = 0.74; //HARD CODED CONSTANT
 		initialize();
 	}
 	
 	private void initialize(){
 		
 		myRandom = new Random();
-	    //RACE IS THE STATE, SATISFIED WILL BE THE STRING'
-		//RACE MUST BE THE STATE FOR THE GUI'S SAKE
-		//CURRENTLY ONLY SUPPORTS 2 STATES (RACES)
 		
 		State race1 = new State(Color.RED, "race1");
 		State race2 = new State(Color.BLUE, "race2");
@@ -43,27 +40,26 @@ public class Segregation extends Simulation {
 	//unwrapped find 4 neighbors
 	//written by John Gilhuly
 
-	
-	
+
 	@Override
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		if(cur.isUpdated())
 			return;
-		
 		
 		double k = 0.0;
 			for(Cell c: myNeighbors)
 				if (c.getCurState().equals(cur.getCurState())) //if the neighbors have the same state as you
 					k = k + 1.0; // k = # neighbors that have same state as you
 		
-		if (k/myNeighbors.size() > myConfigs[0]){
+		if (k/myNeighbors.size() >= myConfigs[0]){
 			cur.setNextState(cur.getCurState());
+			cur.setUpdated(true);
 			return;
 		}
 		switchEmptyAdjacent(cur, myNeighbors);
 
 		return;
-			}
+	}
 	
 	public void switchEmptyAdjacent(Cell cur, ArrayList<Cell> myNeighbors){
 		ArrayList<Cell> temp = new ArrayList<Cell>();
@@ -77,6 +73,12 @@ public class Segregation extends Simulation {
 		}
 		int i  = (int) Math.floor(myRandom.nextDouble()*temp.size());
 		Cell c = temp.get(i);
+		//Cell c = findRandomAdjacentState(myNeighbors, myStates.get(myStates.size() -1));
+		if(c == null)
+		{
+			cur.setNextState(cur.getCurState());
+			return;
+		}
 		cur.setNextState(c.getCurState());
 		c.setNextState(cur.getCurState());
 		
@@ -84,7 +86,6 @@ public class Segregation extends Simulation {
 		c.setCurState(cur.getCurState());
 		
 		
-		cur.setUpdated(true);
 		c.setUpdated(true);
 	}
 	

@@ -8,12 +8,17 @@ public class IntState extends State {
 	public IntState(Color c, String s, int i){
 		super(c, s);
 		stateNums = new int[i];
-		stateNums[0] = Integer.MIN_VALUE;
-		stateNums[1] = Integer.MIN_VALUE;
+		stateNums[0] = 0; // IS IT OKAY TO HAVE THESE HARD CODED?
+		stateNums[1] = 0;
 	}
 
 	public int[] getStateNums() {
 		return stateNums;
+	}
+	
+	public void setAllInts(int c){
+		for(int a: stateNums)
+			a = c;
 	}
 	
 	public int getInt(int i){
