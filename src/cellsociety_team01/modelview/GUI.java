@@ -4,26 +4,20 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.parser.Parser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -47,19 +41,24 @@ public class GUI {
 	private File file;
 	private int myWidth;
 	private int myHeight;
+	private int numRows;
+	private int numCols;
 
 	public GUI(Grid gridIn, String language, Stage stageIn) {
 		myModel = gridIn;
 		myStage = stageIn;
 		myWidth = DEFAULT_SIZE.width;
 		myHeight = DEFAULT_SIZE.height;
+		
+		numRows = 10; // CHANGE THIS
+		numCols = 10;
 
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
 				+ language);
 		BorderPane root = new BorderPane();
 		root.setBottom(makeButtonsAndSlider());
 		root.setTop(makeMenuBar());
-		root.setCenter(makeGrid(myWidth, myHeight, 10, 10));
+		root.setCenter(makeGrid(myWidth, myHeight, numRows, numCols));
 
 		enableButtons();
 
@@ -149,6 +148,7 @@ public class GUI {
 	private Node makeGrid(int sceneWidth, int sceneHeight, int rows, int cols) {
 		gridView = new SquareGridView(sceneWidth, sceneHeight, rows, cols);
 		gridCanvas = gridView.makeGrid(new Canvas(sceneWidth/1.5, sceneHeight/1.5));
+		gridCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> cellClicked(e));
 		return gridCanvas;
 	}
 
@@ -206,8 +206,13 @@ public class GUI {
 	 * 
 	 * @param t
 	 */
-	private void cellClicked(Cell cell) {
-		
+	private void cellClicked(MouseEvent e) {
+		double x = e.getX();
+		double y = e.getY();
+		System.out.println(x + ", " + y);
+		int cellX = (int) (x / (gridCanvas.getWidth()/numCols));
+		int cellY = (int) (y / (gridCanvas.getHeight()/numRows));
+		System.out.println(cellX + ", " + cellY);
 	}
 
 	/**
