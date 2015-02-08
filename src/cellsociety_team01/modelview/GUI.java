@@ -4,12 +4,14 @@ import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
 
-import cellsociety_team01.parser.Parser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -20,9 +22,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import cellsociety_team01.parser.Parser;
 
 public class GUI {
-	public static final Dimension DEFAULT_SIZE = new Dimension(800, 600);
+	public static final Dimension DEFAULT_SIZE = new Dimension(1200, 800);
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 
 	private Scene myScene;
@@ -59,10 +62,34 @@ public class GUI {
 		root.setBottom(makeButtonsAndSlider());
 		root.setTop(makeMenuBar());
 		root.setCenter(makeGrid(myWidth, myHeight, numRows, numCols));
+		root.setRight(makeGraph());
+//		root.setLeft(makePrefPanel());
 
 		enableButtons();
 
 		myScene = new Scene(root, myWidth, myHeight);
+	}
+
+	private Node makePrefPanel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Node makeGraph() {
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Number of Month");
+        LineChart<Number,Number> lineChart = 
+                new LineChart<Number,Number>(xAxis,yAxis);
+                
+        lineChart.setTitle("Stock Monitoring, 2010");
+        XYChart.Series series = new XYChart.Series();
+        series.setName("My portfolio");
+        series.getData().add(new XYChart.Data(1, 23));
+        
+        lineChart.getData().add(series);
+        
+		return lineChart;
 	}
 
 	/**

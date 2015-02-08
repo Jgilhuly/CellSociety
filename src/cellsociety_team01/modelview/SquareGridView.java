@@ -32,11 +32,11 @@ public class SquareGridView implements GridView {
 		cellHeight = gridCanvasHeight/rows;	
 		
 		gContext.setFill(Color.BLACK);
-		for (int i = 0; i < cols; i ++) {
+		for (int i = 0; i <= cols; i ++) {
 			gContext.fillRect(cellWidth*i, 0, 1, gridCanvasHeight);
 		}
 		
-		for (int i = 0; i < rows; i ++) {
+		for (int i = 0; i <= rows; i ++) {
 			gContext.fillRect(0, cellHeight*i, gridCanvasWidth, 1);
 		}
 		
