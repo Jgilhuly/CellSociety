@@ -36,11 +36,9 @@ public class SpreadingOfFire extends Simulation {
 	}
 	
 public void update(Cell cur, ArrayList<Cell> myNeighbors){
-	
 	for (Rule r: myData.get(cur.getCurState())){
 		r.apply(cur, myNeighbors);
 			}
-	
 	if(!cur.isUpdated())
 		cur.setNextState(cur.getCurState());
 	}

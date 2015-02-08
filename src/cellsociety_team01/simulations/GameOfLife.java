@@ -16,12 +16,8 @@ public class GameOfLife extends Simulation{
 		super();
 		initialize();
 	}
-	
-	//BLACK = ALIVE
-	//WHITE = DEAD
-	
+
 	private void initialize(){
-		
 		State dead = new State(Color.WHITE, "Dead");
 		State alive = new State(Color.BLACK, "Alive");
 		
@@ -32,36 +28,15 @@ public class GameOfLife extends Simulation{
 		myData.get(alive).add(new ThresholdRule(alive, alive, alive, 2, 3));
 		myData.get(alive).add(new ThresholdRule(alive, dead, alive, 4, 8));
 		myData.get(dead).add(new ThresholdRule(dead, alive, alive, 3, 3));
-
 	}
 	
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
-		for (Rule r: myData.get(cur.getCurState())){ // relatively Important bug fix - call get with the STATE, and not the CELL
-			r.apply(cur,myNeighbors);
-			
-		}
+		for (Rule r: myData.get(cur.getCurState())) // relatively Important bug fix - call get with the STATE, and not the CELL
+			r.apply(cur,myNeighbors);	
 		
 		if(!cur.isUpdated())
-			cur.setNextState(cur.getCurState());
-		
-			/*int k = 0;
-				for(Cell c: myNeighbors)
-					if(c.getCurState().equals(r.getCause()))
-						k++;
-				if(r.applies(k)){
-					System.out.println("RULE APPLIED");
-					cur.setNextState(r.getEnd());
-					setUpdated(cur);
-					return;
-				}*/
-			
-		
-		/*cur.setNextState(cur.getCurState());*/
+			cur.setNextState(cur.getCurState());	
 		}
-	
-	//unwrapped find 8 neighbors 
-	//written by John Gilhuly
-	
 	}
 
 

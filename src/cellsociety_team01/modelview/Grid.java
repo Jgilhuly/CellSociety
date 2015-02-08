@@ -22,7 +22,7 @@ public class Grid {
 	int i = 0; //FOR TESTING
 
 	public Grid() {
-		initialize8Neighbors();
+		initialize4Neighbors();
 	}
 	
 	public void initialize4Neighbors(){
@@ -144,8 +144,6 @@ public class Grid {
 
 	public void update() {
 		if (simRunning) {	
-			//myView.update(); // CHANGED because this way there is NO possibility of the GUI ever getting NULL current cells
-			//Issue was that it would updateCurStates BEFORE updating the View (thus forcing a null into curState on the first cycle), so I rearranged it
 			updateGrid(simulation.updateGrid(this));
 			updateCurStates();
 		}

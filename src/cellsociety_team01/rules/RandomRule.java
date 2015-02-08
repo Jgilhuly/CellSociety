@@ -19,22 +19,18 @@ public class RandomRule extends ChangingRule{
 	}
 	
 	public void apply(Cell cur, ArrayList<Cell> myNeighbors){
-		//if(cur.isUpdated = true)
+		if(cur.isUpdated()) return;
 		int k = 0;
+		
 		for(Cell c: myNeighbors)
 			if(c.getCurState().equals(myCause)) //MAYBE PUT THE "UPDATED" CHECK IN GETNEIGHBORS?
 				k++;
 			
 		if(applies(k)){
-			System.out.println("RANDOM RULE APPLIED");
 			cur.setNextState(myEnd);
 			cur.setUpdated(true);
 			return;
 			}
-		
-		/*else{
-			cur.setNextState(cur.getCurState());	
-			}*/
 	}
 	
 	public boolean applies(int k){
@@ -47,6 +43,5 @@ public class RandomRule extends ChangingRule{
 			k--;
 		}
 		return false;
-
 	}
 }

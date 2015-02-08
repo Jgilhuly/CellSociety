@@ -32,13 +32,12 @@ public class ThresholdMovementRule extends MovementRule{
 		
 		
 		System.out.println(numSimilarNeighbors + " / " + numNonEmptyNeighbors);
-		//if((numSimilarNeighbors/numNonEmptyNeighbors) >= myThreshold) return; not sure which to use...
-		if((numSimilarNeighbors/myNeighbors.size()) >= myThreshold) return;
+		//if((numSimilarNeighbors/numNonEmptyNeighbors) >= myThreshold) return; 
+		if((numSimilarNeighbors/myNeighbors.size()) >= myThreshold) return; //not sure which to use... percent of ALL neighbors of of REAL neighbors? (Currently of ALL)
 		
 		System.out.println("MOVEMENT THRESHOLD REACHED");
 		
 		Cell c = findRandomAdjacent(myTargetState, myNeighbors);
-		
 		
 		if(!(c == null)){
 			switchStatesUpdated(c, cur, true, false); // correctly configured call to swap an object and an empty spot to allow the vacated spot to be accessed

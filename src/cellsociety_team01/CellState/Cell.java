@@ -12,7 +12,6 @@ public class Cell {
 	
 	private State myCurState;
 	private State myNextState;
-	//private State myState;
 	private boolean updated;
 
 	public Cell(int x, int y, State s){
@@ -21,7 +20,6 @@ public class Cell {
 		
 		myCurState = s;
 		myNextState = null;
-		//myState = s;
 	}
 	
 	public void setUpdated(boolean target){

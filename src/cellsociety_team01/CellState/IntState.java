@@ -16,7 +16,7 @@ public class IntState extends State {
 	}
 	
 	public void initialize(){
-		for(int a : stateNums)
+		for(@SuppressWarnings("unused") int a : stateNums)
 			a = 0;
 		return;
 	}

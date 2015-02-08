@@ -13,20 +13,5 @@ public class TimedStatusRule extends ChangingRule{
 		myDataIndex = dataIndex;
 		
 	}
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
