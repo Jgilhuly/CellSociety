@@ -75,4 +75,5 @@ public class Cell {
 		myNextState = s;
 	}
 
+	
 }

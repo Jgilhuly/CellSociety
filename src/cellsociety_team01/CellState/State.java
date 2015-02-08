@@ -60,6 +60,10 @@ public class State {
 	}
 		
 	public String getDemonym(){return null;}
-	}
+	
+
+	public boolean getFunc(){
+		return false;
+	}}
 	
 
