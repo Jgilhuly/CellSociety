@@ -5,45 +5,45 @@ import cellsociety_team01.simulations.Simulation;
 
 public class Cell {
 
-	private int myX;
-	private int myY;
+	private int myID;
 	private State myCurState;
 	private State myNextState;
+	private ArrayList<Cell> myNeighbors;
 
-	public Cell(int x, int y, State s) {
-		myX = x;
-		myY = y;
+	public Cell(int i, State s) {
+		myID = i;
 		myCurState = s;
 		myNextState = null;
+		myNeighbors = new ArrayList<Cell>();
 	}
 
 	public void update() {
 		myCurState = myNextState;
 	}	
 
-	public void findNextState(ArrayList<Cell> cellArray, Simulation sim) {
-		State s = sim.applyRules(this, cellArray);
+	public void findNextState(Simulation sim) {
+		State s = sim.applyRules(this, myNeighbors);
 		if (s != null) {
 			myNextState = s;
 		}
 	}	
 
-	public void setX(int x) {
-		myX = x;
+	public void addNeighbor(Cell c) {
+		myNeighbors.add(c);
 	}
 
-	public void setY(int y) {
-		myY = y;
+	public ArrayList<Cell> getNeighbors() {
+		return myNeighbors;
 	}
 
-	public int getX() {
-		return myX;
+	public void setID(int i) {
+		myID = i;
 	}
 
-	public int getY() {
-		return myY;
+	public int getID() {
+		return myID;
 	}
-
+	
 	public State getCurState() {
 		return myCurState;
 	}
