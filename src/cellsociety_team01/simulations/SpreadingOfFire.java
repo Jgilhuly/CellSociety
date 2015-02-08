@@ -25,35 +25,27 @@ public class SpreadingOfFire extends Simulation {
 		State tree = new State(Color.GREEN, "tree");
 		State empty = new State(Color.YELLOW, "empty");
 		
-		myStates.add(tree);
-		myStates.add(burning);
-		myStates.add(empty);
 		
-		
-		myRules.add(new RandomRule(tree, burning, burning, myConfigs[0]));
-		myRules.add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0)); //RANDOM WITH 1.0 = ABSOLUTE
+		myData.put(tree, new ArrayList<Rule>());
+		myData.put(burning, new ArrayList<Rule>());
+		myData.put(empty, new ArrayList<Rule>());
 
+		myData.get(tree).add(new RandomRule(tree, burning, burning, myConfigs[0]));
+		myData.get(burning).add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0));
+		
 	}
 	
 public void update(Cell cur, ArrayList<Cell> myNeighbors){
-	for (Rule r: myRules){
-		int k = 0;
-		if (cur.getCurState().equals(r.getStart())){
-			for(Cell c: myNeighbors)
-				if(c.getCurState().equals(r.getCause())) //MAYBE PUT THE "UPDATED" CHECK IN GETNEIGHBORS?
-					k++;
-			if(r.applies(k)){
-				System.out.println("RULE APPLIED");
-				cur.setNextState(r.getEnd());
-				setUpdated(cur);
-				return;
+	
+	for (Rule r: myData.get(cur.getCurState())){
+		r.apply(cur, myNeighbors);
 			}
-		}
-	}
-	cur.setNextState(cur.getCurState());
+	
+	if(!cur.isUpdated())
+		cur.setNextState(cur.getCurState());
 	}
 	
-	public void setConfigs(ArrayList<String> configs){
+public void setConfigs(ArrayList<String> configs){
 		myConfigs = new double[configs.size()];
 		for(int i = 0; i< configs.size(); i++)
 			myConfigs[i] = Double.parseDouble(configs.get(i));

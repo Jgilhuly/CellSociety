@@ -2,6 +2,12 @@ package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
@@ -11,12 +17,14 @@ import cellsociety_team01.rules.Rule;
 
 public class Simulation {
 
-	protected ArrayList<Rule> myRules;
-	protected ArrayList<State> myStates;
+	//protected ArrayList<Rule> myRules;
+	//protected ArrayList<State> myStates;
+	protected Map<State, ArrayList<Rule>> myData;
 
 	public Simulation(){
-		myRules = new ArrayList<Rule>();
-		myStates = new ArrayList<State>();
+//		myRules = new ArrayList<Rule>();
+//		myStates = new ArrayList<State>();
+		myData = new LinkedHashMap<State, ArrayList<Rule>>();
 	}
 
 	//default implementation - used for SoF and GoL
@@ -45,10 +53,10 @@ public class Simulation {
 								grid.getNeighbors(c));				
 					}*/
 		
-		for (State s: myStates) 
+		for (State s: myData.keySet()) 
 			for (ArrayList<Cell> a: g) 
 				for (Cell cur: a){ // cur = each cell in the grid
-					if ((cur.getCurState().equals(s))){
+					if ((cur.getCurState().equals(s))){ // THIS SHOULD take both types of RACE at one time
 						update(cur, grid.getNeighbors(cur));				
 					}}
 		return g;
@@ -94,26 +102,25 @@ public class Simulation {
 		//System.out.println("INCOMING COLOR:");
 		//System.out.println(c.getRed() + "  " + c.getBlue() + "  " + c.getGreen());
 		//System.out.println("myStates:");
-		for (State s: myStates){
+		for (State s: myData.keySet()){
 			//System.out.println(s.getName() + "  " +s.getColor().getRed()+ "  " + s.getColor().getBlue() + "  "+ s.getColor().getGreen());
-			if(colorEquals(c, s.getColor()))//if(s.getColor().equals(c))
-				return s;
+			if(colorEquals(c, s.getColor())){//if(s.getColor().equals(c))
+				System.out.println(s.getName() + "  " + s.getDemonym());
+				return s;}
 		}
 
 		return new State(Color.BLACK, "test");//new State(Color.WHITE, "white"); // MIGHT CAUSE PROBLEMS IF THE COLORS DON'T COMPARE WELL
 	}
 	
-	public ArrayList<State> getStates(){ //FOR JOHN
-		return myStates;
+	public Set<State> getStates(){ //FOR JOHN
+		return myData.keySet();
 	}
 	
-	public State cycleNextState(State s){ // FOR JOHN
-		return myStates.get(myStates.indexOf(s) + 1);
+	public State cycleNextState(State s){ // MAKE SURE THIS WORKS
+		
+
+		return (State) java.util.Arrays.asList(myData.keySet().toArray()).get(java.util.Arrays.asList(myData.keySet().toArray()).indexOf(s) + 1);
 	}
 
-	/*public  ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col){
-		return null;
-	}
-*/
 
 }

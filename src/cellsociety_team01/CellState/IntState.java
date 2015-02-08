@@ -8,8 +8,29 @@ public class IntState extends State {
 	public IntState(Color c, String s, int i){
 		super(c, s);
 		stateNums = new int[i];
-		stateNums[0] = Integer.MIN_VALUE;
-		stateNums[1] = Integer.MIN_VALUE;
+		initialize();
+	}
+	
+	public State newInstanceOf(){
+		return new IntState(myColor, myName, stateNums.length);
+	}
+	
+	public void initialize(){
+		for(int a : stateNums)
+			a = 0;
+		return;
+	}
+	
+	public boolean equals(State s) {
+		return super.equals(s);
+	}
+	
+	public int hashCode() {
+		return super.hashCode();
+	}
+	
+	public int getNumVars(){
+		return stateNums.length;
 	}
 
 	public int[] getStateNums() {

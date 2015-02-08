@@ -34,16 +34,7 @@ public class Cell {
 		return updated;
 	}
 
-	/*public void update() {
-		myCurState = myNextState;
-	}	*/
 
-	/*public void findNextState(ArrayList<Cell> cellArray, Simulation sim) {
-		State s = sim.applyRules(this, cellArray);
-		if (s != null) {
-			myCurState = s;
-		}
-	}*/	
 
 	public void setX(int x) {
 		myX = x;
@@ -85,13 +76,5 @@ public class Cell {
 		
 		myNextState = s;
 	}
-	
-	/*public State getState(){
-		return myState;
-	}
-	
-	public void setState(State s){
-		myState = s;
-	}*/
 
 }
