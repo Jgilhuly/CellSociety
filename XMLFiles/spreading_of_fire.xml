@@ -2,7 +2,7 @@
 	<info>
 		<name>Fire Simulation</name>
 		<author>Peter Moseley</author>
-		<rule>Fire</rule>
+		<type>Fire</type>
 	</info>
 	<config>
 		<cell_shape>Square</cell_shape>

@@ -2,7 +2,7 @@
 	<info>
 		<name>Predator-Prey Simulation</name>
 		<author>Peter Moseley</author>
-		<rule>PredatorPrey</rule>
+		<type>PredatorPrey</type>
 	</info>
 	<config>
 		<cell_shape>Square</cell_shape>

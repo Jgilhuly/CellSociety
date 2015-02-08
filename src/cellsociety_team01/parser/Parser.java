@@ -32,15 +32,19 @@ import cellsociety_team01.simulations.SpreadingOfFire;
 
 public class Parser {
 	
-	public static final String DEFVALS_RESOURCE_PACKAGE = "resources/DefVals/DefVals";
+	private static final String DEFVALS_RESOURCE_PACKAGE = "resources/DefVals/DefVals";
+	private static final String COLORSCHEME_RESOURCE_PACKAGE = "resources/ColorScheme/ColorScheme";
+	private ResourceBundle myDefVals;
+	private ResourceBundle myColorScheme;
 
 	private File myFile;
 	private Grid myGrid;
 	private String myFilename;
 	private Element myRoot;
+	private Simulation mySim;
+	private String myCellPlacement;
 	private int myWidth;
 	private int myHeight;
-	private Simulation mySim;
 
 	public Parser (File file, Grid grid) {
 		myFile = file;
@@ -82,6 +86,7 @@ public class Parser {
 		myGrid.setTitle(infoMap.get("name"));
 		myGrid.setAuthor(infoMap.get("author"));
 		mySim = makeSim(infoMap.get("type"));
+		myDefVals = ResourceBundle.getBundle(DEFVALS_RESOURCE_PACKAGE, new Locale(mySim.getClass().getName()));
 		myGrid.setSimulation(mySim);		
 	}
 
@@ -115,6 +120,12 @@ public class Parser {
 		HashMap<String, String> configMap = getChildValues(config);
 		configMap = checkFilled(configMap);
 		//setters for all the different configs
+//		myGrid.setShape(configMap.get("cell_shape"));
+//		myGrid.setEdge(configMap.get("grid_edge"));
+//		myGrid.setOutline(configMap.get("grid_outline"));
+		myCellPlacement = configMap.get("cell_placement");
+		myColorScheme = ResourceBundle.getBundle(COLORSCHEME_RESOURCE_PACKAGE, new Locale(configMap.get("color_scheme")));
+//		myGrid.setNeighbors(configMap.get("cell_neighbors"));
 	}
 
 	private HashMap<String, String> checkFilled(HashMap<String, String> configMap) {
@@ -144,28 +155,38 @@ public class Parser {
 		myWidth = Integer.parseInt(grid.getAttribute("width"));
 		myHeight = Integer.parseInt(grid.getAttribute("height"));
 
-		ArrayList<Cell> cells = new ArrayList<Cell>();
+		Cell[][] cells = new Cell[myWidth][myHeight];
 
 		NodeList gridList = grid.getChildNodes();
 		for(int i = 0 ; i < gridList.getLength() ; i++) {
 			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE)	{
 				Element team = (Element)gridList.item(i);
-				String[] xvals = null;
-				String[] yvals = null;
-				try {
-					xvals = (getTextValue(team, "xvals").split(" "));
-					yvals = (getTextValue(team, "yvals").split(" "));
-				} catch (ElementValueException e) {
-					e.handleException();
+				if (myCellPlacement.equals("Given")) {
+					String[] xvals = null;
+					String[] yvals = null;
+					try {
+						xvals = (getTextValue(team, "xvals").split(" "));
+						yvals = (getTextValue(team, "yvals").split(" "));
+					} catch (ElementValueException e) {
+						e.handleException();
+					}
+					for (int j = 0 ; j < xvals.length ; j++ ) {
+						Cell newCell = new Cell(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j]),
+								getState(myColorScheme.getString(team.getNodeName())));
+						cells[Integer.parseInt(xvals[j])][Integer.parseInt(yvals[j])] = newCell;
+					}
+				} else if (myCellPlacement.equals("Random")) {
+					
 				}
-				for (int j = 0 ; j < xvals.length ; j++ ) {
-					Cell newCell = new Cell(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j]), getState("000000"));
-					cells.add(newCell);
+			}
+		}
+		//fill excess empties
+		for (int i = 0 ; i < myWidth ; i++) {
+			for (int j = 0 ; j < myHeight ; j++) {
+				if (cells[i][j] == null) {
+					Cell newCell = new Cell(i, j, getState(myColorScheme.getString("empty")));
+					cells[i][j] = newCell;
 				}
-				
-				//						String color = getTextValue(cellEl,"state");
-				//						Cell newCell = new Cell(j, i, getState(color));
-				//						cells.add(newCell);
 			}
 		}
 		myGrid.updateGrid(cells);
@@ -178,8 +199,7 @@ public class Parser {
 			Element el = (Element)nl.item(0);
 			textVal = el.getFirstChild().getNodeValue();
 		} else {
-			ResourceBundle defVals = ResourceBundle.getBundle(DEFVALS_RESOURCE_PACKAGE, new Locale(mySim.getClass().getName()));
-			throw new ElementValueException(tagName, defVals);
+			throw new ElementValueException(tagName, myDefVals);
 		}
 		return textVal;
 	}
