@@ -124,21 +124,29 @@ public class Parser {
 	}
 
 	private void parseConfig(Element config) {
-		HashMap<String, String> configMap = getChildValues(config);
-		configMap = checkFilled(configMap);
-		//setters for all the different configs
-//		myGrid.setShape(configMap.get("cell_shape"));
-//		myGrid.setEdge(configMap.get("grid_edge"));
-//		myGrid.setOutline(configMap.get("grid_outline"));
+		Map<String, String> configMap = getChildValues(config);
+//		configMap = checkFilled(configMap);
+		Map<String, String> gridConfigMap = new HashMap<>();
+		Map<String, String> simConfigMap = new HashMap<>();
+		for (String s : configMap.keySet()) {
+			if (s.startsWith("grid")) {
+				gridConfigMap.put(s, configMap.get(s));
+			} else if (s.startsWith("sim")) {
+				simConfigMap.put(s, configMap.get(s));
+			}
+		}
+		myGrid.setConfigs(gridConfigMap);
+		mySim.setConfigs(simConfigMap);
+
 		myCellPlacement = configMap.get("cell_placement");
 		myColorScheme = ResourceBundle.getBundle(COLORSCHEME_RESOURCE_PACKAGE, new Locale(configMap.get("color_scheme")));
-//		myGrid.setNeighbors(configMap.get("cell_neighbors"));
 	}
 
-	private HashMap<String, String> checkFilled(HashMap<String, String> configMap) {
-		//possibly checking for whether element tag is there at all (not just empty)
-		return configMap;
-	}
+//	private HashMap<String, String> checkFilled(Map<String, String> configMap) {
+//		//possibly checking for whether element tag is there at all (not just empty)
+//
+//		return configMap;
+//	}
 
 	private HashMap<String, String> getChildValues(Element element) {
 		NodeList nl = element.getChildNodes();
@@ -170,7 +178,6 @@ public class Parser {
 		} else if (myCellPlacement.equals("Random")) {
 			placeRandomCells(gridList);
 		}
-		//fill excess empties
 		try {
 			checkCells();
 		} catch (CellLocationException e) {
@@ -178,43 +185,30 @@ public class Parser {
 			fillMap("empty", 1.0);
 		}
 
-//		myGrid.updateGrid(myCells);
+		for (Cell c : myCells.values()) {
+			myGrid.setNeighbors(mySim.getNeighbors(c));
+		}
+
+		myGrid.updateGrid((ArrayList<Cell>) myCells.values());
 	}
 
 	private void checkCells() throws CellLocationException {
 		for (Pair xy : myCells.keySet()) {
-			if (myCells.get(xy) == null) {
+			if ((myCells.get(xy) == null) ||
+					(xy.getX() < 0) || (xy.getX() >= myWidth) ||
+					(xy.getY() < 0) || (xy.getY() >= myHeight)) {
 				throw new CellLocationException();
 			}
 		}
 	}
 
 	private void placeRandomCells(NodeList gridList) {
-//		for (int i = 0 ; i < gridList.getLength() ; i++) {
-//			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-//				Element team = (Element)gridList.item(i);
-//				fillMap(team.getNodeName(), myRandom.nextDouble());
-//		ArrayList<Cell> cells = new ArrayList<Cell>();
-//
-//		NodeList rowList = grid.getChildNodes();
-//		
-//		for(int i = 0 ; i < rowList.getLength() ; i++) {
-//			if (rowList.item(i) instanceof Element == false)
-//				continue;
-//			Element row = (Element)rowList.item(i);
-//			NodeList cellList = row.getChildNodes();
-//			for (int j = 0 ; j < cellList.getLength() ; j++) {
-//				if (cellList.item(j) instanceof Element == false)
-//					continue;
-//
-//				Element cellEl = (Element)cellList.item(j);
-//				String color = getTextValue(cellEl,"state");
-//				Cell newCell = new Cell(j, i, getState(color)); // THIS LINE CAUSES ERRORS BC of the comparison. Somewhere in the XML - doesn't parse colors well
-//				cells.add(newCell);
-//			}
-//		}
-//		myGrid.updateGrid(cells);
-		//myGrid.update();
+		for (int i = 0 ; i < gridList.getLength() ; i++) {
+			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element team = (Element)gridList.item(i);
+				fillMap(team.getNodeName(), myRandom.nextDouble());
+			}
+		}
 	}
 
 	private void placeDistributedCells(NodeList gridList) {
@@ -249,7 +243,6 @@ public class Parser {
 							getState(myColorScheme.getString(team.getNodeName())));
 					myCells.put(new Pair(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j])), newCell);
 				}
-
 			}
 		}
 	}
@@ -285,7 +278,6 @@ public class Parser {
 	private State getState(String color) {
 		Color c = Color.web(color);
 		State s = mySim.findState(c);
-		//System.out.println(s.getName());
 		return s;
 	}
 }
