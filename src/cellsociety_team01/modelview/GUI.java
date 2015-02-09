@@ -236,6 +236,7 @@ public class GUI {
 		System.out.println(cellX + ", " + cellY);
 
 		myModel.cycleCellState(cellX, cellY);
+		update(true);
 	}
 
 	/**
