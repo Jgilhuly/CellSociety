@@ -249,23 +249,23 @@ public class Grid {
 		setNotUpdated();
 	}
 
-	private void setNotUpdated() {
-		for (Cell c : cells) {
-			c.setUpdated(false);
-		}
-	}
-
 	private void updateGrid() {
 		for (State s : simulation.getStates()) {
 			for (Cell cur : cells) { // cur = each cell in the grid
 				if ((cur.getCurState().equals(s))) { // THIS SHOULD take both
 					// types of RACE at one
 					// time
-					update(cur, cur.getNeighbors());
+					simulation.update(cur, cur.getNeighbors());
 				}
 			}
 		}
 		setNotUpdated();
+	}
+	
+	private void setNotUpdated() {
+		for (Cell c : cells) {
+			c.setUpdated(false);
+		}
 	}
 
 }
