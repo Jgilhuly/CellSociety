@@ -19,7 +19,7 @@ public class Sugarscape extends Simulation{
 	
 	public Sugarscape(){
 		super();
-		initialize();
+		//initialize();
 		}
 	
 	public int getNeighborType(){return MAX_VISION;}

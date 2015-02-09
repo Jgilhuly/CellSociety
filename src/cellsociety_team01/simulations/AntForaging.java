@@ -18,7 +18,7 @@ public class AntForaging extends Simulation{
 	public AntForaging(){
 		super();
 		myConfigs[0] = 100; // Max pheremone level
-		initialize();
+		//initialize();
 	}
 	
 	public void initialize(){

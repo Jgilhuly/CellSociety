@@ -14,7 +14,7 @@ public class GameOfLife extends Simulation{
 
 	public GameOfLife(){
 		super();
-		initialize();
+		//initialize();
 	}
 
 	public void initialize(){
