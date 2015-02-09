@@ -4,43 +4,34 @@ import java.util.ArrayList;
 
 import cellsociety_team01.Pair;
 import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.modelview.Grid.gridEdgeTypes;
 
-public class TriangularGridModel implements GridModel {
+public class TriangularGridModel extends GridModel {
 
-	@Override
-	public ArrayList<Pair> getAllPossibleNeighbors(Cell cell, int levels) {
-		ArrayList<Pair> ret = new ArrayList<Pair>();
-		int x = cell.getX();
-		int y = cell.getY();
-
-		for (int i = -1 * levels; i <= levels; i++) {
-			for (int j = -1 * levels; j <= levels; j++) {
-				if (i != 0 || j != 0)
-					ret.add(new Pair(x + i, y + j));
-			}
-		}
-
-		return ret;
+	public TriangularGridModel(gridEdgeTypes myEdgeTypeIn) {
+		super(myEdgeTypeIn);
 	}
 
 	@Override
-	public ArrayList<Pair> getCardinalPossibleNeighbors(Cell cell) {
+	protected ArrayList<Pair> getCardinalNeighbors(Cell cell, int levels) {
 		ArrayList<Pair> ret = new ArrayList<Pair>();
 		int x = cell.getX();
 		int y = cell.getY();
-		
-		ret.add(new Pair(x-1, y));
-		ret.add(new Pair(x+1, y));
-		
-		if (x % 2 == 0) { // right side up
-			ret.add(new Pair(x+1, y+1));
-			ret.add(new Pair(x-1, y+1));
+
+		for (int i = 1; i <= levels; i++) {
+			ret.add(new Pair(x-i, y));
+			ret.add(new Pair(x+i, y));
+
+			if (x % 2 == 0) { // right side up
+				ret.add(new Pair(x+i, y+i));
+				ret.add(new Pair(x-i, y+i));
+			}
+			else {
+				ret.add(new Pair(x+i, y-i));
+				ret.add(new Pair(x-i, y-i));
+			}
 		}
-		else {
-			ret.add(new Pair(x+1, y-1));
-			ret.add(new Pair(x-1, y-1));
-		}
-		
+
 		return ret;
 	}
 
