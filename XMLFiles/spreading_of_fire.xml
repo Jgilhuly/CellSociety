@@ -11,7 +11,7 @@
 		<cell_placement>Location</cell_placement>
 		<color_scheme>Fire</color_scheme>
 		<cell_neighbors>Cardinal</cell_neighbors>
-		<sim_flamability>0.6</sim_flamability>
+		<sim_flammability>0.6</sim_flammability>
 	</config>
 	<grid width="10" height="5">
 		<teamA>

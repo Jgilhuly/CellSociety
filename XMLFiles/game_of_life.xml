@@ -18,10 +18,10 @@
 			<yVals>0 0 0 0 0 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4</yVals>
 			<population_percentage>0.4</population_percentage>
 		</empty>
-		<teamA>
+		<full>
 			<xvals>0 2 4 6 8 0 1 3 5 6 7 9 1 3 5 7 9 0 2 3 4 5 0 3 4 5 7 8</xvals>
 			<yvals>0 0 0 0 0 1 1 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4 4</yvals>
 			<population_percentage>0.6</population_percentage>
-		</teamA>
+		</full>
 	</grid>
 </simulation>
