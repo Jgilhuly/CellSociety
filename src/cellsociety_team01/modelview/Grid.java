@@ -89,14 +89,6 @@ public class Grid {
 			c.updateCurState();
 	}
 
-	public void changeUpdateRate(double newRate) {
-		myLoop.stop();
-		KeyFrame frame = start(newRate);
-		myLoop.setCycleCount(Animation.INDEFINITE);
-		myLoop.getKeyFrames().add(frame);
-		myLoop.play();
-	}
-
 	public void setConfigs(Map<String, String> configs) {
 		String grid_shape = configs.get("grid_shape");
 		if (grid_shape.equals("Square")) {
@@ -291,13 +283,25 @@ public class Grid {
 	public void setTitle(String titleIn) {
 		myView.getStage().setTitle(titleIn);
 	}
+	
+
+	public void changeUpdateRate(double newRate) {
+		myLoop.stop();
+		
+		myLoop = new Timeline(newRate);
+		KeyFrame frame = start(newRate);
+		myLoop.setCycleCount(Animation.INDEFINITE);
+		myLoop.getKeyFrames().add(frame);
+		myLoop.play();
+	}
 
 	/**
 	 * Create the game's frame
 	 */
 	public KeyFrame start(double frameRate) {
 		updateRate = frameRate;
-		return new KeyFrame(Duration.millis(1000 / updateRate * 1000),
+		System.out.println("Update Rate: " + updateRate);
+		return new KeyFrame(Duration.millis(updateRate*10),
 				e -> update());
 	}
 
