@@ -21,7 +21,7 @@ public class Segregation extends Simulation {
 		
 		//initialize();
 	}
-	public int getNeighborType(){return 1;}
+	public int getNeighborType(){return 0;}
 	
 	public void initialize(){
 		

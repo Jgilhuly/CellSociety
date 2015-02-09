@@ -17,9 +17,6 @@ public class PriorityForwardRule extends MovementRule{
 		return 1; // return food pheremones
 	}
 	
-	private void updateInts(){
-		
-	}
 	
 	public void apply(Cell cur, ArrayList<Cell> myNeighbors){
 		//if cur has food, i is the index of the home pheremones. otherwise, it's the index of the food pheremones
@@ -41,7 +38,10 @@ public class PriorityForwardRule extends MovementRule{
 		
 		//DONT LIKE THIS WAY OF UPDATINGvvv
 		
-		cur.getCurState().setInt(i, d.getCurState().getInt(i) - 10); //HARD CODED CONSTANTS
+		cur.setNextState(d.getCurState());
+		cur.getNextState().setInt(i, d.getCurState().getInt(i) - 10); //HARD CODED CONSTANTS
+		cur.setUpdated(true);
+		
 		
 		//DONT LIKE THIS WAY OF UPDATING^^^
 		

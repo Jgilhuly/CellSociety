@@ -26,6 +26,10 @@ public class Simulation {
 		myData = new LinkedHashMap<State, ArrayList<Rule>>();
 	}
 
+	public int getNumPossibleStates(){
+		return myData.keySet().size();
+	}
+	
 	//default implementation - used for SoF and GoL
 	//essentially sums affecting neighbors and determines if they meet the threshold
 	public ArrayList<ArrayList<Cell>> getShuffledCopy(ArrayList<ArrayList<Cell>> g){
