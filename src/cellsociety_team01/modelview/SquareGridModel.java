@@ -12,6 +12,9 @@ public class SquareGridModel extends GridModel {
 		super(myEdgeTypeIn);
 	}
 
+	/**
+	 * Returns an array of all possible cardinal neighbors
+	 */
 	@Override
 	protected ArrayList<Pair> getCardinalNeighbors(Cell cell, int levels) {
 		ArrayList<Pair> ret = new ArrayList<Pair>();

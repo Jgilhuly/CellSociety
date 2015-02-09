@@ -1,5 +1,9 @@
 package cellsociety_team01.modelview;
 
+/**
+ * Abstract Class used for finding neighbors with different cell shapes
+ */
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -9,17 +13,18 @@ import cellsociety_team01.modelview.Grid.gridEdgeTypes;
 import cellsociety_team01.simulations.Simulation;
 
 public abstract class GridModel {
-	private RefineNeighborsAlgorithm[] rna = {new FiniteRefineNeighborsAlgorithm(), new InfiniteRefineNeighborsAlgorithm(), new ToroidalRefineNeighborsAlgorithm()};
+	private RefineNeighborsAlgorithm[] rna = {
+			new FiniteRefineNeighborsAlgorithm(),
+			new InfiniteRefineNeighborsAlgorithm(),
+			new ToroidalRefineNeighborsAlgorithm() };
 	private RefineNeighborsAlgorithm myRefineAlgorithm;
-	
+
 	public GridModel(gridEdgeTypes myEdgeTypeIn) {
 		if (myEdgeTypeIn == gridEdgeTypes.FINITE) {
 			myRefineAlgorithm = rna[0];
-		}
-		else if (myEdgeTypeIn == gridEdgeTypes.INFINITE) {
+		} else if (myEdgeTypeIn == gridEdgeTypes.INFINITE) {
 			myRefineAlgorithm = rna[1];
-		}
-		else {
+		} else {
 			myRefineAlgorithm = rna[2];
 		}
 	}
@@ -36,8 +41,8 @@ public abstract class GridModel {
 			int levels);
 
 	/**
-	 * Abstract Method that returns an array of neighbors in all
-	 * directions from the cell, levels steps away from the cell
+	 * Abstract Method that returns an array of neighbors in all directions from
+	 * the cell, levels steps away from the cell
 	 * 
 	 * @param cell
 	 * @param levels
@@ -60,13 +65,14 @@ public abstract class GridModel {
 
 	/**
 	 * Finds the finite set neighbors of each cell
+	 * 
 	 * @param cellMap
 	 * @param simulation
 	 * @param rows
 	 * @param cols
 	 */
-	public void setNeighbors(Map<Pair, Cell> cellMap,
-			Simulation simulation, int rows, int cols) {
+	public void setNeighbors(Map<Pair, Cell> cellMap, Simulation simulation,
+			int rows, int cols) {
 		int neighborsType = simulation.getNeighborType();
 		// 0 is 8 neighbors, 1 is cardinal 4 neighbors, else
 		// number of outward steps in cardinal directions
@@ -105,7 +111,8 @@ public abstract class GridModel {
 	 */
 	protected ArrayList<Cell> verifyNeighbors(Map<Pair, Cell> cellMap,
 			int rows, int cols, Pair pair, ArrayList<Pair> possibleNeighbors) {
-		return myRefineAlgorithm.refineNeighbors(cellMap, rows, cols, pair, possibleNeighbors);
+		return myRefineAlgorithm.refineNeighbors(cellMap, rows, cols, pair,
+				possibleNeighbors);
 	}
 
 }
