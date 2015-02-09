@@ -2,7 +2,6 @@ package cellsociety_team01.modelview;
 
 import java.awt.Dimension;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -26,7 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.parser.Parser;
 
 public class GUI {

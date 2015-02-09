@@ -50,7 +50,7 @@ public class TriangleGridView implements GridView{
 	public void setGridCellStates(GraphicsContext gContext,
 			ArrayList<Cell> cells) {
 		for (Cell c : cells) {
-			gContext.setFill(c.getState().getColor());
+			gContext.setFill(c.getCurState().getColor());
 			//			gContext.fillRect(c.getX()*cellWidth, c.getY()*cellHeight, cellWidth, cellHeight);
 			if (c.getX() % 2 == 0) {
 				double[] xPoints = {c.getX() * cellWidth, (c.getX() * cellWidth) + cellWidth/2, (c.getX()+1) * cellWidth}; // point up

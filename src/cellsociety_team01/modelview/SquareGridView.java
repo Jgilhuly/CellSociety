@@ -47,7 +47,7 @@ public class SquareGridView implements GridView {
 	@Override
 	public void setGridCellStates(GraphicsContext gContext, ArrayList<Cell> cells) {
 		for (Cell c : cells) {
-			gContext.setFill(c.getState().getColor());
+			gContext.setFill(c.getCurState().getColor());
 			gContext.fillRect(c.getX()*cellWidth, c.getY()*cellHeight, cellWidth, cellHeight);
 		}
 	}
