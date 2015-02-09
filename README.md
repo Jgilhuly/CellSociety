@@ -1,5 +1,5 @@
 # cellsociety
-###By Peter Moseley, Patrick Wickham, John Gilhuly, Jangsoon Park
+###By Peter Moseley (plm17), Patrick Wickham (ptw9), John Gilhuly (jrg37), Jangsoon Park
 
 Date Started: 1/25/15  
 Date Finished: 2/8/15  
