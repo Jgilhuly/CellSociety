@@ -22,16 +22,13 @@ public class TriangleGridView implements GridView{
 
 	@Override
 	public Canvas makeGrid(Canvas grid) {
-		gridCanvasWidth = sceneWidth/1.5;
-		gridCanvasHeight = sceneHeight/1.5;
-
-		grid = new Canvas (gridCanvasWidth, gridCanvasHeight);
+		grid = new Canvas (grid.getWidth(), grid.getHeight());
 		GraphicsContext gContext = grid.getGraphicsContext2D();
 		gContext.setFill(Color.LIGHTGRAY);
-		gContext.fillRect(0, 0, gridCanvasWidth, gridCanvasHeight);
+		gContext.fillRect(0, 0, grid.getWidth(), grid.getHeight());
 
-		cellWidth = gridCanvasWidth/cols;
-		cellHeight = gridCanvasHeight/rows;	
+		cellWidth = grid.getWidth()/cols;
+		cellHeight = grid.getHeight()/rows;	
 
 		gContext.setFill(Color.BLACK);
 		//		for (int i = 0; i < cols; i ++) {
@@ -39,7 +36,7 @@ public class TriangleGridView implements GridView{
 		//		}
 		//
 		for (int i = 0; i < rows; i ++) {
-			gContext.fillRect(0, cellHeight*i, gridCanvasWidth, 1);
+			gContext.fillRect(0, cellHeight*i, grid.getWidth(), 1);
 		}
 
 		//		double[] xPoints = {300, 250, 250, 300, 350, 350};

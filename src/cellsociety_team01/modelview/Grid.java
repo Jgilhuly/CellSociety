@@ -42,8 +42,8 @@ public class Grid {
 	}
 
 	public void step() {
-//		updateCells();
-		myView.singleUpdate();
+		updateGrid();
+		myView.update(true);
 	}
 
 	public void changeUpdateRate(double newRate) {	
@@ -84,17 +84,18 @@ public class Grid {
 
 	private void update() {
 		if (simRunning) {			
-//			updateCells();
+			updateGrid();
 		}
-		myView.update();
+		myView.update(false);
 	}
 
 	private void setNotUpdated(){
-		//IMPLEMENT THIS--just call each Cell's setUpdated(false)
+		for (Cell c : cells) {
+			c.setUpdated(false);
+		}
 	}
 	
 	private void updateGrid() {
-		//IMPLEMEMENT THIS - JUST CALL simulation.update() with the arraylist<arraylist<Cell>> once you have it
-		//which will return an updated grid
+//		cells = simulation.updateGrid(cells);
 	}
 }
