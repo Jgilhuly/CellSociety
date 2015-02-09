@@ -103,7 +103,7 @@ public class Parser {
 			switch (textValue) {
 			case "Segregation" :
 				return new Segregation();
-			case "PredatoryPrey" :
+			case "PredatorPrey" :
 				return new PredatorPrey();
 			case "SpreadingOfFire" :
 				return new SpreadingOfFire();
