@@ -12,6 +12,9 @@ public class TriangularGridModel extends GridModel {
 		super(myEdgeTypeIn);
 	}
 
+	/**
+	 * Returns a list of all possible cardinal neighbors for a given cell
+	 */
 	@Override
 	protected ArrayList<Pair> getCardinalNeighbors(Cell cell, int levels) {
 		ArrayList<Pair> ret = new ArrayList<Pair>();
@@ -19,18 +22,13 @@ public class TriangularGridModel extends GridModel {
 		int y = cell.getY();
 
 		for (int i = 1; i <= levels; i++) {
-			ret.add(new Pair(x-i, y));
-			ret.add(new Pair(x+i, y));
+			ret.add(new Pair(x - i, y));
+			ret.add(new Pair(x + i, y));
 
-			if (x % 2 == 0) { // right side up
-				ret.add(new Pair(x, y+i));
-//				ret.add(new Pair(x+i, y+i));
-//				ret.add(new Pair(x-i, y+i));
-			}
-			else {
-				ret.add(new Pair(x, y-i));
-//				ret.add(new Pair(x+i, y-i));
-//				ret.add(new Pair(x-i, y-i));
+			if (x % 2 == 0) {
+				ret.add(new Pair(x, y + i));
+			} else {
+				ret.add(new Pair(x, y - i));
 			}
 		}
 

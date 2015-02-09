@@ -20,7 +20,6 @@ public class FiniteRefineNeighborsAlgorithm extends RefineNeighborsAlgorithm {
 				legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
 			}
 		
-		System.out.println("Cell (" + pair.getX() + ", " + pair.getY() + ") has " + legalNeighbors.size() + " neighbors");
 		return legalNeighbors;
 	}
 
