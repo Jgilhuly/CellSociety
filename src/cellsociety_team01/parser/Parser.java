@@ -113,7 +113,7 @@ public class Parser {
 				return new GameOfLife();
 			case "SlimeMolds" :
 //				return new SlimeMolds();
-			case "ForagingAnts" :
+			case "AntForaging" :
 				return new AntForaging();
 			case "Sugarscape" :
 				return new Sugarscape();
