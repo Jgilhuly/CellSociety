@@ -23,12 +23,14 @@ public class TriangularGridModel extends GridModel {
 			ret.add(new Pair(x+i, y));
 
 			if (x % 2 == 0) { // right side up
-				ret.add(new Pair(x+i, y+i));
-				ret.add(new Pair(x-i, y+i));
+				ret.add(new Pair(x, y+i));
+//				ret.add(new Pair(x+i, y+i));
+//				ret.add(new Pair(x-i, y+i));
 			}
 			else {
-				ret.add(new Pair(x+i, y-i));
-				ret.add(new Pair(x-i, y-i));
+				ret.add(new Pair(x, y-i));
+//				ret.add(new Pair(x+i, y-i));
+//				ret.add(new Pair(x-i, y-i));
 			}
 		}
 
