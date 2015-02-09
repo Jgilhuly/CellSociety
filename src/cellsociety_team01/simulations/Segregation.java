@@ -2,6 +2,7 @@ package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.Race;
@@ -62,7 +63,7 @@ public class Segregation extends Simulation {
 	
 			}
 	
-	public void setConfigs(HashMap<String, String> configs){
+	public void setConfigs(Map<String, String> configs){
 		mySatisfactionThreshold = Double.parseDouble(configs.get("sim_satisfaction_threshold"));
 }
 }

@@ -66,8 +66,7 @@ public class Simulation {
 	public void setUpdated(Cell c){
 		c.setUpdated(true);
 	}
-	public void setConfigs(ArrayList<String> configs){
-	}
+
 
 	public boolean colorEquals(Color a, Color b){ // IDEALLY DON'T HAVE TO USE THIS
 		return (((a.getBlue() >= b.getBlue()-.1 )&&(a.getBlue() <= b.getBlue()+.1 ))&&
@@ -88,7 +87,7 @@ public class Simulation {
 		return myData.keySet();
 	}
 	
-	public void setConfigs(HashMap<String, String> a){
+	public void setConfigs(Map<String, String> a){
 		return;
 	}
 	
