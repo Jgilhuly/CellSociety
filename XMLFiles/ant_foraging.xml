@@ -14,15 +14,23 @@
 	</config>
 	<grid>
 		<empty>
-			60
+			<xVals>0 1 3 4 6 8 9 0 4 5 7 8 0 1 3 4 8 9 0 1 2 4 7 9 0 1 3 5 8</xVals>
+			<yVals>0 0 0 0 0 0 0 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4</yVals>
+			<population_percent>0.6</population_percent>
 		</empty>
 		<teamA>
-			30
+			<xVals>2 5 7 1 6 9 5 6 7 3 5 8 2 4 9</xVals>
+			<yVals>0 0 0 1 1 1 2 2 2 3 3 3 4 4 4</yVals>
+			<population_percent>0.3</population_percent>
 		</teamA>
 		<teamB>
-			5
+			<xVals>6 6 7</xVals>
+			<yVals>3 4 4</yVals>
+			<population_percent>0.05</population_percent>
 		</teamB>
 		<teamC>
-			5
+			<xVals>2 3 2</xVals>
+			<yVals>1 1 2</yVals>
+			<population_percent>0.05</population_percent>
 		</teamC>
 	</grid>
