@@ -157,10 +157,10 @@ public class GUI {
 	 */
 	private Node makeGrid() {
 		if (myModel.getShape() == gridShapeTypes.SQUARE) {
-			gridView = new SquareGridView(myWidth, myHeight, rows, cols);
+			gridView = new SquareGridView(myWidth, myHeight, rows, cols, myModel.isGridOutlined());
 		}
 		else if (myModel.getShape() == gridShapeTypes.TRIANGULAR) {
-			gridView = new TriangleGridView(myWidth, myHeight, rows, cols);
+			gridView = new TriangleGridView(myWidth, myHeight, rows, cols, myModel.isGridOutlined());
 		}
 		gridCanvas = gridView.makeGrid(new Canvas(myWidth / 2,
 				myHeight / 2));
@@ -281,6 +281,7 @@ public class GUI {
 		int cellY = (int) (y / (gridCanvas.getHeight() / rows));
 		System.out.println(cellX + ", " + cellY);
 		
+		myModel.cycleCellState(cellX, cellY);
 	}
 	
 	/**
