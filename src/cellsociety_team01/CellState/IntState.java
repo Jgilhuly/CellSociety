@@ -3,7 +3,7 @@ import javafx.scene.paint.Color;
 
 public class IntState extends State {
 
-	private int[] stateNums;
+	protected int[] stateNums;
 
 	public IntState(Color c, String s, int i){
 		super(c, s);

@@ -13,14 +13,11 @@ import cellsociety_team01.rules.Rule;
 import cellsociety_team01.rules.ThresholdRule;
 
 public class AntForaging extends Simulation{
-	
-	//private int[] myConfigs = new int[2];
+
 	private int myMaxPheremoneLevel;
 	
 	public AntForaging(){
 		super();
-		//myConfigs[0] = 100; // Max pheremone level
-		//initialize();
 	}
 	
 	public void initialize(){
