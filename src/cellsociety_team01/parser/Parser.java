@@ -185,6 +185,10 @@ public class Parser {
 			fillMap("empty", 1.0);
 		}
 
+		for (Cell c : myCells.values()) {
+			myGrid.setNeighbors(mySim.getNeighbors(c));
+		}
+
 		myGrid.updateGrid((ArrayList<Cell>) myCells.values());
 	}
 
@@ -274,7 +278,6 @@ public class Parser {
 	private State getState(String color) {
 		Color c = Color.web(color);
 		State s = mySim.findState(c);
-		//System.out.println(s.getName());
 		return s;
 	}
 }
