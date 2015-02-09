@@ -31,7 +31,10 @@ grid width: any int
 grid height: any int  
 *team options in grid*: empty, full, teamA, teamB, teamC  
 xVals/yVals: space separated ints as locations in the grid  
-population_percent: double between 0.0 and 1.0  
+population_percent: double between 0.0 and 1.0   
+  
+**Bugs:**  
+We had the Segregation Simulation up and running, but when we tested it after merging to master, it was throwing a BadStateException for an unknown reason. We couldn't figure it out after 20 minutes of searching, so we assume something went wrong in the merging process but aren't sure what. It should be working though....
   
 **Impressions:**  
 We spent about 2-3 alone working out strictly gitHub related issues which slowed down our actual design and coding process quite a bit.  
