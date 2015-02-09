@@ -226,7 +226,7 @@ public class Parser {
 	private void placeDistributedCells(Element team) {
 		Double popPercent = null;
 		try {
-			popPercent = Double.parseDouble(getTextValue(team, "population_percentage"));
+			popPercent = Double.parseDouble(getTextValue(team, "population_percent"));
 		} catch (ElementValueException e) {
 			e.handleException();
 		}
