@@ -5,13 +5,13 @@
 		<type>Fire</type>
 	</info>
 	<config>
-		<cell_shape>Square</cell_shape>
+		<grid_shape>Square</grid_shape>
 		<grid_edge>Finite</grid_edge>
 		<grid_outline>Yes</grid_outline>
 		<cell_placement>Given</cell_placement>
 		<color_scheme>Fire</color_scheme>
 		<cell_neighbors>Cardinal</cell_neighbors>
-		<flamability>0.6</flamability>
+		<sim_flamability>0.6</sim_flamability>
 	</config>
 	<grid width="10" height="5">
 		<teamA>

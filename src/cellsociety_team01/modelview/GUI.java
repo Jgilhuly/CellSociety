@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.parser.Parser;
 
 public class GUI {

@@ -5,7 +5,7 @@
 		<type>GameOfLife</type>
 	</info>
 	<config>
-		<cell_shape>Square</cell_shape>
+		<grid_shape>Square</grid_shape>
 		<grid_edge>Finite</grid_edge>
 		<grid_outline>Yes</grid_outline>
 		<cell_placement>Location</cell_placement>

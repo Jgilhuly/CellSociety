@@ -7,6 +7,7 @@ import cellsociety_team01.CellState.DirectionalAutomaton;
 import cellsociety_team01.CellState.IntState;
 import cellsociety_team01.CellState.State;
 import cellsociety_team01.rules.Rule;
+import cellsociety_team01.rules.UphillMovementRule;
 
 public class Sugarscape extends Simulation{
 	
@@ -25,9 +26,9 @@ public class Sugarscape extends Simulation{
 		myData.put(actor, new ArrayList<Rule>());
 		myData.put(empty, new ArrayList<Rule>());
 		
-		Rule move = new UphillMovementRule(empty, );
+		Rule move = new UphillMovementRule(empty, 0);
 		
-		
+		myData.get(actor).add(move);
 		//myData.get(actor).add(new Rule...
 		//myData.get
 		
@@ -37,6 +38,13 @@ public class Sugarscape extends Simulation{
 	}
 
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
+		if(cur.isUpdated())
+			return;
+		for(Rule r: myData.get(cur))
+			r.apply(cur, myNeighbors);
+		
+		if(!cur.isUpdated())
+			cur.setNextState(cur.getCurState());
 		
 		return;
 		
