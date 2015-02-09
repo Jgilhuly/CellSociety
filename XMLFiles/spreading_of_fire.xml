@@ -9,13 +9,13 @@
 		<grid_edge>Finite</grid_edge>
 		<grid_outline>Yes</grid_outline>
 		<cell_placement>Location</cell_placement>
-		<color_scheme>Fire</color_scheme>
+		<color_scheme>Default</color_scheme>
 		<cell_neighbors>Cardinal</cell_neighbors>
 		<sim_flammability>0.6</sim_flammability>
 	</config>
 	<grid width="10" height="5">
 		<teamA>
-			<xVals>0 1 2 3 4 5 6 7 8 9 0 1 2 3 6 7 8 9 0 1 2 7 8 9 0 1 2 3 6 7 8 9 0 1 2 3 4 5 6 7 8 9</xvals>
+			<xVals>0 1 2 3 4 5 6 7 8 9 0 1 2 3 6 7 8 9 0 1 2 7 8 9 0 1 2 3 6 7 8 9 0 1 2 3 4 5 6 7 8 9</xVals>
 			<yVals>0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4</yVals>
 			<population_percent>0.7</population_percent>
 		</teamA>
