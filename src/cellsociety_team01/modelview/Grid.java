@@ -1,6 +1,7 @@
 package cellsociety_team01.modelview;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 import javafx.animation.Animation;
@@ -125,8 +126,9 @@ public class Grid {
 		simulation = simulationIn;
 	}
 
-	public void updateGrid(ArrayList<Cell> cellsIn) {
-		cells = cellsIn;
+	public void updateGrid(Collection<Cell> cellsIn) {
+		cells = new ArrayList<Cell>();
+		cells.addAll(cellsIn);
 	}
 
 	public void setNeighbors(Map<Pair, Cell> cellMap) {
