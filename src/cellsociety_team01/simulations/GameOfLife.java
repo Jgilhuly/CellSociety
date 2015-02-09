@@ -31,7 +31,7 @@ public class GameOfLife extends Simulation{
 	}
 	
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
-		for (Rule r: myData.get(cur.getCurState())) // relatively Important bug fix - call get with the STATE, and not the CELL
+		for (Rule r: myData.get(cur.getCurState())) 
 			r.apply(cur,myNeighbors);	
 		
 		if(!cur.isUpdated())

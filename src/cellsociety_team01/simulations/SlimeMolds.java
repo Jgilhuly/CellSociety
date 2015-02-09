@@ -18,14 +18,12 @@ public class SlimeMolds extends Simulation{
 	public SlimeMolds(){
 		super();
 	}
-	
-	//timing of the emissions
-	//
+
 	
 	public void initialize(){
-		State amoebe = new IntState(Color.BLACK, "amoebe", 1);
+		State amoebe = new IntState(Color.web(myColorScheme.getString("teamA")), "amoebe", 1);
 		amoebe.setInt(0, myMaxPheremone);
-		State empty = new ColorChangeIntState(Color.ORANGE, "empty", 1, Color.ORANGE, 0, myMaxPheremone/2);
+		State empty = new ColorChangeIntState(Color.web(myColorScheme.getString("teamB")), "empty", 1, Color.web(myColorScheme.getString("teamB")), 0, myMaxPheremone/2);
 		
 		Rule updateHormone = new averageUpdateRule(0);
 		
@@ -47,7 +45,5 @@ public class SlimeMolds extends Simulation{
 	public void parseConfigs(Map<String, String> configs){
 		myMaxPheremone = Integer.parseInt(configs.get("sim_max_value"));
 }
-	
-	
 
 }

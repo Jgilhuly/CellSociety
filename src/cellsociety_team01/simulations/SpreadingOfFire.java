@@ -1,4 +1,5 @@
 package cellsociety_team01.simulations;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,44 +10,50 @@ import cellsociety_team01.rules.RandomRule;
 import cellsociety_team01.rules.Rule;
 import javafx.scene.paint.Color;
 
-
 public class SpreadingOfFire extends Simulation {
-	
-	
+
 	private double flammability;
-	
-	public SpreadingOfFire(){
+
+	public SpreadingOfFire() {
 		super();
-		
-		//initialize();
+
+		// initialize();
 	}
-	public int getNeighborType(){return 1;}
-	
-	public void initialize(){
-		
-		State burning = new State(Color.web(myColorScheme.getString("teamA")), "burning");
-		State tree = new State(Color.web(myColorScheme.getString("teamB")), "tree");
-		State empty = new State(Color.web(myColorScheme.getString("empty")), "empty");
-		
-		
+
+	public int getNeighborType() {
+		return 1;
+	}
+
+	public void initialize() {
+
+		State burning = new State(Color.web(myColorScheme.getString("teamA")),
+				"burning");
+		State tree = new State(Color.web(myColorScheme.getString("teamB")),
+				"tree");
+		State empty = new State(Color.web(myColorScheme.getString("empty")),
+				"empty");
+
 		myData.put(tree, new ArrayList<Rule>());
 		myData.put(burning, new ArrayList<Rule>());
 		myData.put(empty, new ArrayList<Rule>());
 
-		myData.get(tree).add(new RandomRule(tree, burning, burning, flammability));
-		myData.get(burning).add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0));
-		
+		myData.get(tree).add(
+				new RandomRule(tree, burning, burning, flammability));
+		myData.get(burning).add(
+				new RandomRule(burning, empty, new State(Color.BLACK, "dummy"),
+						1.0));
+
 	}
-	
-public void update(Cell cur, ArrayList<Cell> myNeighbors){
-	for (Rule r: myData.get(cur.getCurState())){
-		r.apply(cur, myNeighbors);
-			}
-	if(!cur.isUpdated())
-		cur.setNextState(cur.getCurState());
+
+	public void update(Cell cur, ArrayList<Cell> myNeighbors) {
+		for (Rule r : myData.get(cur.getCurState())) {
+			r.apply(cur, myNeighbors);
+		}
+		if (!cur.isUpdated())
+			cur.setNextState(cur.getCurState());
 	}
-	
-public void parseConfigs(Map<String, String> configs){
+
+	public void parseConfigs(Map<String, String> configs) {
 		flammability = Double.parseDouble(configs.get("sim_flammability"));
-}
+	}
 }
