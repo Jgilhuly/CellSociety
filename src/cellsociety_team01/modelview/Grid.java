@@ -90,20 +90,6 @@ public class Grid {
 	}
 
 	public void setConfigs(Map<String, String> configs) {
-		String grid_shape = configs.get("grid_shape");
-		if (grid_shape.equals("Square")) {
-			myGridModel = new SquareGridModel();
-			myCellShape = gridShapeTypes.SQUARE;
-		}
-		else if (grid_shape.equals("Triangle")) {
-			myGridModel = new TriangularGridModel();
-			myCellShape = gridShapeTypes.TRIANGULAR;
-		}
-		else {
-			Exception e = new Exception();
-			e.printStackTrace();
-		}
-
 		String grid_edge = configs.get("grid_edge");
 		if (grid_edge.equals("Finite"))
 			myEdgeType = gridEdgeTypes.FINITE;
@@ -111,6 +97,20 @@ public class Grid {
 			myEdgeType = gridEdgeTypes.INFINITE;
 		else if (grid_edge.equals("Toroidal"))
 			myEdgeType = gridEdgeTypes.TOROIDAL;
+		else {
+			Exception e = new Exception();
+			e.printStackTrace();
+		}
+		
+		String grid_shape = configs.get("grid_shape");
+		if (grid_shape.equals("Square")) {
+			myGridModel = new SquareGridModel(myEdgeType);
+			myCellShape = gridShapeTypes.SQUARE;
+		}
+		else if (grid_shape.equals("Triangle")) {
+			myGridModel = new TriangularGridModel(myEdgeType);
+			myCellShape = gridShapeTypes.TRIANGULAR;
+		}
 		else {
 			Exception e = new Exception();
 			e.printStackTrace();
@@ -142,144 +142,9 @@ public class Grid {
 	}
 
 	public void setNeighbors(Map<Pair, Cell> cellMap) {
-		if (myEdgeType == gridEdgeTypes.FINITE)
-			finiteSetNeighbors(cellMap);
-		else if (myEdgeType == gridEdgeTypes.INFINITE)
-			infiniteSetNeighbors(cellMap);
-		else
-			toroidalSetNeighbors(cellMap);
+		myGridModel.setNeighbors(cellMap, simulation, rows, cols);
 	}
-
-	private void finiteSetNeighbors(Map<Pair, Cell> cellMap) {
-		int neighborsType = simulation.getNeighborType();
-		// 0 is cardinal 4 neighbors, 1 is 8 neighbors, else
-		// number of outward steps in cardinal directions
-
-		if (neighborsType == 0) {
-			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = myGridModel.getCardinalPossibleNeighbors(cellMap
-						.get(pair));
-				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
-
-				for (Pair possibleNeighbor : possibleNeighbors)
-					if (possibleNeighbor.getX() >= 0
-					&& possibleNeighbor.getX() < cols
-					&& possibleNeighbor.getY() >= 0
-					&& possibleNeighbor.getY() < rows) {
-						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
-					}
-
-				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
-			}
-		} else if (neighborsType == 1) {
-			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = myGridModel.getAllPossibleNeighbors(
-						cellMap.get(pair), 1);
-				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
-
-				for (Pair possibleNeighbor : possibleNeighbors)
-					if (possibleNeighbor.getX() >= 0
-					&& possibleNeighbor.getX() < cols
-					&& possibleNeighbor.getY() >= 0
-					&& possibleNeighbor.getY() < rows) {
-						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
-					}
-
-				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
-			}
-		} else {
-			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = myGridModel.getAllPossibleNeighbors(
-						cellMap.get(pair), neighborsType);
-				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
-
-				for (Pair possibleNeighbor : possibleNeighbors)
-					if (possibleNeighbor.getX() >= 0
-					&& possibleNeighbor.getX() < cols
-					&& possibleNeighbor.getY() >= 0
-					&& possibleNeighbor.getY() < rows) {
-						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
-					}
-
-				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
-			}
-		}
-	}
-
-	private void infiniteSetNeighbors(Map<Pair, Cell> cellMap) {
-
-	}
-
-	private void toroidalSetNeighbors(Map<Pair, Cell> cellMap) {
-		int neighborsType = simulation.getNeighborType();
-		// 0 is cardinal 4 neighbors, 1 is 8 neighbors, else
-		// number of outward steps in cardinal directions
-
-		if (neighborsType == 0) {
-			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = myGridModel.getCardinalPossibleNeighbors(cellMap
-						.get(pair));
-				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
-
-				for (Pair possibleNeighbor : possibleNeighbors)
-					if (possibleNeighbor.getX() >= 0
-					&& possibleNeighbor.getX() < cols
-					&& possibleNeighbor.getY() >= 0
-					&& possibleNeighbor.getY() < rows) {
-						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
-					}
-
-				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
-			}
-		} else if (neighborsType == 1) {
-			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = myGridModel.getAllPossibleNeighbors(
-						cellMap.get(pair), 1);
-				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
-
-				for (Pair possibleNeighbor : possibleNeighbors) {
-					if (possibleNeighbor.getX() < 0)
-						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
-				}
-
-				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
-			}
-		} else {
-			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = myGridModel.getAllPossibleNeighbors(
-						cellMap.get(pair), neighborsType);
-				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
-
-				for (Pair possibleNeighbor : possibleNeighbors)
-					if (possibleNeighbor.getX() >= 0
-					&& possibleNeighbor.getX() < cols
-					&& possibleNeighbor.getY() >= 0
-					&& possibleNeighbor.getY() < rows) {
-						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
-					}
-
-				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
-			}
-		}
-	}
-
-	/**
-	 * Finds the cell associated with a pair, necessary because vanilla get()
-	 * map method uses pointers
-	 * 
-	 * @param cellMap
-	 * @param pair
-	 * @return
-	 */
-	private Cell findCellForPair(Map<Pair, Cell> cellMap, Pair pair) {
-		for (Pair cur : cellMap.keySet()) {
-			if (cur.getX() == pair.getX() && cur.getY() == pair.getY()) {
-				return cellMap.get(cur);
-			}
-		}
-		return null;
-	}
-
+	
 	public void setTitle(String titleIn) {
 		myView.getStage().setTitle(titleIn);
 	}
