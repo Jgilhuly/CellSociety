@@ -48,6 +48,14 @@ public class Grid {
 		cols = bounds.getX();
 		rows = bounds.getY();
 	}
+	
+	public int getRows() {
+		return rows;
+	}
+	
+	public int getCols() {
+		return cols;
+	}
 
 	public boolean isSimRunning() {
 		return simRunning;
