@@ -6,7 +6,6 @@ import java.util.Map;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Point2D;
 import javafx.util.Duration;
 import cellsociety_team01.Pair;
 import cellsociety_team01.CellState.Cell;
@@ -37,6 +36,7 @@ public class Grid {
 	private boolean gridOutline;
 
 	public Grid() {
+		simRunning = false;
 	}
 
 	public void setView(GUI viewIn) {
@@ -65,7 +65,7 @@ public class Grid {
 	}
 
 	public void step() {
-		updateGrid();
+		updateCells();
 		myView.update(true);
 
 	}
@@ -115,6 +115,9 @@ public class Grid {
 
 	public void setAuthor(String authorIn) {
 		author = authorIn;
+	}
+	public String getAuthor() {
+		return author;
 	}
 	
 	public void setSimulation(Simulation simulationIn) {
@@ -241,15 +244,14 @@ public class Grid {
 
 	public void update() {
 		if (simRunning) {
-			updateGrid();
+			updateCells();
 			updateCurStates();
 		}
 		myView.update(false); // by this call, NEXT is null, and CUR is
 		// up-to-date
-		setNotUpdated();
 	}
 
-	private void updateGrid() {
+	private void updateCells() {
 		for (State s : simulation.getStates()) {
 			for (Cell cur : cells) { // cur = each cell in the grid
 				if ((cur.getCurState().equals(s))) { // THIS SHOULD take both
