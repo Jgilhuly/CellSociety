@@ -18,15 +18,15 @@ public class SpreadingOfFire extends Simulation {
 	public SpreadingOfFire(){
 		super();
 		
-		initialize();
+		//initialize();
 	}
 	public int getNeighborType(){return 0;}
 	
-	private void initialize(){
+	public void initialize(){
 		
-		State burning = new State(Color.RED, "burning");
-		State tree = new State(Color.GREEN, "tree");
-		State empty = new State(Color.YELLOW, "empty");
+		State burning = new State(Color.web(myColorScheme.getString("teamA")), "burning");
+		State tree = new State(Color.web(myColorScheme.getString("teamB")), "tree");
+		State empty = new State(Color.web(myColorScheme.getString("empty")), "empty");
 		
 		
 		myData.put(tree, new ArrayList<Rule>());
@@ -46,7 +46,7 @@ public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		cur.setNextState(cur.getCurState());
 	}
 	
-public void setConfigs(Map<String, String> configs){
+public void parseConfigs(Map<String, String> configs){
 		flammability = Double.parseDouble(configs.get("sim_flammability"));
 }
 }

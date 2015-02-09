@@ -61,6 +61,7 @@ public class State {
 		
 	public String getDemonym(){return null;}
 	
+	public void updateColor(){return;}
 
 	public boolean getFunc(){
 		return false;

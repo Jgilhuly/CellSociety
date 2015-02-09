@@ -1,6 +1,7 @@
 package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 import javafx.scene.paint.Color;
@@ -15,29 +16,32 @@ import cellsociety_team01.rules.Rule;
 public class PredatorPrey extends Simulation {
 	
 	Random myRandom = new Random();
-	private double[] myConfigs = new double[2];
+	//private double[] myConfigs = new double[2];
+	private int myReproductionThreshold;
+	private int myDeathThreshold;
+	
 	
 	public PredatorPrey(){
 		super();
-		myConfigs[0] = 6; //reproduction threshold for sharks and fish
-		myConfigs[1] = 5; //death threshold for sharks
-		initialize();
+		 //reproduction threshold for sharks and fish
+	 //death threshold for sharks
+		//initialize();
 	}
 	
 	//shark -> fish -> ocean
 	public int getNeighborType(){return 0;}
-	private void initialize(){
+	public void initialize(){
 		//for this simulation, the first arg is the turns since reproduction (both), second is turns since eating (shark)
-		State shark = new IntState(Color.RED, "shark", 2);
-		State fish = new IntState(Color.YELLOW, "fish", 2);
-		State ocean = new State(Color.BLUE, "ocean");
+		State shark = new IntState(Color.web(myColorScheme.getString("teamA")), "shark", 2);
+		State fish = new IntState(Color.web(myColorScheme.getString("teamB")), "fish", 2);
+		State ocean = new State(Color.web(myColorScheme.getString("empty")), "ocean");
 		
 		myData.put(shark, new ArrayList<Rule>());
 		myData.put(fish, new ArrayList<Rule>());
 		myData.put(ocean, new ArrayList<Rule>());
 		
-		ConsumptionRule eatFish = new ConsumptionRule(fish, ocean, myConfigs[1], 1);
-		ReproductionRule waterBirth = new ReproductionRule(ocean, myConfigs[0], 0);
+		ConsumptionRule eatFish = new ConsumptionRule(fish, ocean, myReproductionThreshold, 1);
+		ReproductionRule waterBirth = new ReproductionRule(ocean, myDeathThreshold, 0);
 		MovementRule move = new MovementRule(ocean);
 		
 		myData.get(shark).add(eatFish);
@@ -60,4 +64,10 @@ public class PredatorPrey extends Simulation {
 		if(!cur.isUpdated())
 			cur.setNextState(cur.getCurState());	
 	}
+	
+	public void parseConfigs(Map<String, String> configs){
+		myReproductionThreshold = Integer.parseInt(configs.get("sim_reproduction_threshold"));
+		myDeathThreshold = Integer.parseInt(configs.get("sim_death_threshold"));
+
+}
 }

@@ -13,19 +13,22 @@ import javafx.scene.paint.Color;
 
 public class Segregation extends Simulation {
 	
-	private double[] myConfigs = new double[1];;
+	//private double[] myConfigs = new double[1];;
 	private double mySatisfactionThreshold;
 	
 	public Segregation(){
 		super();
 		
-		initialize();
+		//initialize();
 	}
 	public int getNeighborType(){return 1;}
-	private void initialize(){
-		State race1 = new Race(Color.RED, "race1");
-		State race2 = new Race(Color.BLUE, "race2");
-		State empty = new State(Color.WHITE, "empty");
+	
+	public void initialize(){
+		
+		
+		State race1 = new Race(Color.web(myColorScheme.getString("teamA")), "race1");
+		State race2 = new Race(Color.web(myColorScheme.getString("teamB")), "race2");
+		State empty = new State(Color.web(myColorScheme.getString("empty")), "empty");
 		
 		myData.put(race1, new ArrayList<Rule>());
 		myData.put(race2, new ArrayList<Rule>()); // technically redundant to add this bc iteratively checking for the first will also do to the second due to .equals() equality, but STILL USEFUL for findState
@@ -38,14 +41,6 @@ public class Segregation extends Simulation {
 		
 		myData.get(race1).add(segMove);
 		myData.get(race2).add(segMove);
-	}
-	
-	
-	
-	public void setConfigs(ArrayList<String> configs){
-		myConfigs = new double[configs.size()];
-		for(int i = 0; i< configs.size(); i++)
-			myConfigs[i] = Double.parseDouble(configs.get(i));
 	}
 
 	
@@ -63,7 +58,7 @@ public class Segregation extends Simulation {
 	
 			}
 	
-	public void setConfigs(Map<String, String> configs){
+	public void parseConfigs(Map<String, String> configs){
 		mySatisfactionThreshold = Double.parseDouble(configs.get("sim_satisfaction_threshold"));
 }
 }
