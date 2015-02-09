@@ -13,6 +13,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -74,8 +75,8 @@ public class GUI {
 		myRoot = new BorderPane();
 		myRoot.setBottom(makeButtonsAndSlider());
 		myRoot.setTop(makeMenuBar());
-		myRoot.setRight(makeGraph());
-		myRoot.setLeft(makePrefPanel());
+//		myRoot.setRight(makeGraph());
+//		myRoot.setLeft(makePrefPanel());
 
 		enableButtons();
 
@@ -98,6 +99,7 @@ public class GUI {
 		result.getChildren().add(resetButton);
 		
 		result.getChildren().add(makeSlider());
+		result.getChildren().add(new Label("Slide to Change Speed"));
 		result.setSpacing(10);
 		
 		return result;
@@ -139,14 +141,13 @@ public class GUI {
 	 */
 	private Node makeMenuBar() {
 		Menu menu1 = new Menu(myResources.getString("File"));
-		Menu menu2 = new Menu(myResources.getString("About"));
 
 		MenuItem loadXML = new MenuItem(myResources.getString("LoadXML"));
 		loadXML.setOnAction(e -> loadXML());
 		menu1.getItems().add(loadXML);
 
 		MenuBar menuBar = new MenuBar();
-		menuBar.getMenus().addAll(menu1, menu2);
+		menuBar.getMenus().add(menu1);
 
 		return menuBar;
 	}

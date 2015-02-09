@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import cellsociety_team01.Pair;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
+import cellsociety_team01.exceptions.BadGridConfigException;
 import cellsociety_team01.simulations.Simulation;
 
 public class Grid {
@@ -98,8 +99,8 @@ public class Grid {
 		else if (grid_edge.equals("Toroidal"))
 			myEdgeType = gridEdgeTypes.TOROIDAL;
 		else {
-			Exception e = new Exception();
-			e.printStackTrace();
+			BadGridConfigException e = new BadGridConfigException();
+			e.handleException();
 		}
 		
 		String grid_shape = configs.get("grid_shape");
