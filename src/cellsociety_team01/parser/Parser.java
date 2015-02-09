@@ -171,12 +171,17 @@ public class Parser {
 		myHeight = Integer.parseInt(grid.getAttribute("height"));
 
 		NodeList gridList = grid.getChildNodes();
-		if (myCellPlacement.equals("Location")) {
-			placeGivenCells(gridList);
-		} else if (myCellPlacement.equals("Percent")) {
-			placeDistributedCells(gridList);
-		} else if (myCellPlacement.equals("Random")) {
-			placeRandomCells(gridList);
+		for (int i = 0 ; i < gridList.getLength() ; i++) {
+			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element team = (Element)gridList.item(i);
+				if (myCellPlacement.equals("Location")) {
+					placeGivenCells(team);
+				} else if (myCellPlacement.equals("Percent")) {
+					placeDistributedCells(team);
+				} else if (myCellPlacement.equals("Random")) {
+					placeRandomCells(team);
+				}
+			}
 		}
 		try {
 			checkCells();
@@ -202,48 +207,33 @@ public class Parser {
 		}
 	}
 
-	private void placeRandomCells(NodeList gridList) {
-		for (int i = 0 ; i < gridList.getLength() ; i++) {
-			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-				Element team = (Element)gridList.item(i);
-				fillMap(team.getNodeName(), myRandom.nextDouble());
-			}
-		}
+	private void placeRandomCells(Element team) {
+		fillMap(team.getNodeName(), myRandom.nextDouble());
 	}
 
-	private void placeDistributedCells(NodeList gridList) {
-		for (int i = 0 ; i < gridList.getLength() ; i++) {
-			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-				Element team = (Element)gridList.item(i);
-				Double popPercent = null;
-				try {
-					popPercent = Double.parseDouble(getTextValue(team, "population_percentage"));
-				} catch (ElementValueException e) {
-					e.handleException();
-				}
-				fillMap(team.getNodeName(), popPercent);
-			}
+	private void placeDistributedCells(Element team) {
+		Double popPercent = null;
+		try {
+			popPercent = Double.parseDouble(getTextValue(team, "population_percentage"));
+		} catch (ElementValueException e) {
+			e.handleException();
 		}
+		fillMap(team.getNodeName(), popPercent);
 	}
 
-	private void placeGivenCells(NodeList gridList) {
-		for (int i = 0 ; i < gridList.getLength() ; i++) {
-			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-				Element team = (Element)gridList.item(i);
-				String[] xvals = null;
-				String[] yvals = null;
-				try {
-					xvals = (getTextValue(team, "xvals").split(" "));
-					yvals = (getTextValue(team, "yvals").split(" "));
-				} catch (ElementValueException e) {
-					e.handleException();
-				}
-				for (int j = 0 ; j < xvals.length ; j++ ) {
-					Cell newCell = new Cell(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j]),
-							getState(myColorScheme.getString(team.getNodeName())));
-					myCells.put(new Pair(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j])), newCell);
-				}
-			}
+	private void placeGivenCells(Element team) {
+		String[] xvals = null;
+		String[] yvals = null;
+		try {
+			xvals = (getTextValue(team, "xvals").split(" "));
+			yvals = (getTextValue(team, "yvals").split(" "));
+		} catch (ElementValueException e) {
+			e.handleException();
+		}
+		for (int j = 0 ; j < xvals.length ; j++ ) {
+			Cell newCell = new Cell(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j]),
+					getState(myColorScheme.getString(team.getNodeName())));
+			myCells.put(new Pair(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j])), newCell);
 		}
 	}
 
