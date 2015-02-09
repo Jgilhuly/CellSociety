@@ -8,12 +8,12 @@
 		<grid_shape>Square</grid_shape>
 		<grid_edge>Finite</grid_edge>
 		<grid_outline>Yes</grid_outline>
-		<cell_placement>Location</cell_placement>
+		<cell_placement>Percent</cell_placement>
 		<sim_color_scheme>Water</sim_color_scheme>
 		<sim_reproduction_threshold>6</sim_reproduction_threshold>
 		<sim_death_threshold>5</sim_death_threshold>
 	</config>
-	<grid width="10" height="5">
+	<grid width="40" height="20">
 		<teamA>
 			<xVals>0 2 5 8 1 4 6 7 2 3 4 5 3 5 7 9 5 7 8 9</xVals>
 			<yVals>0 0 0 0 1 1 1 1 2 2 2 2 3 3 3 3 4 4 4 4</yVals>

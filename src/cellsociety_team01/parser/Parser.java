@@ -175,6 +175,7 @@ public class Parser {
 
 		myCells = new HashMap<Pair, Cell>();
 		NodeList gridList = grid.getChildNodes();
+		int randomStateCount = mySim.getStateCount();
 		for (int i = 0 ; i < gridList.getLength() ; i++) {
 			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
 				Element team = (Element)gridList.item(i);
@@ -183,7 +184,8 @@ public class Parser {
 				} else if (myCellPlacement.equals("Percent")) {
 					placeDistributedCells(team);
 				} else if (myCellPlacement.equals("Random")) {
-					placeRandomCells(team);
+					placeRandomCells(team, (randomStateCount == 0));
+					randomStateCount--;
 				}
 			}
 		}
@@ -236,8 +238,13 @@ public class Parser {
 		myNullCells -= population;
 	}
 	
-	private void placeRandomCells(Element team) {
-		int population = myRandom.nextInt(myNullCells);
+	private void placeRandomCells(Element team, boolean last) {
+		int population;
+		if (last) {
+			population = myNullCells;
+		} else {
+			population = myRandom.nextInt(myNullCells);
+		}
 		fillMap(team.getNodeName(), population);
 		myNullCells -= population;
 	}
