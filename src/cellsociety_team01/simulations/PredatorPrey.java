@@ -29,7 +29,7 @@ public class PredatorPrey extends Simulation {
 	}
 	
 	//shark -> fish -> ocean
-	public int getNeighborType(){return 0;}
+	public int getNeighborType(){return 1;}
 	public void initialize(){
 		//for this simulation, the first arg is the turns since reproduction (both), second is turns since eating (shark)
 		State shark = new IntState(Color.web(myColorScheme.getString("teamA")), "shark", 2);

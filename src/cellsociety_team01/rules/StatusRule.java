@@ -17,6 +17,7 @@ public class StatusRule extends ChangingRule{
 	}
 	
 	public void apply(Cell cur, ArrayList<Cell> myNeighbors){
+	
 		cur.getNextState().setInt(myStatusIndex, cur.getNextState().getInt(myStatusIndex) + cur.getNextState().getInt(myChangeAmtIndex));
 		if(cur.getNextState().getInt(myStatusIndex) >= 0)
 			cur.setNextState(myEnd);
