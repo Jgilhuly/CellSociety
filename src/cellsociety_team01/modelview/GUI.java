@@ -230,13 +230,10 @@ public class GUI {
 	private void cellClicked(MouseEvent e) {
 		double x = e.getX();
 		double y = e.getY();
-		System.out.println(x + ", " + y);
 		int cellX = (int) (x / (gridCanvas.getWidth() / cols));
 		int cellY = (int) (y / (gridCanvas.getHeight() / rows));
-		System.out.println(cellX + ", " + cellY);
 
 		myModel.cycleCellState(cellX, cellY);
-		update(true);
 	}
 
 	/**

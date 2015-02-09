@@ -254,6 +254,7 @@ public class Grid {
 		for (Cell c : cells) {
 			if (c.getX() == cellX && c.getY() == cellY) {
 				c.setCurState(simulation.cycleNextState(c.getCurState()));
+				myView.update(true);
 			}
 		}
 	}
