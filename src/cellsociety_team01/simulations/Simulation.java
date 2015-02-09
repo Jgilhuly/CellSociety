@@ -37,27 +37,7 @@ public class Simulation {
 	public int getNeighborType(){return 0;}
 	//REALLY WANT EACH CELL TO HAVE A GETNEIGHBORS
 	
-	public ArrayList<ArrayList<Cell>> updateGrid(Grid grid){ // MAKE SURE THIS ONLY GETS PASSED AN ITERABLE
 	
-		ArrayList<ArrayList<Cell>> g = grid.getCells();
-		//ArrayList<ArrayList<Cell>> copy = getShuffledCopy(g);
-		
-		/*for (State s: myStates) // organized in order of which move first
-			for (ArrayList<Cell> a: copy) //iterating through the SHUFFLED VERSION
-				for (Cell c: a)
-					if ((!(g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)).isUpdated()))&&(c.getCurState().equals(s)) ){
-						update(g.get(g.indexOf(a)).get(g.get(g.indexOf(a)).indexOf(c)), 
-								grid.getNeighbors(c));				
-					}*/
-		
-		for (State s: myData.keySet()) 
-			for (ArrayList<Cell> a: g) 
-				for (Cell cur: a){ // cur = each cell in the grid
-					if ((cur.getCurState().equals(s))){ // THIS SHOULD take both types of RACE at one time
-						update(cur, grid.getNeighbors(cur));				
-					}}
-		return g;
-	}
 	
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){	
 		return;
