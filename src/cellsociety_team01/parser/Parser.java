@@ -27,11 +27,13 @@ import cellsociety_team01.exceptions.CellLocationException;
 import cellsociety_team01.exceptions.ElementValueException;
 import cellsociety_team01.exceptions.SimulationTypeException;
 import cellsociety_team01.modelview.Grid;
+import cellsociety_team01.simulations.AntForaging;
 import cellsociety_team01.simulations.GameOfLife;
 import cellsociety_team01.simulations.PredatorPrey;
 import cellsociety_team01.simulations.Segregation;
 import cellsociety_team01.simulations.Simulation;
 import cellsociety_team01.simulations.SpreadingOfFire;
+import cellsociety_team01.simulations.Sugarscape;
 
 
 public class Parser {
@@ -112,9 +114,9 @@ public class Parser {
 			case "SlimeMolds" :
 //				return new SlimeMolds();
 			case "ForagingAnts" :
-//				return new ForagingAnts();
+				return new AntForaging();
 			case "Sugarscape" :
-//				return new Sugarscape();
+				return new Sugarscape();
 			default :
 				throw new SimulationTypeException();
 			}
@@ -188,11 +190,13 @@ public class Parser {
 				}
 			}
 		}
+		
 		try {
-			checkCells();
+			if (myNullCells != 0) {
+				throw new CellLocationException();
+			}
 		} catch (CellLocationException e) {
 			e.handleException();
-			fillMap("empty", myWidth*myHeight);
 		}
 		
 		myGrid.setNeighbors(myCells);
@@ -201,18 +205,25 @@ public class Parser {
 	}
 
 	private void placeGivenCells(Element team) {
-		String[] xvals = null;
-		String[] yvals = null;
+		String[] xVals = null;
+		String[] yVals = null;
 		try {
-			xvals = (getTextValue(team, "xvals").split(" "));
-			yvals = (getTextValue(team, "yvals").split(" "));
+			xVals = (getTextValue(team, "xVals").split(" "));
+			yVals = (getTextValue(team, "yVals").split(" "));
 		} catch (ElementValueException e) {
 			e.handleException();
 		}
-		for (int i = 0 ; i < xvals.length ; i++ ) {
-			Pair location = new Pair(Integer.parseInt(xvals[i]), Integer.parseInt(yvals[i]));
+		for (int i = 0 ; i < xVals.length ; i++ ) {
+			Pair location = new Pair(Integer.parseInt(xVals[i]), Integer.parseInt(yVals[i]));
+			try {
+				checkLocation(location);
+			} catch (CellLocationException e) {
+				e.handleException();
+				continue;
+			}
 			addCell(location, getState(myColorScheme.getString(team.getNodeName())));
 		}
+		myNullCells -= xVals.length;
 	}
 	
 	private void placeDistributedCells(Element team) {
@@ -226,23 +237,22 @@ public class Parser {
 	}
 	
 	private void placeRandomCells(Element team) {
-		fillMap(team.getNodeName(), myRandom.nextInt(myWidth*myHeight));
+		fillMap(team.getNodeName(), myRandom.nextInt(myNullCells));
 	}
 
-	private void checkCells() throws CellLocationException {
-		for (Pair xy : myCells.keySet()) {
-			if ((myCells.get(xy) == null) ||
-					(xy.getX() < 0) || (xy.getX() >= myWidth) ||
-					(xy.getY() < 0) || (xy.getY() >= myHeight)) {
-				throw new CellLocationException();
-			}
+	private void checkLocation(Pair location) throws CellLocationException {
+		if ((myCells.get(location) != null) ||
+				(location.getX() < 0) || (location.getX() >= myWidth) ||
+				(location.getY() < 0) || (location.getY() >= myHeight)) {
+			throw new CellLocationException();
 		}
 	}
 
 	private void fillMap(String teamName, int population) {
+		myNullCells -= population;
 		while (population != 0) {
 			Pair newXY = new Pair(myRandom.nextInt(myWidth), myRandom.nextInt(myHeight));
-			if (myCells.get(newXY) == null) continue;
+			if (myCells.get(newXY) != null) continue;
 			addCell(newXY, getState(myColorScheme.getString(teamName)));
 			population--;
 		}
