@@ -8,11 +8,22 @@ import cellsociety_team01.CellState.Cell;
 
 public class InfiniteRefineNeighborsAlgorithm extends RefineNeighborsAlgorithm {
 
+	/**
+	 * Currently unimplemented method for refining a list of possible neighbors
+	 */
 	@Override
 	public ArrayList<Cell> refineNeighbors(Map<Pair, Cell> cellMap, int rows,
 			int cols, Pair pair, ArrayList<Pair> possibleNeighbors) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
+
+		for (Pair possibleNeighbor : possibleNeighbors)
+			if (possibleNeighbor.getX() >= 0 && possibleNeighbor.getX() < cols
+					&& possibleNeighbor.getY() >= 0
+					&& possibleNeighbor.getY() < rows) {
+				legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
+			}
+
+		return legalNeighbors;
 	}
 
 }

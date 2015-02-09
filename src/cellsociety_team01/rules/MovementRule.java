@@ -26,7 +26,6 @@ public class MovementRule extends Rule{
 		Cell c = pickCell(myTargetState, myNeighbors);
 
 		if(!(c == null)){
-			//cur.setNextState(c.getCurState());
 			c.setNextState(cur.getCurState());
 			cur.setCurState(c.getCurState());
 			c.setUpdated(true);

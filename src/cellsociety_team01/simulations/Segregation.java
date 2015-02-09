@@ -12,20 +12,15 @@ import cellsociety_team01.rules.ThresholdMovementRule;
 import javafx.scene.paint.Color;
 
 public class Segregation extends Simulation {
-	
-	//private double[] myConfigs = new double[1];;
 	private double mySatisfactionThreshold;
 	
 	public Segregation(){
 		super();
-		
-		//initialize();
 	}
 	public int getNeighborType(){return 0;}
 	
 	public void initialize(){
-		
-		
+
 		State race1 = new Race(Color.web(myColorScheme.getString("teamA")), "race1");
 		State race2 = new Race(Color.web(myColorScheme.getString("teamB")), "race2");
 		State empty = new State(Color.web(myColorScheme.getString("empty")), "empty");
@@ -48,8 +43,7 @@ public class Segregation extends Simulation {
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		if(cur.isUpdated())
 			return;
-		if(myData.get(cur.getCurState()).size() == 0)
-			System.out.println(cur.getCurState().getName());
+
 		for(Rule r : myData.get(cur.getCurState()))
 			r.apply(cur,myNeighbors);
 		

@@ -24,25 +24,22 @@ public class ThresholdMovementRule extends MovementRule{
 			if((!c.getCurState().equals(myTargetState))&&(c.getCurState().comparePopulations(cur.getCurState()))) // check for NON-EMPTY similar states
 				numSimilarNeighbors = numSimilarNeighbors + 1.0;
 		
-		double numNonEmptyNeighbors = 0.0;
 		
-		for (Cell c: myNeighbors)
-			if((!c.getCurState().equals(myTargetState))) // check for NON-EMPTY  states
-				numNonEmptyNeighbors = numNonEmptyNeighbors + 1.0;
-		
-		
-		System.out.println(numSimilarNeighbors + " / " + numNonEmptyNeighbors);
-		//if((numSimilarNeighbors/numNonEmptyNeighbors) >= myThreshold) return; 
-		if((numSimilarNeighbors/myNeighbors.size()) >= myThreshold) return; //not sure which to use... percent of A
-		
-		System.out.println("MOVEMENT THRESHOLD REACHED");
-		
+		if((numSimilarNeighbors/myNeighbors.size()) >= myThreshold) {
+			cur.setNextState(cur.getCurState());
+			cur.setUpdated(true);
+			return; //not sure which to use... percent of A
+		}
+
 		Cell c = pickCell(myTargetState, myNeighbors);
-		
-		
+	
 		if(!(c == null)){
 			switchStatesUpdated(c, cur, true, false); // correctly configured call to swap an object and an empty spot to allow the vacated spot to be accessed
 			return;
+		}
+		else{
+			cur.setNextState(cur.getCurState());
+			cur.setUpdated(true);
 		}
 	}
 
