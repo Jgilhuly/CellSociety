@@ -1,0 +1,27 @@
+<simulation>
+	<info>
+		<name>Slime Molds Simulation</name>
+		<author>Peter Moseley</author>
+		<type>SlimeMolds</type>
+	</info>
+	<config>
+		<grid_shape>Square</grid_shape>
+		<grid_edge>Finite</grid_edge>
+		<grid_outline>Yes</grid_outline>
+		<cell_placement>Percent</cell_placement>
+		<sim_color_scheme>Default</sim_color_scheme>
+		<sim_max_value>10</sim_max_value>
+	</config>
+	<grid width="10" height="5">
+		<teamA>
+			<xVals>3 5 8 4 5</xVals>
+			<yVals>0 1 2 3 4</yVals>
+			<population_percent>0.1</population_percent>
+		</teamA>
+		<teamB>
+			<xVals>0 1 2 4 5 6 7 8 9 0 1 2 3 4 6 7 8 9 0 1 2 3 4 5 6 7 9 0 1 2 3 5 6 7 8 9 0 1 2 3 4 6 7 8 9</xVals>
+			<yVals>0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4</yVals>
+			<population_percent>0.9</population_percent>
+		</teamB>
+	</grid>
+</simulation>
