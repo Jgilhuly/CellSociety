@@ -43,7 +43,7 @@ public class Grid {
 
 	public void step() {
 		updateGrid();
-		myView.singleUpdate();
+		myView.update(true);
 	}
 
 	public void changeUpdateRate(double newRate) {	
@@ -86,7 +86,7 @@ public class Grid {
 		if (simRunning) {			
 			updateGrid();
 		}
-		myView.update();
+		myView.update(false);
 	}
 
 	private void setNotUpdated(){
