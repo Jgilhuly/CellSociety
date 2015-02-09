@@ -36,8 +36,6 @@ public class Cell {
 		return updated;
 	}
 
-
-
 	public void setX(int x) {
 		myX = x;
 	}

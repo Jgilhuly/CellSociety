@@ -48,11 +48,11 @@ public class Grid {
 		cols = bounds.getX();
 		rows = bounds.getY();
 	}
-	
+
 	public int getRows() {
 		return rows;
 	}
-	
+
 	public int getCols() {
 		return cols;
 	}
@@ -125,10 +125,11 @@ public class Grid {
 	public void setAuthor(String authorIn) {
 		author = authorIn;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
-	
+
 	public void setSimulation(Simulation simulationIn) {
 
 		simulation = simulationIn;
@@ -160,42 +161,46 @@ public class Grid {
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
 				for (Pair possibleNeighbor : possibleNeighbors)
-					if (possibleNeighbor.getX() > 0
+					if (possibleNeighbor.getX() >= 0
 							&& possibleNeighbor.getX() < cols
-							&& possibleNeighbor.getY() > 0
+							&& possibleNeighbor.getY() >= 0
 							&& possibleNeighbor.getY() < rows) {
-						legalNeighbors.add(cellMap.get(possibleNeighbor));
+						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
 					}
-				
+
 				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
 			}
 		} else if (neighborsType == 1) {
 			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(cellMap
-						.get(pair), 1);
+				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(
+						cellMap.get(pair), 1);
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
 				for (Pair possibleNeighbor : possibleNeighbors)
-					if (possibleNeighbor.getX() > 0
+					if (possibleNeighbor.getX() >= 0
 							&& possibleNeighbor.getX() < cols
-							&& possibleNeighbor.getY() > 0
+							&& possibleNeighbor.getY() >= 0
 							&& possibleNeighbor.getY() < rows) {
-						legalNeighbors.add(cellMap.get(possibleNeighbor));
+						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
 					}
+
+				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
 			}
 		} else {
 			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(cellMap
-						.get(pair), neighborsType);
+				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(
+						cellMap.get(pair), neighborsType);
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
 				for (Pair possibleNeighbor : possibleNeighbors)
-					if (possibleNeighbor.getX() > 0
+					if (possibleNeighbor.getX() >= 0
 							&& possibleNeighbor.getX() < cols
-							&& possibleNeighbor.getY() > 0
+							&& possibleNeighbor.getY() >= 0
 							&& possibleNeighbor.getY() < rows) {
-						legalNeighbors.add(cellMap.get(possibleNeighbor));
+						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
 					}
+
+				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
 			}
 		}
 	}
@@ -203,14 +208,15 @@ public class Grid {
 	private ArrayList<Pair> getPossible8Neighbors(Cell cell, int levels) {
 		ArrayList<Pair> ret = new ArrayList<Pair>();
 		int x = cell.getX();
-		int y = cell.getY();		
-		
+		int y = cell.getY();
+
 		for (int i = -1 * levels; i <= levels; i++) {
 			for (int j = -1 * levels; j <= levels; j++) {
-				ret.add(new Pair(x + i, y + j));
+				if (i != 0 || j != 0)
+					ret.add(new Pair(x + i, y + j));
 			}
 		}
-		
+
 		return ret;
 	}
 
@@ -233,6 +239,23 @@ public class Grid {
 
 	private void toroidalSetNeighbors(Map<Pair, Cell> cellMap) {
 
+	}
+
+	/**
+	 * Finds the cell associated with a pair, necessary because vanilla get()
+	 * map method uses pointers
+	 * 
+	 * @param cellMap
+	 * @param pair
+	 * @return
+	 */
+	private Cell findCellForPair(Map<Pair, Cell> cellMap, Pair pair) {
+		for (Pair cur : cellMap.keySet()) {
+			if (cur.getX() == pair.getX() && cur.getY() == pair.getY()) {
+				return cellMap.get(cur);
+			}
+		}
+		return null;
 	}
 
 	public void setTitle(String titleIn) {
@@ -273,7 +296,7 @@ public class Grid {
 		}
 		setNotUpdated();
 	}
-	
+
 	private void setNotUpdated() {
 		for (Cell c : cells) {
 			c.setUpdated(false);
