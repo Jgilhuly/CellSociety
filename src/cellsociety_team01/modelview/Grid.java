@@ -23,13 +23,13 @@ public class Grid {
 	private String author;
 	int cols, rows;
 
-	private enum gridShapeTypes {
+	public static enum gridShapeTypes {
 		SQUARE, TRIANGULAR
 	};
 
 	private gridShapeTypes myCellShape;
 
-	private enum gridEdgeTypes {
+	public static enum gridEdgeTypes {
 		FINITE, INFINITE, TOROIDAL
 	};
 
@@ -57,6 +57,10 @@ public class Grid {
 		return cols;
 	}
 
+	public boolean isGridOutlined() {
+		return gridOutline;
+	}
+	
 	public boolean isSimRunning() {
 		return simRunning;
 	}
@@ -162,9 +166,9 @@ public class Grid {
 
 				for (Pair possibleNeighbor : possibleNeighbors)
 					if (possibleNeighbor.getX() >= 0
-							&& possibleNeighbor.getX() < cols
-							&& possibleNeighbor.getY() >= 0
-							&& possibleNeighbor.getY() < rows) {
+					&& possibleNeighbor.getX() < cols
+					&& possibleNeighbor.getY() >= 0
+					&& possibleNeighbor.getY() < rows) {
 						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
 					}
 
@@ -178,9 +182,9 @@ public class Grid {
 
 				for (Pair possibleNeighbor : possibleNeighbors)
 					if (possibleNeighbor.getX() >= 0
-							&& possibleNeighbor.getX() < cols
-							&& possibleNeighbor.getY() >= 0
-							&& possibleNeighbor.getY() < rows) {
+					&& possibleNeighbor.getX() < cols
+					&& possibleNeighbor.getY() >= 0
+					&& possibleNeighbor.getY() < rows) {
 						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
 					}
 
@@ -194,9 +198,9 @@ public class Grid {
 
 				for (Pair possibleNeighbor : possibleNeighbors)
 					if (possibleNeighbor.getX() >= 0
-							&& possibleNeighbor.getX() < cols
-							&& possibleNeighbor.getY() >= 0
-							&& possibleNeighbor.getY() < rows) {
+					&& possibleNeighbor.getX() < cols
+					&& possibleNeighbor.getY() >= 0
+					&& possibleNeighbor.getY() < rows) {
 						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
 					}
 
@@ -238,7 +242,56 @@ public class Grid {
 	}
 
 	private void toroidalSetNeighbors(Map<Pair, Cell> cellMap) {
+		int neighborsType = simulation.getNeighborType();
+		// 0 is cardinal 4 neighbors, 1 is 8 neighbors, else
+		// number of outward steps in cardinal directions
 
+		if (neighborsType == 0) {
+			for (Pair pair : cellMap.keySet()) {
+				ArrayList<Pair> possibleNeighbors = getPossible4Neighbors(cellMap
+						.get(pair));
+				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
+
+				for (Pair possibleNeighbor : possibleNeighbors)
+					if (possibleNeighbor.getX() >= 0
+					&& possibleNeighbor.getX() < cols
+					&& possibleNeighbor.getY() >= 0
+					&& possibleNeighbor.getY() < rows) {
+						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
+					}
+
+				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
+			}
+		} else if (neighborsType == 1) {
+			for (Pair pair : cellMap.keySet()) {
+				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(
+						cellMap.get(pair), 1);
+				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
+
+				for (Pair possibleNeighbor : possibleNeighbors) {
+					if (possibleNeighbor.getX() < 0)
+					legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
+				}
+
+				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
+			}
+		} else {
+			for (Pair pair : cellMap.keySet()) {
+				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(
+						cellMap.get(pair), neighborsType);
+				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
+
+				for (Pair possibleNeighbor : possibleNeighbors)
+					if (possibleNeighbor.getX() >= 0
+					&& possibleNeighbor.getX() < cols
+					&& possibleNeighbor.getY() >= 0
+					&& possibleNeighbor.getY() < rows) {
+						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
+					}
+
+				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
+			}
+		}
 	}
 
 	/**
@@ -273,6 +326,10 @@ public class Grid {
 
 	public ArrayList<Cell> getCells() {
 		return cells;
+	}
+	
+	public gridShapeTypes getShape() {
+		return myCellShape;
 	}
 
 	public void update() {
