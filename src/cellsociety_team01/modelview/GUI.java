@@ -25,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import cellsociety_team01.modelview.Grid.gridShapeTypes;
 import cellsociety_team01.parser.Parser;
 
 public class GUI {
@@ -73,7 +74,6 @@ public class GUI {
 		myRoot = new BorderPane();
 		myRoot.setBottom(makeButtonsAndSlider());
 		myRoot.setTop(makeMenuBar());
-		myRoot.setCenter(makeGrid());
 		myRoot.setRight(makeGraph());
 		myRoot.setLeft(makePrefPanel());
 
@@ -156,7 +156,12 @@ public class GUI {
 	 * @return
 	 */
 	private Node makeGrid() {
-		gridView = new SquareGridView(myWidth, myHeight, rows, cols);
+		if (myModel.getShape() == gridShapeTypes.SQUARE) {
+			gridView = new SquareGridView(myWidth, myHeight, rows, cols);
+		}
+		else if (myModel.getShape() == gridShapeTypes.TRIANGULAR) {
+			gridView = new TriangleGridView(myWidth, myHeight, rows, cols);
+		}
 		gridCanvas = gridView.makeGrid(new Canvas(myWidth / 2,
 				myHeight / 2));
 		gridCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
