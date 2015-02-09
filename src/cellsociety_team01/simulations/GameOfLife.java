@@ -14,12 +14,12 @@ public class GameOfLife extends Simulation{
 
 	public GameOfLife(){
 		super();
-		initialize();
+		//initialize();
 	}
 
-	private void initialize(){
-		State dead = new State(Color.WHITE, "Dead");
-		State alive = new State(Color.BLACK, "Alive");
+	public void initialize(){
+		State dead = new State(Color.web(myColorScheme.getString("empty")), "Dead");
+		State alive = new State(Color.web(myColorScheme.getString("full")), "Alive");
 		
 		myData.put(alive, new ArrayList<Rule>());
 		myData.put(dead, new ArrayList<Rule>());

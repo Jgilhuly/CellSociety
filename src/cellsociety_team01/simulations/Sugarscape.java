@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.CellState.ColorChangeIntState;
 import cellsociety_team01.CellState.DirectionalAutomaton;
 import cellsociety_team01.CellState.IntState;
 import cellsociety_team01.CellState.State;
@@ -18,17 +19,17 @@ public class Sugarscape extends Simulation{
 	
 	public Sugarscape(){
 		super();
-		initialize();
+		//initialize();
 		}
 	
 	public int getNeighborType(){return MAX_VISION;}
 	
-	private void initialize(){
+	public void initialize(){
 		//0. amt. of sugar 1. sugarMetabolism 2. vision
 		State actor = new DirectionalAutomaton(Color.BLACK, "actor", 3, true);
 		
 		//0. amt. of sugar 1. sugarGrowBackRate 2. max capacity
-		State empty = new IntState(Color.ORANGE, "empty", 2); 
+		State empty = new ColorChangeIntState(Color.ORANGE, "empty", 2, 0); 
 		
 		myData.put(actor, new ArrayList<Rule>());
 		myData.put(empty, new ArrayList<Rule>());
@@ -42,8 +43,7 @@ public class Sugarscape extends Simulation{
 		myData.get(actor).add(updateAlive);
 		
 		myData.get(empty).add(updateSugarGrowth);
-		//myData.get(actor).add(new Rule...
-		//myData.get
+		
 		
 		return;
 		
@@ -53,11 +53,14 @@ public class Sugarscape extends Simulation{
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		if(cur.isUpdated())
 			return;
+		
 		for(Rule r: myData.get(cur))
 			r.apply(cur, myNeighbors);
 		
 		if(!cur.isUpdated())
 			cur.setNextState(cur.getCurState());
+		
+		cur.getNextState().updateColor();
 		
 		return;
 		

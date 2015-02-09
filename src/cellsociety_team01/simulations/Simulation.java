@@ -6,18 +6,21 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
-import cellsociety_team01.modelview.Grid;
 import cellsociety_team01.rules.Rule;
 
 public class Simulation {
 
+	private static final String COLORSCHEME_RESOURCE_PACKAGE = "resources/ColorScheme/ColorScheme";
 	protected Map<State, ArrayList<Rule>> myData;
+	protected ResourceBundle myColorScheme;
 
 	public Simulation(){
 		myData = new LinkedHashMap<State, ArrayList<Rule>>();
@@ -34,6 +37,7 @@ public class Simulation {
 	}
 	
 	
+	
 	public int getNeighborType(){return 0;}
 	//REALLY WANT EACH CELL TO HAVE A GETNEIGHBORS
 	
@@ -48,15 +52,15 @@ public class Simulation {
 	}
 
 
-	public boolean colorEquals(Color a, Color b){ // IDEALLY DON'T HAVE TO USE THIS
+/*	public boolean colorEquals(Color a, Color b){ // IDEALLY DON'T HAVE TO USE THIS
 		return (((a.getBlue() >= b.getBlue()-.1 )&&(a.getBlue() <= b.getBlue()+.1 ))&&
 				((a.getGreen() >= b.getGreen()-.1)&&(a.getGreen() <= b.getGreen()+.1))&&
 				((a.getRed() >= b.getRed()-.1)&&(a.getRed() <= b.getRed()+.1)));
-	}
+	}*/
 
-	public State findState(Color c){
+	public State findState(String identifier){
 		for (State s: myData.keySet()){
-			if(colorEquals(c, s.getColor())){//if(s.getColor().equals(c))
+			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){//if(s.getColor().equals(c))
 				System.out.println(s.getName() + "  " + s.getDemonym());
 				return s;}
 		}
@@ -68,6 +72,15 @@ public class Simulation {
 	}
 	
 	public void setConfigs(Map<String, String> a){
+		myColorScheme = ResourceBundle.getBundle(COLORSCHEME_RESOURCE_PACKAGE, new Locale(a.get("sim_color_scheme")));
+		parseConfigs(a);
+		initialize();
+		return;
+	}
+	
+	public void initialize(){return;}
+	
+	public void parseConfigs(Map<String, String> a){
 		return;
 	}
 	

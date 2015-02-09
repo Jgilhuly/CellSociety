@@ -18,19 +18,19 @@ public class AntForaging extends Simulation{
 	public AntForaging(){
 		super();
 		myConfigs[0] = 100; // Max pheremone level
-		initialize();
+		//initialize();
 	}
 	
-	private void initialize(){
+	public void initialize(){
 		//for ant, the func field corresponds to whether or not it has food
-		State fullAnt = new DirectionalAutomaton(Color.RED, "ant", 2, true);
-		State emptyAnt = new DirectionalAutomaton(Color.BROWN, "ant", 2, false);
+		State fullAnt = new DirectionalAutomaton(Color.web(myColorScheme.getString("teamA")), "ant", 2, true);
+		State emptyAnt = new DirectionalAutomaton(Color.web(myColorScheme.getString("teamA")), "ant", 2, false);
 		fullAnt.setInt(1, myConfigs[0]);
 		emptyAnt.setInt(0, myConfigs[0]);
 		
-		State food = new State(Color.GREEN, "food");
-		State home = new State(Color.BLUE, "home");
-		State empty= new IntState(Color.WHITE, "empty", 2);
+		State food = new State(Color.web(myColorScheme.getString("teamB")), "food");
+		State home = new State(Color.web(myColorScheme.getString("teamC")), "home");
+		State empty= new IntState(Color.web(myColorScheme.getString("empty")), "empty", 2);
 		
 		myData.put(fullAnt, new ArrayList<Rule>());	//update full ones first
 		myData.put(emptyAnt, new ArrayList<Rule>()); // update empty ones next
