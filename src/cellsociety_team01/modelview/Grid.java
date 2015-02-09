@@ -22,6 +22,7 @@ public class Grid {
 	private Timeline myLoop;
 	private String author;
 	int cols, rows;
+	private GridModel myGridModel;
 
 	public static enum gridShapeTypes {
 		SQUARE, TRIANGULAR
@@ -60,7 +61,7 @@ public class Grid {
 	public boolean isGridOutlined() {
 		return gridOutline;
 	}
-	
+
 	public boolean isSimRunning() {
 		return simRunning;
 	}
@@ -79,8 +80,8 @@ public class Grid {
 
 	public void step() {
 		updateCells();
+		updateCurStates();
 		myView.update(true);
-
 	}
 
 	public void updateCurStates() {
@@ -98,10 +99,14 @@ public class Grid {
 
 	public void setConfigs(Map<String, String> configs) {
 		String grid_shape = configs.get("grid_shape");
-		if (grid_shape.equals("Square"))
+		if (grid_shape.equals("Square")) {
+			myGridModel = new SquareGridModel();
 			myCellShape = gridShapeTypes.SQUARE;
-		else if (grid_shape.equals("Triangular"))
+		}
+		else if (grid_shape.equals("Triangle")) {
+			myGridModel = new TriangularGridModel();
 			myCellShape = gridShapeTypes.TRIANGULAR;
+		}
 		else {
 			Exception e = new Exception();
 			e.printStackTrace();
@@ -160,7 +165,7 @@ public class Grid {
 
 		if (neighborsType == 0) {
 			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = getPossible4Neighbors(cellMap
+				ArrayList<Pair> possibleNeighbors = myGridModel.getCardinalPossibleNeighbors(cellMap
 						.get(pair));
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
@@ -176,7 +181,7 @@ public class Grid {
 			}
 		} else if (neighborsType == 1) {
 			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(
+				ArrayList<Pair> possibleNeighbors = myGridModel.getAllPossibleNeighbors(
 						cellMap.get(pair), 1);
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
@@ -192,7 +197,7 @@ public class Grid {
 			}
 		} else {
 			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(
+				ArrayList<Pair> possibleNeighbors = myGridModel.getAllPossibleNeighbors(
 						cellMap.get(pair), neighborsType);
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
@@ -209,34 +214,6 @@ public class Grid {
 		}
 	}
 
-	private ArrayList<Pair> getPossible8Neighbors(Cell cell, int levels) {
-		ArrayList<Pair> ret = new ArrayList<Pair>();
-		int x = cell.getX();
-		int y = cell.getY();
-
-		for (int i = -1 * levels; i <= levels; i++) {
-			for (int j = -1 * levels; j <= levels; j++) {
-				if (i != 0 || j != 0)
-					ret.add(new Pair(x + i, y + j));
-			}
-		}
-
-		return ret;
-	}
-
-	private ArrayList<Pair> getPossible4Neighbors(Cell cell) {
-		ArrayList<Pair> ret = new ArrayList<Pair>();
-		int x = cell.getX();
-		int y = cell.getY();
-
-		ret.add(new Pair(x + 1, y));
-		ret.add(new Pair(x - 1, y));
-		ret.add(new Pair(x, y + 1));
-		ret.add(new Pair(x, y - 1));
-
-		return ret;
-	}
-
 	private void infiniteSetNeighbors(Map<Pair, Cell> cellMap) {
 
 	}
@@ -248,7 +225,7 @@ public class Grid {
 
 		if (neighborsType == 0) {
 			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = getPossible4Neighbors(cellMap
+				ArrayList<Pair> possibleNeighbors = myGridModel.getCardinalPossibleNeighbors(cellMap
 						.get(pair));
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
@@ -264,20 +241,20 @@ public class Grid {
 			}
 		} else if (neighborsType == 1) {
 			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(
+				ArrayList<Pair> possibleNeighbors = myGridModel.getAllPossibleNeighbors(
 						cellMap.get(pair), 1);
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
 				for (Pair possibleNeighbor : possibleNeighbors) {
 					if (possibleNeighbor.getX() < 0)
-					legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
+						legalNeighbors.add(findCellForPair(cellMap, possibleNeighbor));
 				}
 
 				cellMap.get(pair).getNeighbors().addAll(legalNeighbors);
 			}
 		} else {
 			for (Pair pair : cellMap.keySet()) {
-				ArrayList<Pair> possibleNeighbors = getPossible8Neighbors(
+				ArrayList<Pair> possibleNeighbors = myGridModel.getAllPossibleNeighbors(
 						cellMap.get(pair), neighborsType);
 				ArrayList<Cell> legalNeighbors = new ArrayList<Cell>();
 
@@ -327,7 +304,7 @@ public class Grid {
 	public ArrayList<Cell> getCells() {
 		return cells;
 	}
-	
+
 	public gridShapeTypes getShape() {
 		return myCellShape;
 	}
@@ -358,6 +335,14 @@ public class Grid {
 		for (Cell c : cells) {
 			c.setUpdated(false);
 		}
+	}
+
+	public void cycleCellState(int cellX, int cellY) {
+		for (Cell c : cells) {
+			if (c.getX() == cellX && c.getY() == cellY) {
+				c.setCurState(simulation.cycleNextState(c.getCurState()));
+			}
+		}		
 	}
 
 }
