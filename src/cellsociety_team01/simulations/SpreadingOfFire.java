@@ -1,6 +1,7 @@
 package cellsociety_team01.simulations;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
@@ -45,7 +46,7 @@ public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		cur.setNextState(cur.getCurState());
 	}
 	
-public void setConfigs(HashMap<String, String> configs){
+public void setConfigs(Map<String, String> configs){
 		flammability = Double.parseDouble(configs.get("sim_flammability"));
 }
 }
