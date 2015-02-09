@@ -1,55 +1,84 @@
 package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
+import cellsociety_team01.exceptions.BadStateException;
 import cellsociety_team01.rules.Rule;
 
 public class Simulation {
 
-	protected ArrayList<Rule> myRules;
-	protected ArrayList<State> myStates;
+	private static final String COLORSCHEME_RESOURCE_PACKAGE = "resources/ColorScheme/ColorScheme";
+	protected Map<State, ArrayList<Rule>> myData;
+	protected ResourceBundle myColorScheme;
 
 	public Simulation(){
-		myRules = new ArrayList<Rule>();
-		myStates = new ArrayList<State>();
+		myData = new LinkedHashMap<State, ArrayList<Rule>>();
 	}
 
+	public int getNumPossibleStates(){
+		return myData.keySet().size();
+	}
+	
 	//default implementation - used for SoF and GoL
 	//essentially sums affecting neighbors and determines if they meet the threshold
-	public State applyRules(Cell cur, ArrayList<Cell> myNeighbors){
-		for (Rule r: myRules){
-			int k = 0;
-			if (cur.getCurState().equals(r.getStart())){
-				for(Cell c: myNeighbors)
-					if(c.getCurState().equals(r.getCause()))
-						k++;
+	
+	public int getNeighborType(){return 0;}
+	
+	public void update(Cell cur, ArrayList<Cell> myNeighbors){	
+		return;
+	}
+	
+	public void setUpdated(Cell c){
+		c.setUpdated(true);
+	}
 
-				if(r.applies(k))
-					return r.getEnd();
-			}
+
+	public State findState(String identifier){
+		try {
+		for (State s: myData.keySet()){
+			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){
+				return s.newInstanceOf();}
 		}
-
-		return cur.getCurState();
+		throw new BadStateException();
+		} catch (BadStateException e) {
+			e.handleException();
+			return null;
+		}
 	}
-
-	public void setConfigs(ArrayList<String> configs){
+	
+	public Set<State> getStates(){
+		return myData.keySet();
 	}
-
-
-	public State findState(Color c){
-		for (State s: myStates)
-			if(s.getColor().equals(c))
-				return s;
-
-		return null; // MIGHT CAUSE PROBLEMS IF THE COLORS DON'T COMPARE WELL
+	
+	public void setConfigs(Map<String, String> a){
+		myColorScheme = ResourceBundle.getBundle(COLORSCHEME_RESOURCE_PACKAGE, new Locale(a.get("sim_color_scheme")));
+		parseConfigs(a);
+		initialize();
+		return;
 	}
-
-	public  ArrayList<Cell> findNeighbors(Cell[][] cells, int row, int col){
-		return null;
+	
+	public void initialize(){return;}
+	
+	public void parseConfigs(Map<String, String> a){
+		return;
 	}
-
+	
+	public State cycleNextState(State s){ 
+		ArrayList<State> states = new ArrayList<State>();
+		states.addAll(myData.keySet());
+		int i = states.indexOf(s);
+		i++;
+			if(i == states.size())
+				i = 0;
+		return states.get(i);	
+				}
 
 }

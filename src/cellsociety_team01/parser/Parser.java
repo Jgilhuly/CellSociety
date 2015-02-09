@@ -2,10 +2,11 @@ package cellsociety_team01.parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javafx.scene.paint.Color;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
+import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,60 +14,60 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import cellsociety_team01.Pair;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
+import cellsociety_team01.exceptions.CellLocationException;
+import cellsociety_team01.exceptions.ElementValueException;
+import cellsociety_team01.exceptions.SimulationTypeException;
 import cellsociety_team01.modelview.Grid;
+import cellsociety_team01.simulations.AntForaging;
 import cellsociety_team01.simulations.GameOfLife;
 import cellsociety_team01.simulations.PredatorPrey;
 import cellsociety_team01.simulations.Segregation;
 import cellsociety_team01.simulations.Simulation;
+import cellsociety_team01.simulations.SlimeMolds;
 import cellsociety_team01.simulations.SpreadingOfFire;
-import jdk.internal.org.xml.sax.SAXException;
+import cellsociety_team01.simulations.Sugarscape;
 
 
 public class Parser {
 
+	private static final String DEFVALS_RESOURCE_PACKAGE = "resources/DefVals/DefVals";
+	private ResourceBundle myDefVals;
+
 	private File myFile;
 	private Grid myGrid;
-	private String filename;
-	private Document dom;
-	private DocumentBuilderFactory dbf;
-	private DocumentBuilder db;
-	private NodeList mainNL;
+	private String myFilename;
+	private Element myRoot;
+	private Simulation mySim;
+	private String myCellPlacement;
 	private int myWidth;
 	private int myHeight;
-	private ArrayList<String> myPossibleSimulationsTXT = new ArrayList<>(Arrays.asList(
-			"Segregation",
-			"PredatorPrey",
-			"Fire",
-			"GameOfLife"));
-	private Simulation[] myPossibleSimulations = {
-			new Segregation(),
-			new PredatorPrey(),
-			new SpreadingOfFire(),
-			new GameOfLife()};
-	private Simulation mySim;
+	private Map<Pair, Cell> myCells;
+	private Random myRandom;
+	private int myNullCells;
 
 	public Parser (File file, Grid grid) {
 		myFile = file;
 		myGrid = grid;
-		filename = myFile.getPath();
-		dbf = DocumentBuilderFactory.newInstance();
+		myFilename = myFile.getPath();
+		myRandom = new Random();
 	}
 
 	public void parseXmlFile(){
-		try {
-
+		try {		
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			//Using factory get an instance of document builder
-			db = dbf.newDocumentBuilder();
-
+			DocumentBuilder db = dbf.newDocumentBuilder();
 			//parse using builder to get DOM representation of the XML file
-			dom = db.parse(filename);
-
-		}catch(ParserConfigurationException pce) {
+			Document dom = db.parse(myFilename);			
+			//get the root element
+			myRoot = dom.getDocumentElement();
+		}catch(ParserConfigurationException pce) {			
 			pce.printStackTrace();
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
@@ -74,99 +75,206 @@ public class Parser {
 			e.printStackTrace();
 		}
 
-		parseDocument();
+		//parse data from the three sections of the XML file
+		parseInfo((Element)myRoot.getElementsByTagName("info").item(0));
+		parseConfig((Element)myRoot.getElementsByTagName("config").item(0));
+		parseGrid((Element)myRoot.getElementsByTagName("grid").item(0));
 
 	}
 
-	private void parseDocument(){
-		//get the root element
-		Element root = dom.getDocumentElement();
+	private void parseInfo(Element info) {		
+		Map<String, String> infoMap = getChildValues(info);
+		myGrid.setTitle(infoMap.get("name"));
+		myGrid.setAuthor(infoMap.get("author"));
+		mySim = makeSim(infoMap.get("type"));
+		myDefVals = ResourceBundle.getBundle(DEFVALS_RESOURCE_PACKAGE, new Locale(mySim.getClass().getName()));
+		myGrid.setSimulation(mySim);		
+	}
 
-		NodeList infoNL = root.getElementsByTagName("info");
-		NodeList configNL = root.getElementsByTagName("config");
-		NodeList gridNL = root.getElementsByTagName("grid");
-
-		//Pass 3 Types of mainNL elements to different handling functions
-		if ((infoNL != null && infoNL.getLength() > 0) &&
-				(configNL != null && configNL.getLength() > 0) &&
-				(gridNL != null && gridNL.getLength() > 0)){
-			parseInfo((Element)infoNL.item(0));
-			parseConfig((Element)configNL.item(0));
-			parseGrid((Element)gridNL.item(0));
+	private Simulation makeSim(String textValue) {
+		try {
+			switch (textValue) {
+			case "Segregation" :
+				return new Segregation();
+			case "PredatorPrey" :
+				return new PredatorPrey();
+			case "SpreadingOfFire" :
+				return new SpreadingOfFire();
+			case "GameOfLife" :
+				return new GameOfLife();
+			case "SlimeMolds" :
+				return new SlimeMolds();
+			case "AntForaging" :
+				return new AntForaging();
+			case "Sugarscape" :
+				return new Sugarscape();
+			default :
+				throw new SimulationTypeException();
+			}
+		} catch (SimulationTypeException e) {
+			e.handleException();
+			return null;
 		}
-	}
-
-	private void parseInfo(Element info) {
-		myGrid.setTitle(getTextValue(info,"name"));
-		myGrid.setAuthor(getTextValue(info,"author"));
-		setRule(getTextValue(info,"rule"));
-	}
-
-	private void setRule(String textValue) {
-		int x = myPossibleSimulationsTXT.indexOf(textValue);
-		mySim = myPossibleSimulations[x];
-		myGrid.setSimulation(mySim);
 	}
 
 	private void parseConfig(Element config) {
-		NodeList configList = config.getChildNodes();
-		ArrayList<String> configVars = new ArrayList<String>();
-		for (int i = 0 ; i < configList.getLength() ; i++){
-			if (configList.item(i) instanceof Element == false)
-				continue;
-			
-			configVars.add(getTextValue(config, configList.item(i).getNodeName()));
+		Map<String, String> configMap = getChildValues(config);
+		Map<String, String> gridConfigMap = new HashMap<>();
+		Map<String, String> simConfigMap = new HashMap<>();
+		for (String s : configMap.keySet()) {
+			if (s.startsWith("grid")) {
+				gridConfigMap.put(s, configMap.get(s));
+			} else if (s.startsWith("sim")) {
+				simConfigMap.put(s, configMap.get(s));
+			}
 		}
-		mySim.setConfigs(configVars);
+		myGrid.setConfigs(gridConfigMap);
+		mySim.setConfigs(simConfigMap);
+
+		myCellPlacement = configMap.get("cell_placement");
+	}
+
+	private Map<String, String> getChildValues(Element element) {
+		NodeList nl = element.getChildNodes();
+		Map<String, String> values = new HashMap<>();
+		for (int i = 0 ; i < nl.getLength() ; i++){
+			if (nl.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				String tagName = nl.item(i).getNodeName();
+				String tagValue = null;
+				try {
+					tagValue = getTextValue(element, tagName);
+				} catch (ElementValueException e) {
+					tagValue = e.handleException();
+				}
+				values.put(tagName, tagValue);
+			}
+		}
+		return values;
 	}
 
 	private void parseGrid(Element grid) {
-		//		NamedNodeMap dimensions = grid.getAttributes();
-		//		Element widthEl = (Element)dimensions.getNamedItem("width");
 		myWidth = Integer.parseInt(grid.getAttribute("width"));
-		//		Element heightEl = (Element)dimensions.getNamedItem("height");
 		myHeight = Integer.parseInt(grid.getAttribute("height"));
+		myNullCells = myWidth*myHeight;
 
-		Cell[][] cells = new Cell[myWidth][myHeight];
+		myGrid.setBounds(new Pair(myWidth, myHeight));
 
-		NodeList rowList = grid.getChildNodes();
-		int xcnt = 0;
-		int ycnt = 0;
-		for(int i = 0 ; i < rowList.getLength() ; i++) {
-			if (rowList.item(i) instanceof Element == false)
-				continue;
-			Element row = (Element)rowList.item(i);
-			NodeList cellList = row.getChildNodes();
-			for (int j = 0 ; j < cellList.getLength() ; j++) {
-				if (cellList.item(j) instanceof Element == false)
-					continue;
-
-				Element cellEl = (Element)cellList.item(j);
-				String color = getTextValue(cellEl,"state");
-				Cell newCell = new Cell(j, i, getState(color));
-				cells[xcnt][ycnt] = newCell;
-				xcnt++;
+		myCells = new HashMap<Pair, Cell>();
+		NodeList gridList = grid.getChildNodes();
+		int randomStateCount = mySim.getNumPossibleStates();
+		for (int i = 0 ; i < gridList.getLength() ; i++) {
+			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element team = (Element)gridList.item(i);
+				if (myCellPlacement.equals("Location")) {
+					placeGivenCells(team);
+				} else if (myCellPlacement.equals("Percent")) {
+					placeDistributedCells(team);
+				} else if (myCellPlacement.equals("Random")) {
+					randomStateCount--;
+					placeRandomCells(team, (randomStateCount == 0));
+				}
 			}
-			xcnt = 0;
-			ycnt++;
 		}
-		myGrid.updateGrid(cells);
+		try {
+			if (myNullCells != 0) {
+				throw new CellLocationException();
+			}
+		} catch (CellLocationException e) {
+			e.handleException();
+		}
+
+		myGrid.setNeighbors(myCells);
+
+		myGrid.updateGrid(myCells.values());
 	}
 
-	private String getTextValue(Element ele, String tagName) {
+	private void placeGivenCells(Element team) {
+		String[] xVals = null;
+		String[] yVals = null;
+		try {
+			xVals = (getTextValue(team, "xVals").split(" "));
+			yVals = (getTextValue(team, "yVals").split(" "));
+		} catch (ElementValueException e) {
+			e.handleException();
+		}
+		for (int i = 0 ; i < xVals.length ; i++ ) {
+			Pair location = new Pair(Integer.parseInt(xVals[i]), Integer.parseInt(yVals[i]));
+			try {
+				checkLocation(location);
+			} catch (CellLocationException e) {
+				e.handleException();
+				continue;
+			}
+			addCell(location, getState(team.getNodeName()));
+		}
+		myNullCells -= xVals.length;
+	}
+
+	private void placeDistributedCells(Element team) {
+		Double popPercent = null;
+		try {
+			popPercent = Double.parseDouble(getTextValue(team, "population_percent"));
+		} catch (ElementValueException e) {
+			e.handleException();
+		}
+		Long L = Math.round((popPercent * myWidth * myHeight));
+		int population = Integer.valueOf(L.intValue());
+		fillMap(team.getNodeName(), population);
+		myNullCells -= population;
+	}
+
+	private void placeRandomCells(Element team, boolean last) {
+		int population;
+		if (last) {
+			population = myNullCells;
+		} else {
+			population = myRandom.nextInt(myNullCells);
+		}
+		fillMap(team.getNodeName(), population);
+		myNullCells -= population;
+	}
+
+	private void checkLocation(Pair location) throws CellLocationException {
+		if ((myCells.get(location) != null) ||
+				(location.getX() < 0) || (location.getX() >= myWidth) ||
+				(location.getY() < 0) || (location.getY() >= myHeight)) {
+			throw new CellLocationException();
+		}
+	}
+
+	private void fillMap(String teamName, int population) {
+		wLoop : while (population != 0) {
+			Pair newXY = new Pair(myRandom.nextInt(myWidth), myRandom.nextInt(myHeight));
+			for (Pair checkXY : myCells.keySet()) {
+				if ((newXY.getX() == checkXY.getX()) && (newXY.getY() == checkXY.getY())) {
+					continue wLoop;
+				}
+			}
+			addCell(newXY, getState(teamName));
+			population--;
+		}
+	}
+
+	private void addCell(Pair location, State state) {
+		Cell newCell = new Cell(location.getX(), location.getY(), state);
+		myCells.put(location, newCell);
+
+	}
+
+	private String getTextValue(Element element, String tagName) throws ElementValueException {
 		String textVal = null;
-		NodeList nl = ele.getElementsByTagName(tagName);
+		NodeList nl = element.getElementsByTagName(tagName);
 		if(nl != null && nl.getLength() > 0) {
 			Element el = (Element)nl.item(0);
 			textVal = el.getFirstChild().getNodeValue();
+		} else {
+			throw new ElementValueException(tagName, myDefVals);
 		}
-
 		return textVal;
 	}
 
 	private State getState(String color) {
-		Color c = Color.web(color);
-		State s = mySim.findState(c);
+		State s = mySim.findState(color);
 		return s;
 	}
 }
