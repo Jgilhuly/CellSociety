@@ -1,9 +1,7 @@
 package cellsociety_team01.CellState;
 import java.util.*;
 
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import cellsociety_team01.simulations.Simulation;
 
 public class Cell {
 
