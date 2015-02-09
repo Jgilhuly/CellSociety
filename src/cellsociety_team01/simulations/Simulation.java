@@ -33,6 +33,8 @@ public class Simulation {
 		return copy;
 	}
 	
+	
+	public int getNeighborType(){return 0;}
 	//REALLY WANT EACH CELL TO HAVE A GETNEIGHBORS
 	
 	public ArrayList<ArrayList<Cell>> updateGrid(Grid grid){ // MAKE SURE THIS ONLY GETS PASSED AN ITERABLE
@@ -84,6 +86,10 @@ public class Simulation {
 	
 	public Set<State> getStates(){
 		return myData.keySet();
+	}
+	
+	public void setConfigs(HashMap<String, String> a){
+		return;
 	}
 	
 	public State cycleNextState(State s){ // UNTESTED

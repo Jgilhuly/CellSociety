@@ -1,6 +1,6 @@
 package cellsociety_team01;
 
-public class Pair {
+public class Pair implements Comparable {
 
 	private int myX;
 	private int myY;
@@ -19,7 +19,15 @@ public class Pair {
 	public void setX(int x) {
 		this.myX = x;
 	}
-	public void setR(int y) {
+	public void setY(int y) {
 		this.myY = y;
+	}
+
+	@Override
+	public int compareTo(Object p) {
+		if (((Pair) p).getX() == myX && ((Pair) p).getY() == myY)
+			return 0;
+		else
+			return 1;
 	}
 }

@@ -1,5 +1,6 @@
 package cellsociety_team01.simulations;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
@@ -11,13 +12,14 @@ import javafx.scene.paint.Color;
 public class SpreadingOfFire extends Simulation {
 	
 	
-	private double[] myConfigs;
+	private double flammability;
+	
 	public SpreadingOfFire(){
 		super();
-		myConfigs = new double[1];
-		myConfigs[0] = 0.99; //HARD CODED CONSTANT
+		
 		initialize();
 	}
+	public int getNeighborType(){return 0;}
 	
 	private void initialize(){
 		
@@ -30,7 +32,7 @@ public class SpreadingOfFire extends Simulation {
 		myData.put(burning, new ArrayList<Rule>());
 		myData.put(empty, new ArrayList<Rule>());
 
-		myData.get(tree).add(new RandomRule(tree, burning, burning, myConfigs[0]));
+		myData.get(tree).add(new RandomRule(tree, burning, burning, flammability));
 		myData.get(burning).add(new RandomRule(burning, empty, new State(Color.BLACK, "dummy"), 1.0));
 		
 	}
@@ -43,9 +45,7 @@ public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		cur.setNextState(cur.getCurState());
 	}
 	
-public void setConfigs(ArrayList<String> configs){
-		myConfigs = new double[configs.size()];
-		for(int i = 0; i< configs.size(); i++)
-			myConfigs[i] = Double.parseDouble(configs.get(i));
-	}
+public void setConfigs(HashMap<String, String> configs){
+		flammability = Double.parseDouble(configs.get("sim_flammability"));
+}
 }

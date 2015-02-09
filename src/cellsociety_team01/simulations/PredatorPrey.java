@@ -25,7 +25,7 @@ public class PredatorPrey extends Simulation {
 	}
 	
 	//shark -> fish -> ocean
-	
+	public int getNeighborType(){return 0;}
 	private void initialize(){
 		//for this simulation, the first arg is the turns since reproduction (both), second is turns since eating (shark)
 		State shark = new IntState(Color.RED, "shark", 2);
