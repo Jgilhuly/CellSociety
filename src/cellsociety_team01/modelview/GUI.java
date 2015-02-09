@@ -2,6 +2,7 @@ package cellsociety_team01.modelview;
 
 import java.awt.Dimension;
 import java.io.File;
+import java.util.Queue;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
 import cellsociety_team01.parser.Parser;
 
 public class GUI {
-	public static final Dimension DEFAULT_SIZE = new Dimension(1200, 800);
+	public static final Dimension DEFAULT_SIZE = new Dimension(1400, 800);
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 
 	private Scene myScene;
@@ -71,25 +72,26 @@ public class GUI {
 	}
 
 	private Node makePrefPanel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	private Node makeGraph() {
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Number of Month");
-        LineChart<Number,Number> lineChart = 
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("X Axis");
+        yAxis.setLabel("Y Axis");
+        
+        LineChart<Number,Number> lineGraph = 
                 new LineChart<Number,Number>(xAxis,yAxis);
                 
-        lineChart.setTitle("Stock Monitoring, 2010");
         XYChart.Series series = new XYChart.Series();
-        series.setName("My portfolio");
+        series.setName("Name");
         series.getData().add(new XYChart.Data(1, 23));
         
-        lineChart.getData().add(series);
+        lineGraph.setTitle("Title");
+        lineGraph.getData().add(series);
         
-		return lineChart;
+		return lineGraph;
 	}
 
 	/**
@@ -164,6 +166,7 @@ public class GUI {
 
 		MenuBar menuBar = new MenuBar();
 		menuBar.getMenus().addAll(menu1, menu2);
+
 		return menuBar;
 	}
 
@@ -174,7 +177,7 @@ public class GUI {
 	 */
 	private Node makeGrid(int sceneWidth, int sceneHeight, int rows, int cols) {
 		gridView = new SquareGridView(sceneWidth, sceneHeight, rows, cols);
-		gridCanvas = gridView.makeGrid(new Canvas(sceneWidth/1.5, sceneHeight/1.5));
+		gridCanvas = gridView.makeGrid(new Canvas(sceneWidth/2, sceneHeight/2));
 		gridCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> cellClicked(e));
 		return gridCanvas;
 	}
