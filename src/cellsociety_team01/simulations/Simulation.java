@@ -82,7 +82,12 @@ public class Simulation {
 	}
 	
 	public State cycleNextState(State s){ // UNTESTED
-		return (State) java.util.Arrays.asList(myData.keySet().toArray()).get(java.util.Arrays.asList(myData.keySet().toArray()).indexOf(s) + 1);
-	}
+		ArrayList<State> states = new ArrayList<State>();
+		states.addAll(myData.keySet());
+		int i = states.indexOf(s);
+			if(i == states.size())
+				i = 0;
+		return states.get(i);	
+				}
 
 }

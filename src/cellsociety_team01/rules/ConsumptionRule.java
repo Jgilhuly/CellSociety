@@ -7,9 +7,9 @@ import cellsociety_team01.CellState.State;
 public class ConsumptionRule extends MovementRule{
 
 
-	public State myEmpty;
-	public double myTurnsThreshold;
-	public int myDataIndex;
+	private State myEmpty;
+	private double myTurnsThreshold;
+	private int myDataIndex;
 
 	public ConsumptionRule(State targetCellType, State emptyCellType, double t, int dataIndex){
 		super(targetCellType);
@@ -37,30 +37,13 @@ public class ConsumptionRule extends MovementRule{
 			eat(c, cur);
 			return;
 		}
-		/*		else{ //ONLY set true if you've eaten, otherwise do NOT so that you can move later
-			cur.setNextState(cur.getCurState());
-
-			return;
-		}*/
+		
 	}
 
 	private void eat (Cell prey, Cell predator){	
 		prey.setCurState(myEmpty);
 
 		switchStatesUpdated(prey, predator, true, true);
-
-		/*prey.setNextState(predator.getCurState());
-		predator.setNextState(myEmpty); //GOOD WAY TO DO THIS?
-		prey.setUpdated(true); //config: BUT, the place it takes IS updated
-		predator.setUpdated(true); // CONTROVERSIAL : should recently vacated spots be able to be taken
-
-		predator.setCurState(myEmpty); //config: a predator's vacated place CAN be taken immediately by the another object
-		//System.out.println(((State) java.util.Arrays.asList(myData.keySet().toArray()).get(myData.keySet().size()-1)).getName());
-
-
-
-		prey.setCurState(prey.getNextState());
-		predator.setCurState(predator.getNextState());*/
 
 		prey.getNextState().setInt(myDataIndex, 0); //resetting turns since eaten
 

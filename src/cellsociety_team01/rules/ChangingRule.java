@@ -4,7 +4,7 @@ import cellsociety_team01.CellState.State;
 
 public class ChangingRule extends Rule{
 	
-	protected State myStart; // DO WE NEED THIS FIELD IF THE RULES WILL BE CALLED BY THE APPROPRIATE STATES?
+	protected State myStart;
 	protected State myEnd;
 	
 	

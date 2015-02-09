@@ -15,12 +15,11 @@ import cellsociety_team01.rules.UphillMovementRule;
 
 public class Sugarscape extends Simulation{
 	
-	public int MAX_VISION = 5;
-	public int MAX_SUGAR = 10;
+	public int MAX_VISION;
+	public int MAX_SUGAR;
 	
 	public Sugarscape(){
 		super();
-		//initialize();
 		}
 	
 	public int getNeighborType(){return MAX_VISION;}
@@ -30,7 +29,7 @@ public class Sugarscape extends Simulation{
 		State actor = new DirectionalAutomaton(Color.web(myColorScheme.getString("teamA")), "actor", 3, true);
 		
 		//0. amt. of sugar 1. sugarGrowBackRate 2. max capacity
-		State empty = new ColorChangeIntState(Color.web(myColorScheme.getString("teamB")), "empty", 3, 0, MAX_SUGAR/2); 
+		State empty = new ColorChangeIntState(Color.web(myColorScheme.getString("teamB")), "empty", 3,Color.web(myColorScheme.getString("teamB")), 0, MAX_SUGAR/2); 
 		
 		myData.put(actor, new ArrayList<Rule>());
 		myData.put(empty, new ArrayList<Rule>());
@@ -42,11 +41,6 @@ public class Sugarscape extends Simulation{
 		myData.get(actor).add(move);
 		myData.get(actor).add(updateAlive);
 		myData.get(empty).add(updateSugarGrowth);
-		
-		
-		return;
-		
-		
 	}
 
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
@@ -62,8 +56,6 @@ public class Sugarscape extends Simulation{
 			cur.setNextState(cur.getCurState());
 		
 		cur.getNextState().updateColor();
-		
-		return;
 		
 	}
 	

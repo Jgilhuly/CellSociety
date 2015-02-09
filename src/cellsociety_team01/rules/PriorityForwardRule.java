@@ -31,28 +31,18 @@ public class PriorityForwardRule extends MovementRule{
 				d = c;
 			}
 		
-		//FOR NOW, only implements the max-finding, not the directional bias
+		if(d == null){
+			cur.setNextState(cur.getCurState());
+			cur.setUpdated(true);
+			return; 
+		}
 		
-		if(d == null)
-			return; //does not update if there are no available Cells
-		
-		//DONT LIKE THIS WAY OF UPDATINGvvv
-		
-		cur.setNextState(d.getCurState());
-		cur.getNextState().setInt(i, d.getCurState().getInt(i) - 10); //HARD CODED CONSTANTS
-		cur.setUpdated(true);
-		
-		
-		//DONT LIKE THIS WAY OF UPDATING^^^
-		
+	    cur.setNextState(d.getCurState());
 		d.setNextState(cur.getCurState());
-		d.setUpdated(true); //updating moved Cell
+		cur.getNextState().setInt(i, d.getCurState().getInt(i) - 10); 
 		
-		cur.setCurState(d.getCurState()); //not updating the vacated cell
+		d.setUpdated(true);
 		
-		
-	
+		cur.setCurState(d.getCurState()); 
 	}
-	
-	
 }
