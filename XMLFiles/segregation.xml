@@ -8,7 +8,7 @@
 		<grid_shape>Square</grid_shape>
 		<grid_edge>Finite</grid_edge>
 		<grid_outline>Yes</grid_outline>
-		<cell_placement>Given</cell_placement>
+		<cell_placement>Location</cell_placement>
 		<color_scheme>RedBlue</color_scheme>
 		<cell_neighbors>Cardinal</cell_neighbors>
 		<sim_satisfaction_threshold>0.4</sim_satisfaction_threshold>
