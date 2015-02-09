@@ -1,6 +1,6 @@
 package cellsociety_team01;
 
-public class Pair implements Comparable {
+public class Pair implements Comparable<Pair> {
 
 	private int myX;
 	private int myY;
@@ -24,10 +24,15 @@ public class Pair implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object p) {
-		if (((Pair) p).getX() == myX && ((Pair) p).getY() == myY)
+	public int compareTo(Pair p) {
+		if (p.getX() == myX && p.getY() == myY)
 			return 0;
 		else
 			return 1;
+	}
+
+	@Override
+	public int hashCode() {
+		return 1000*myX + myY;
 	}
 }

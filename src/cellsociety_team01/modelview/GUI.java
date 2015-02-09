@@ -35,6 +35,7 @@ public class GUI {
 	private Scene myScene;
 	private Grid myModel; // the logical aspect of the grid
 	private Stage myStage;
+	private BorderPane myRoot;
 
 	// gui nodes
 	private Button playButton;
@@ -55,8 +56,8 @@ public class GUI {
 
 	private int myWidth;
 	private int myHeight;
-	private int numRows;
-	private int numCols;
+	private int rows;
+	private int cols;
 
 	public GUI(Grid gridIn, String language, Stage stageIn) {
 		myModel = gridIn;
@@ -64,21 +65,21 @@ public class GUI {
 		myWidth = DEFAULT_SIZE.width;
 		myHeight = DEFAULT_SIZE.height;
 
-		numRows = 10; // CHANGE THIS
-		numCols = 10;
+		rows = myModel.getRows();
+		cols = myModel.getCols();
 
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
 				+ language);
-		BorderPane root = new BorderPane();
-		root.setBottom(makeButtonsAndSlider());
-		root.setTop(makeMenuBar());
-		root.setCenter(makeGrid(myWidth, myHeight, numRows, numCols));
-		root.setRight(makeGraph());
-		root.setLeft(makePrefPanel());
+		myRoot = new BorderPane();
+		myRoot.setBottom(makeButtonsAndSlider());
+		myRoot.setTop(makeMenuBar());
+		myRoot.setCenter(makeGrid());
+		myRoot.setRight(makeGraph());
+		myRoot.setLeft(makePrefPanel());
 
 		enableButtons();
 
-		myScene = new Scene(root, myWidth, myHeight);
+		myScene = new Scene(myRoot, myWidth, myHeight);
 	}
 	
 	/**
@@ -154,10 +155,10 @@ public class GUI {
 	 * Configures the grid view
 	 * @return
 	 */
-	private Node makeGrid(int sceneWidth, int sceneHeight, int rows, int cols) {
-		gridView = new SquareGridView(sceneWidth, sceneHeight, rows, cols);
-		gridCanvas = gridView.makeGrid(new Canvas(sceneWidth / 2,
-				sceneHeight / 2));
+	private Node makeGrid() {
+		gridView = new SquareGridView(myWidth, myHeight, rows, cols);
+		gridCanvas = gridView.makeGrid(new Canvas(myWidth / 2,
+				myHeight / 2));
 		gridCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
 				e -> cellClicked(e));
 		return gridCanvas;
@@ -237,6 +238,10 @@ public class GUI {
 			System.err.println("Error Loading XML File");
 		}
 
+		rows = myModel.getRows();
+		cols = myModel.getCols();
+		myRoot.setCenter(makeGrid());
+		
 		setGridCellStates();
 	}
 	
@@ -267,8 +272,8 @@ public class GUI {
 		double x = e.getX();
 		double y = e.getY();
 		System.out.println(x + ", " + y);
-		int cellX = (int) (x / (gridCanvas.getWidth() / numCols));
-		int cellY = (int) (y / (gridCanvas.getHeight() / numRows));
+		int cellX = (int) (x / (gridCanvas.getWidth() / cols));
+		int cellY = (int) (y / (gridCanvas.getHeight() / rows));
 		System.out.println(cellX + ", " + cellY);
 		
 	}
