@@ -201,7 +201,7 @@ public class Parser {
 		
 		myGrid.setNeighbors(myCells);
 
-		myGrid.updateGrid((ArrayList<Cell>) myCells.values());
+		myGrid.updateGrid(myCells.values());
 	}
 
 	private void placeGivenCells(Element team) {
