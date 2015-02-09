@@ -3,7 +3,11 @@ package cellsociety_team01.parser;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
+import java.util.ResourceBundle;
 
 import javafx.scene.paint.Color;
 
@@ -13,60 +17,64 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import cellsociety_team01.Pair;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
+import cellsociety_team01.exceptions.CellLocationException;
+import cellsociety_team01.exceptions.ElementValueException;
+import cellsociety_team01.exceptions.SimulationTypeException;
 import cellsociety_team01.modelview.Grid;
 import cellsociety_team01.simulations.GameOfLife;
 import cellsociety_team01.simulations.PredatorPrey;
 import cellsociety_team01.simulations.Segregation;
 import cellsociety_team01.simulations.Simulation;
 import cellsociety_team01.simulations.SpreadingOfFire;
-import jdk.internal.org.xml.sax.SAXException;
 
 
 public class Parser {
+	
+	private static final String DEFVALS_RESOURCE_PACKAGE = "resources/DefVals/DefVals";
+	private static final String COLORSCHEME_RESOURCE_PACKAGE = "resources/ColorScheme/ColorScheme";
+	private ResourceBundle myDefVals;
+	private ResourceBundle myColorScheme;
 
 	private File myFile;
 	private Grid myGrid;
-	private String filename;
-	private Document dom;
-	private DocumentBuilderFactory dbf;
-	private DocumentBuilder db;
-	private NodeList mainNL;
+	private String myFilename;
+	private Element myRoot;
+	private Simulation mySim;
+	private String myCellPlacement;
 	private int myWidth;
 	private int myHeight;
-	private ArrayList<String> myPossibleSimulationsTXT = new ArrayList<>(Arrays.asList(
-			"Segregation",
-			"PredatorPrey",
-			"Fire",
-			"GameOfLife"));
-	private Simulation[] myPossibleSimulations = {
-			new Segregation(),
-			new PredatorPrey(),
-			new SpreadingOfFire(),
-			new GameOfLife()};
-	private Simulation mySim;
+	private Map<Pair, Cell> myCells;
+	private Random myRandom;
 
 	public Parser (File file, Grid grid) {
 		myFile = file;
 		myGrid = grid;
-		filename = myFile.getPath();
-		dbf = DocumentBuilderFactory.newInstance();
+		myFilename = myFile.getPath();
+		myRandom = new Random();
 	}
 
 	public void parseXmlFile(){
-		try {
+		try {		
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
 			//Using factory get an instance of document builder
-			db = dbf.newDocumentBuilder();
+			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			//parse using builder to get DOM representation of the XML file
-			dom = db.parse(filename);
+			Document dom = db.parse(myFilename);
+			
+			//get the root element
+			myRoot = dom.getDocumentElement();
 
 		}catch(ParserConfigurationException pce) {
+			
+			
 			pce.printStackTrace();
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
@@ -74,102 +82,192 @@ public class Parser {
 			e.printStackTrace();
 		}
 
-		parseDocument();
+		parseInfo((Element)myRoot.getElementsByTagName("info").item(0));
+		parseConfig((Element)myRoot.getElementsByTagName("config").item(0));
+		parseGrid((Element)myRoot.getElementsByTagName("grid").item(0));
 
 	}
 
-	private void parseDocument(){
-		//get the root element
-		Element root = dom.getDocumentElement();
+	private void parseInfo(Element info) {		
+		HashMap<String, String> infoMap = getChildValues(info);
+		myGrid.setTitle(infoMap.get("name"));
+		myGrid.setAuthor(infoMap.get("author"));
+		mySim = makeSim(infoMap.get("type"));
+		myDefVals = ResourceBundle.getBundle(DEFVALS_RESOURCE_PACKAGE, new Locale(mySim.getClass().getName()));
+		myGrid.setSimulation(mySim);		
+	}
 
-		NodeList infoNL = root.getElementsByTagName("info");
-		NodeList configNL = root.getElementsByTagName("config");
-		NodeList gridNL = root.getElementsByTagName("grid");
-
-		//Pass 3 Types of mainNL elements to different handling functions
-		if ((infoNL != null && infoNL.getLength() > 0) &&
-				(configNL != null && configNL.getLength() > 0) &&
-				(gridNL != null && gridNL.getLength() > 0)){
-			parseInfo((Element)infoNL.item(0));
-			parseConfig((Element)configNL.item(0));
-			parseGrid((Element)gridNL.item(0));
+	private Simulation makeSim(String textValue) {
+		try {
+			switch (textValue) {
+			case "Segregation" :
+				return new Segregation();
+			case "PredatoryPrey" :
+				return new PredatorPrey();
+			case "SpreadingOfFire" :
+				return new SpreadingOfFire();
+			case "GameOfLife" :
+				return new GameOfLife();
+			case "SlimeMolds" :
+//				return new SlimeMolds();
+			case "ForagingAnts" :
+//				return new ForagingAnts();
+			case "Sugarscape" :
+//				return new Sugarscape();
+			default :
+				throw new SimulationTypeException();
+			}
+		} catch (SimulationTypeException e) {
+			e.handleException();
+			return null;
 		}
-	}
-
-	private void parseInfo(Element info) {
-		myGrid.setTitle(getTextValue(info,"name"));
-		myGrid.setAuthor(getTextValue(info,"author"));
-		setRule(getTextValue(info,"rule"));
-	}
-
-	private void setRule(String textValue) {
-		int x = myPossibleSimulationsTXT.indexOf(textValue);
-		mySim = myPossibleSimulations[x];
-		myGrid.setSimulation(mySim);
 	}
 
 	private void parseConfig(Element config) {
-		NodeList configList = config.getChildNodes();
-		ArrayList<String> configVars = new ArrayList<String>();
-		for (int i = 0 ; i < configList.getLength() ; i++){
-			if (configList.item(i) instanceof Element == false)
-				continue;
-			
-			configVars.add(getTextValue(config, configList.item(i).getNodeName()));
+		Map<String, String> configMap = getChildValues(config);
+//		configMap = checkFilled(configMap);
+		Map<String, String> gridConfigMap = new HashMap<>();
+		Map<String, String> simConfigMap = new HashMap<>();
+		for (String s : configMap.keySet()) {
+			if (s.startsWith("grid")) {
+				gridConfigMap.put(s, configMap.get(s));
+			} else if (s.startsWith("sim")) {
+				simConfigMap.put(s, configMap.get(s));
+			}
 		}
-		mySim.setConfigs(configVars);
+		myGrid.setConfigs(gridConfigMap);
+		mySim.setConfigs(simConfigMap);
+
+		myCellPlacement = configMap.get("cell_placement");
+		myColorScheme = ResourceBundle.getBundle(COLORSCHEME_RESOURCE_PACKAGE, new Locale(configMap.get("color_scheme")));
+	}
+
+//	private HashMap<String, String> checkFilled(Map<String, String> configMap) {
+//		//possibly checking for whether element tag is there at all (not just empty)
+//
+//		return configMap;
+//	}
+
+	private HashMap<String, String> getChildValues(Element element) {
+		NodeList nl = element.getChildNodes();
+		HashMap<String, String> values = new HashMap<>();
+		for (int i = 0 ; i < nl.getLength() ; i++){
+			if (nl.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				String tagName = nl.item(i).getNodeName();
+				String tagValue = null;
+				try {
+					tagValue = getTextValue(element, tagName);
+				} catch (ElementValueException e) {
+					tagValue = e.handleException();
+				}
+				values.put(tagName, tagValue);
+			}
+		}
+		return values;
 	}
 
 	private void parseGrid(Element grid) {
-		//		NamedNodeMap dimensions = grid.getAttributes();
-		//		Element widthEl = (Element)dimensions.getNamedItem("width");
 		myWidth = Integer.parseInt(grid.getAttribute("width"));
-		//		Element heightEl = (Element)dimensions.getNamedItem("height");
 		myHeight = Integer.parseInt(grid.getAttribute("height"));
 
-		Cell[][] cells = new Cell[myWidth][myHeight];
-
-		NodeList rowList = grid.getChildNodes();
-		int xcnt = 0;
-		int ycnt = 0;
-		for(int i = 0 ; i < rowList.getLength() ; i++) {
-			if (rowList.item(i) instanceof Element == false)
-				continue;
-			Element row = (Element)rowList.item(i);
-			NodeList cellList = row.getChildNodes();
-			for (int j = 0 ; j < cellList.getLength() ; j++) {
-				if (cellList.item(j) instanceof Element == false)
-					continue;
-
-				Element cellEl = (Element)cellList.item(j);
-				String color = getTextValue(cellEl,"state");
-				Cell newCell = new Cell(j, i, getState(color)); // THIS LINE CAUSES ERRORS BC of the comparison. Somewhere in the XML - doesn't parse colors well
-				cells[xcnt][ycnt] = newCell;
-				xcnt++;
-			}
-			xcnt = 0;
-			ycnt++;
+		NodeList gridList = grid.getChildNodes();
+		if (myCellPlacement.equals("Location")) {
+			placeGivenCells(gridList);
+		} else if (myCellPlacement.equals("Percent")) {
+			placeDistributedCells(gridList);
+		} else if (myCellPlacement.equals("Random")) {
+			placeRandomCells(gridList);
 		}
-		myGrid.updateGrid(convert(cells));
-		//myGrid.update();
-	}
-	
-	private ArrayList<ArrayList<Cell>> convert(Cell[][] grid){
-		ArrayList<ArrayList<Cell>> cells = new ArrayList<ArrayList<Cell>>();
-		for(Cell[] x : grid)
-			cells.add(new ArrayList<Cell>(Arrays.asList(x)));
-				
-		return cells;
+		try {
+			checkCells();
+		} catch (CellLocationException e) {
+			e.handleException();
+			fillMap("empty", 1.0);
+		}
+
+		myGrid.updateGrid((ArrayList<Cell>) myCells.values());
 	}
 
-	private String getTextValue(Element ele, String tagName) {
+	private void checkCells() throws CellLocationException {
+		for (Pair xy : myCells.keySet()) {
+			if ((myCells.get(xy) == null) ||
+					(xy.getX() < 0) || (xy.getX() >= myWidth) ||
+					(xy.getY() < 0) || (xy.getY() >= myHeight)) {
+				throw new CellLocationException();
+			}
+		}
+	}
+
+	private void placeRandomCells(NodeList gridList) {
+		for (int i = 0 ; i < gridList.getLength() ; i++) {
+			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element team = (Element)gridList.item(i);
+				fillMap(team.getNodeName(), myRandom.nextDouble());
+			}
+		}
+	}
+
+	private void placeDistributedCells(NodeList gridList) {
+		for (int i = 0 ; i < gridList.getLength() ; i++) {
+			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element team = (Element)gridList.item(i);
+				Double popPercent = null;
+				try {
+					popPercent = Double.parseDouble(getTextValue(team, "population_percentage"));
+				} catch (ElementValueException e) {
+					e.handleException();
+				}
+				fillMap(team.getNodeName(), popPercent);
+			}
+		}
+	}
+
+	private void placeGivenCells(NodeList gridList) {
+		for (int i = 0 ; i < gridList.getLength() ; i++) {
+			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				Element team = (Element)gridList.item(i);
+				String[] xvals = null;
+				String[] yvals = null;
+				try {
+					xvals = (getTextValue(team, "xvals").split(" "));
+					yvals = (getTextValue(team, "yvals").split(" "));
+				} catch (ElementValueException e) {
+					e.handleException();
+				}
+				for (int j = 0 ; j < xvals.length ; j++ ) {
+					Cell newCell = new Cell(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j]),
+							getState(myColorScheme.getString(team.getNodeName())));
+					myCells.put(new Pair(Integer.parseInt(xvals[j]), Integer.parseInt(yvals[j])), newCell);
+				}
+			}
+		}
+	}
+
+	private void fillMap(String teamName, Double popPercent) {
+		myCells = new HashMap<Pair, Cell>();
+		for (int i = 0 ; i < myWidth ; i++) {
+			for (int j = 0 ; j < myHeight ; j++) {
+				Pair curXY = new Pair(i, j);
+				if (myCells.get(curXY) == null) {
+					Random rand = new Random();
+					if (rand.nextDouble() <= popPercent) {
+						Cell newCell = new Cell(i, j, getState(myColorScheme.getString(teamName)));
+						myCells.put(new Pair(i,j), newCell);
+					}
+				}
+			}
+		}
+	}
+
+	private String getTextValue(Element element, String tagName) throws ElementValueException {
 		String textVal = null;
-		NodeList nl = ele.getElementsByTagName(tagName);
+		NodeList nl = element.getElementsByTagName(tagName);
 		if(nl != null && nl.getLength() > 0) {
 			Element el = (Element)nl.item(0);
 			textVal = el.getFirstChild().getNodeValue();
+		} else {
+			throw new ElementValueException(tagName, myDefVals);
 		}
-
 		return textVal;
 	}
 

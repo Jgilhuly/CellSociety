@@ -5,62 +5,86 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import cellsociety_team01.CellState.Cell;
-import cellsociety_team01.parser.Parser;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import cellsociety_team01.CellState.Cell;
+import cellsociety_team01.parser.Parser;
 
 public class GUI {
-	public static final Dimension DEFAULT_SIZE = new Dimension(800, 600);
+	public static final Dimension DEFAULT_SIZE = new Dimension(1450, 800);
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 
-	private Scene myScene;
 	private ResourceBundle myResources; // for language support
+	private Scene myScene;
 	private Grid myModel; // the logical aspect of the grid
 	private Stage myStage;
 
+	// gui nodes
 	private Button playButton;
 	private Button pauseButton;
 	private Button stepButton;
 	private Button resetButton;
 	private Slider slider;
-	private GridPane grid; // the visual aspect of the grid
+	private TextField textField1;
+	private TextField textField2;
+	private TextField textField3;
+
+	// grid nodes
+	private Canvas gridCanvas;
+	private GridView gridView;
+
 	private Parser parser;
 	private File file;
+
+	private int myWidth;
+	private int myHeight;
+	private int numRows;
+	private int numCols;
 
 	public GUI(Grid gridIn, String language, Stage stageIn) {
 		myModel = gridIn;
 		myStage = stageIn;
+		myWidth = DEFAULT_SIZE.width;
+		myHeight = DEFAULT_SIZE.height;
+
+		numRows = 10; // CHANGE THIS
+		numCols = 10;
 
 		myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE
 				+ language);
 		BorderPane root = new BorderPane();
 		root.setBottom(makeButtonsAndSlider());
 		root.setTop(makeMenuBar());
-		root.setCenter(makeGrid());
+		root.setCenter(makeGrid(myWidth, myHeight, numRows, numCols));
+		root.setRight(makeGraph());
+		root.setLeft(makePrefPanel());
 
 		enableButtons();
 
-		myScene = new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height);
+		myScene = new Scene(root, myWidth, myHeight);
 	}
-
+	
 	/**
 	 * Makes the Buttons and Slider
-	 * 
 	 * @return
 	 */
 	private Node makeButtonsAndSlider() {
@@ -73,36 +97,15 @@ public class GUI {
 		result.getChildren().add(stepButton);
 		resetButton = makeButton("ResetCommand", event -> reset());
 		result.getChildren().add(resetButton);
-
-		slider = new Slider();
-		slider.setMin(0);
-		slider.setMax(1000);
-		slider.setValue(500);
-		slider.setShowTickLabels(true);
-		slider.setShowTickMarks(true);
-		slider.setMajorTickUnit(500);
-		slider.setMinorTickCount(10);
-
-		result.getChildren().add(slider);
-
+		
+		result.getChildren().add(makeSlider());
 		result.setSpacing(10);
-
+		
 		return result;
 	}
-
-	public void reset() {
-		parser = new Parser(file, myModel);
-		parser.parseXmlFile();
-		setGridCellStates();
-	}
-
-	public Stage getStage() {
-		return myStage;
-	}
-
+	
 	/**
-	 * Helper method to create buttons with labels and handlers
-	 * 
+	 * Helper method to create buttons with labels and handlers (Taken from the example_browser)
 	 * @param property
 	 * @param handler
 	 * @return
@@ -114,10 +117,25 @@ public class GUI {
 		result.setOnAction(handler);
 		return result;
 	}
-
+	
+	/**
+	 * Makes the Slider which controls the speed of the simulation
+	 * @return
+	 */
+	private Node makeSlider() {
+		slider = new Slider();
+		slider.setMin(0);
+		slider.setMax(1000);
+		slider.setValue(500);
+		slider.setShowTickLabels(true);
+		slider.setShowTickMarks(true);
+		slider.setMajorTickUnit(500);
+		slider.setMinorTickCount(10);
+		return slider;
+	}
+	
 	/**
 	 * Configures the top menu bar
-	 * 
 	 * @return
 	 */
 	private Node makeMenuBar() {
@@ -130,25 +148,82 @@ public class GUI {
 
 		MenuBar menuBar = new MenuBar();
 		menuBar.getMenus().addAll(menu1, menu2);
+
 		return menuBar;
 	}
-
+	
 	/**
 	 * Configures the grid view
-	 * 
 	 * @return
 	 */
-	private Node makeGrid() {
-		grid = new GridPane();
-		//		grid.setGridLinesVisible(true);
-		grid.setPadding(new Insets(10, 50, 10, 50));
-		grid.setHgap(5);
-		grid.setVgap(5);
-		return grid;
+	private Node makeGrid(int sceneWidth, int sceneHeight, int rows, int cols) {
+		gridView = new SquareGridView(sceneWidth, sceneHeight, rows, cols);
+		gridCanvas = gridView.makeGrid(new Canvas(sceneWidth / 2,
+				sceneHeight / 2));
+		gridCanvas.addEventHandler(MouseEvent.MOUSE_CLICKED,
+				e -> cellClicked(e));
+		return gridCanvas;
+	}
+	
+	/**
+	 * Sets up the graph
+	 * @return
+	 */
+	private Node makeGraph() {
+		VBox result = new VBox();
+		
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("X Axis");
+        yAxis.setLabel("Y Axis");
+        
+        LineChart<Number,Number> lineGraph = 
+                new LineChart<Number,Number>(xAxis,yAxis);
+                
+        XYChart.Series series = new XYChart.Series();
+        series.setName("Name");
+        series.getData().add(new XYChart.Data(1, 23));
+        
+        lineGraph.setTitle("Title");
+        lineGraph.getData().add(series);
+        
+        result.getChildren().add(lineGraph);
+        
+		return result;
 	}
 
 	/**
-	 * Brings up a file chooser to select an xml file
+	 * Sets up the preferences panel for changing parameters
+	 * @return
+	 */
+	private Node makePrefPanel() {
+		GridPane inputGrid = new GridPane();
+		inputGrid.setHgap(5);
+		inputGrid.setVgap(5);
+
+		textField1 = new TextField();
+		textField1.setPromptText(myResources.getString("TextField1"));
+		inputGrid.add(textField1, 0, 0);
+		Button b1 = makeButton("EnterCommand", event -> myModel.play());
+		inputGrid.add(b1, 1, 0);
+
+		textField2 = new TextField();
+		textField2.setPromptText(myResources.getString("TextField1"));
+		inputGrid.add(textField2, 0, 1);
+		Button b2 = makeButton("EnterCommand", event -> myModel.play());
+		inputGrid.add(b2, 1, 1);
+
+		textField3 = new TextField();
+		textField3.setPromptText(myResources.getString("TextField1"));
+		inputGrid.add(textField3, 0, 2);
+		Button b3 = makeButton("EnterCommand", event -> myModel.play());
+		inputGrid.add(b3, 1, 2);
+
+		return inputGrid;
+	}
+
+	/**
+	 * Brings up a file chooser to select an XML file
 	 */
 	private void loadXML() {
 		FileChooser fileChooser = new FileChooser();
@@ -160,47 +235,52 @@ public class GUI {
 		if (file != null) {
 			parser = new Parser(file, myModel);
 			parser.parseXmlFile();
-		}
-		else {
+		} else {
 			System.err.println("Error Loading XML File");
 		}
 
 		setGridCellStates();
 	}
 	
-	
+	/**
+	 * updates the GUI, called by grid on update tick
+	 */
+	public void update(boolean step) {
+		if (myModel.isSimRunning() || step) {
+			setGridCellStates();
+		}
+		myModel.changeUpdateRate(slider.getValue()); // Change This
+		enableButtons();
+	}
 
 	/**
-	 * Sets grid states based on the cell array in myModel
+	 * Sets grid states based on the cell map in myModel
 	 */
 	private void setGridCellStates() {
-		
-		ArrayList<ArrayList<Cell>> cells = myModel.getCells();
-		for (int i = 0; i < cells.size(); i++) {
-			for (int j = 0; j < cells.get(i).size(); j++) {
-				Cell c = cells.get(i).get(j);
-				Rectangle newCell = new Rectangle();
-				newCell.setHeight(myStage.getHeight()/(cells.get(0).size()+50));
-				newCell.setWidth(myStage.getWidth()/(cells.get(0).size()+50));
-				if(c.getCurState() == null)
-					System.out.println("STATE is null");
-				newCell.setFill(c.getCurState().getColor());
-				newCell.setOnMouseClicked(e -> cellClicked(c));
-				grid.add(newCell, i, j);
-			}
-		}
+		gridView.setGridCellStates(gridCanvas.getGraphicsContext2D(),
+				myModel.getCells());
 	}
 
 	/**
 	 * Helper method that handles the user clicking a cell
-	 * 
-	 * @param t
+	 * @param e
 	 */
-	private void cellClicked(Cell cell) {
-		//      ADD CYCLE CELL STATES
-
-		//		System.out.println(grid.getColumnIndex(t).intValue());
-		//		System.out.println(grid.getRowIndex(t).intValue());
+	private void cellClicked(MouseEvent e) {
+		double x = e.getX();
+		double y = e.getY();
+		System.out.println(x + ", " + y);
+		int cellX = (int) (x / (gridCanvas.getWidth() / numCols));
+		int cellY = (int) (y / (gridCanvas.getHeight() / numRows));
+		System.out.println(cellX + ", " + cellY);
+	}
+	
+	/**
+	 * Resets the simulation to the last xml file
+	 */
+	public void reset() {
+		parser = new Parser(file, myModel);
+		parser.parseXmlFile();
+		setGridCellStates();
 	}
 
 	/**
@@ -214,26 +294,17 @@ public class GUI {
 	}
 
 	/**
-	 * updates the GUI, called by grid on update tick
-	 */
-	public void update() {
-		if (myModel.isSimRunning()) {
-			setGridCellStates();
-		}
-		myModel.changeUpdateRate(slider.getValue()); //  Change This
-		enableButtons();
-	}
-
-	public void singleUpdate() {
-		setGridCellStates();
-		myModel.changeUpdateRate(slider.getValue()); //  Change This
-		enableButtons();
-	}
-
-	/**
 	 * Returns scene for this view so it can be added to stage.
 	 */
 	public Scene getScene() {
 		return myScene;
+	}
+	
+	/**
+	 * Gets stage
+	 * @return
+	 */
+	public Stage getStage() {
+		return myStage;
 	}
 }

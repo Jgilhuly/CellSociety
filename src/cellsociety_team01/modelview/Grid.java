@@ -12,7 +12,7 @@ import cellsociety_team01.simulations.Simulation;
 
 public class Grid {
 	Simulation simulation;
-	private ArrayList<ArrayList<Cell>> cells = new ArrayList<ArrayList<Cell>>();
+	private ArrayList<Cell> cells;
 	private GUI myView;
 	private boolean simRunning;
 	private double updateRate;
@@ -69,14 +69,14 @@ public class Grid {
 	}
 
 	public void step() {
-		update();
-		
-		myView.singleUpdate();
+
+		updateGrid(simulation.updateGrid(this));
+		myView.update(true);
+
 	}
 	
 	public void updateCurStates(){
-		for(ArrayList<Cell> list : cells)
-			for(Cell c : list)
+			for(Cell c : cells)
 				c.updateCurState();
 	}
 
@@ -93,34 +93,33 @@ public class Grid {
 		simulation = simulationIn;
 	}
 
-	public void updateGrid(ArrayList<ArrayList<Cell>> cellsIn) {
+	public void updateGrid(ArrayList<Cell> cellsIn) {
+		cells = cellsIn;
 		System.out.println("UPDATE CYCLE   "+i);
 		i++;
-		cells = cellsIn;
 	}
 	
-	public ArrayList<Cell> getNeighbors(Cell c){
-		int x = 0;
-		int y = 0;
-		for (ArrayList<Cell> list: cells)
-			for (Cell temp : list)
-				if(temp.equals(c)){
-					x = cells.indexOf(list);
-					y = list.indexOf(temp);
-				}
-		ArrayList<Cell> ret = new ArrayList<Cell>();
-		
-		//COME BACK TO THIS -- MIGHT also WORK FOR HEXAGONAL / TRIANGLES
-		
-		for(Point2D p: myNeighborCoords)
-			if(     (x+(int)p.getX() <= (cells.size()-1))&&
-					(x+(int)p.getX() >= 0)&&
-					(y+(int)p.getY() <= (cells.get(0).size()-1))&&
-					(y+(int)p.getY() >= 0)){
-				ret.add(cells.get(x+(int)p.getX()).get(y+(int)p.getY()));
-			}
-		return ret;
-	}
+//	public ArrayList<Cell> getNeighbors(Cell c){
+//		int x = 0;
+//		int y = 0;
+//			for (Cell temp : cells)
+//				if(temp.equals(c)){
+//					x = cells.indexOf(list);
+//					y = list.indexOf(temp);
+//				}
+//		ArrayList<Cell> ret = new ArrayList<Cell>();
+//		
+//		//COME BACK TO THIS -- MIGHT also WORK FOR HEXAGONAL / TRIANGLES
+//		
+//		for(Point2D p: myNeighborCoords)
+//			if(     (x+(int)p.getX() <= (cells.size()-1))&&
+//					(x+(int)p.getX() >= 0)&&
+//					(y+(int)p.getY() <= (cells.get(0).size()-1))&&
+//					(y+(int)p.getY() >= 0)){
+//				ret.add(cells.get(x+(int)p.getX()).get(y+(int)p.getY()));
+//			}
+//		return ret;
+//	}
 
 	public void setTitle(String titleIn) {
 		myView.getStage().setTitle(titleIn);
@@ -138,22 +137,22 @@ public class Grid {
 		return new KeyFrame(Duration.millis(1000 / updateRate * 1000), e -> update());
 	}
 	
-	public ArrayList<ArrayList<Cell>> getCells() {
-		return cells;
-	}
 
 	public void update() {
 		if (simRunning) {	
 			updateGrid(simulation.updateGrid(this));
 			updateCurStates();
 		}
-		myView.update();//by this call, NEXT is null, and CUR is up-to-date
+		myView.update(false);//by this call, NEXT is null, and CUR is up-to-date
 		setNotUpdated();	
 	}
 
 	public void setNotUpdated(){	
-		for(ArrayList<Cell> list: cells)
-			for(Cell c: list)
+			for(Cell c: cells)
 				c.setUpdated(false);
+	}
+	
+	public ArrayList<Cell> getCells() {
+		return cells;
 	}
 }
