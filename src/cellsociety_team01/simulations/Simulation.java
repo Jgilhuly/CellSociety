@@ -52,17 +52,10 @@ public class Simulation {
 	}
 
 
-/*	public boolean colorEquals(Color a, Color b){ // IDEALLY DON'T HAVE TO USE THIS
-		return (((a.getBlue() >= b.getBlue()-.1 )&&(a.getBlue() <= b.getBlue()+.1 ))&&
-				((a.getGreen() >= b.getGreen()-.1)&&(a.getGreen() <= b.getGreen()+.1))&&
-				((a.getRed() >= b.getRed()-.1)&&(a.getRed() <= b.getRed()+.1)));
-	}*/
-
 	public State findState(String identifier){
 		for (State s: myData.keySet()){
 			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){//if(s.getColor().equals(c))
-				System.out.println(s.getName() + "  " + s.getDemonym());
-				return s;}
+				return s.newInstanceOf();}
 		}
 		return new State(Color.BLACK, "test"); // TEST PURPOSES ONLY
 	}
