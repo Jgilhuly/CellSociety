@@ -14,155 +14,20 @@
 		<flamability>0.6</flamability>
 	</config>
 	<grid width="10" height="5">
-		<cell x="0" y="0">
-			<state>008000</state>
-		</cell>
-		<cell x="1" y="0">
-			<state>008000</state>
-		</cell>
-		<cell x="2" y="0">
-			<state>008000</state>
-		</cell>
-		<cell x="3" y="0">
-			<state>008000</state>
-		</cell>
-		<cell x="4" y="0">
-			<state>008000</state>
-		</cell>
-		<cell x="5" y="0">
-			<state>008000</state>
-		</cell>
-		<cell x="6" y="0">
-			<state>008000</state>
-		</cell>
-		<cell x="7" y="0">
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell x="0" y="1">
-			<state>008000</state>
-		</cell>
-		<cell x="1" y="1">
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>FF0000</state>
-		</cell>
-		<cell>
-			<state>FF0000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>FF0000</state>
-		</cell>
-		<cell>
-			<state>FFFF00</state>
-		</cell>
-		<cell>
-			<state>FFFF00</state>
-		</cell>
-		<cell>
-			<state>FF0000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>FF0000</state>
-		</cell>
-		<cell>
-			<state>FF0000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
-		<cell>
-			<state>008000</state>
-		</cell>
+		<teamA>
+			<xVals>0 1 2 3 4 5 6 7 8 9 0 1 2 3 6 7 8 9 0 1 2 7 8 9 0 1 2 3 6 7 8 9 0 1 2 3 4 5 6 7 8 9</xvals>
+			<yVals>0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4</yVals>
+			<population_percent>0.7</population_percent>
+		</teamA>
+		<teamB>
+			<xVals>4 5 3 6 4 5</xVals>
+			<yVals>1 1 2 2 3 3</yVals>
+			<population_percent>0.2</population_percent>
+		</teamB>
+		<teamC>
+			<xVals>4 5</xVals>
+			<yVals>2 2</yVals>
+			<population_percent>0.1</population_percent>
+		</teamC>
 	</grid>
 </simulation>
