@@ -190,8 +190,6 @@ public class Parser {
 		
 		try {
 			if (myNullCells != 0) {
-				System.out.printf("%d", myNullCells);
-				System.out.println();
 				throw new CellLocationException();
 			}
 		} catch (CellLocationException e) {
@@ -232,15 +230,16 @@ public class Parser {
 		} catch (ElementValueException e) {
 			e.handleException();
 		}
-		int population = Integer.valueOf(popPercent.intValue() * myWidth * myHeight);
+		Long L = Math.round((popPercent * myWidth * myHeight));
+		int population = Integer.valueOf(L.intValue());
 		fillMap(team.getNodeName(), population);
-//		myNullCells -= population;
+		myNullCells -= population;
 	}
 	
 	private void placeRandomCells(Element team) {
 		int population = myRandom.nextInt(myNullCells);
 		fillMap(team.getNodeName(), population);
-//		myNullCells -= population;
+		myNullCells -= population;
 	}
 
 	private void checkLocation(Pair location) throws CellLocationException {
@@ -252,11 +251,14 @@ public class Parser {
 	}
 
 	private void fillMap(String teamName, int population) {
-		while (population != 0) {
+		wLoop : while (population != 0) {
 			Pair newXY = new Pair(myRandom.nextInt(myWidth), myRandom.nextInt(myHeight));
-			if (myCells.get(newXY) != null) continue;
+			for (Pair checkXY : myCells.keySet()) {
+				if ((newXY.getX() == checkXY.getX()) && (newXY.getY() == checkXY.getY())) {
+					continue wLoop;
+				}
+			}
 			addCell(newXY, getState(teamName));
-			myNullCells--;
 			population--;
 		}
 	}
