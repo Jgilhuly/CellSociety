@@ -1,6 +1,7 @@
 package cellsociety_team01.modelview;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -54,6 +55,10 @@ public class Grid {
 		myLoop.play();
 	}
 
+	public void setConfigs(HashMap<String, String> configs) {
+		
+	}
+	
 	public void setSimulation(Simulation simulationIn) {
 		simulation = simulationIn;
 	}
@@ -96,6 +101,7 @@ public class Grid {
 	}
 	
 	private void updateGrid() {
-//		cells = simulation.updateGrid(cells);
+		cells = simulation.updateGrid(cells);
+		setNotUpdated();
 	}
 }
