@@ -39,9 +39,7 @@ import cellsociety_team01.simulations.Sugarscape;
 public class Parser {
 	
 	private static final String DEFVALS_RESOURCE_PACKAGE = "resources/DefVals/DefVals";
-	private static final String COLORSCHEME_RESOURCE_PACKAGE = "resources/ColorScheme/ColorScheme";
 	private ResourceBundle myDefVals;
-	private ResourceBundle myColorScheme;
 
 	private File myFile;
 	private Grid myGrid;
@@ -142,7 +140,6 @@ public class Parser {
 		mySim.setConfigs(simConfigMap);
 
 		myCellPlacement = configMap.get("cell_placement");
-		myColorScheme = ResourceBundle.getBundle(COLORSCHEME_RESOURCE_PACKAGE, new Locale(configMap.get("color_scheme")));
 	}
 
 //	private HashMap<String, String> checkFilled(Map<String, String> configMap) {
@@ -221,7 +218,7 @@ public class Parser {
 				e.handleException();
 				continue;
 			}
-			addCell(location, getState(myColorScheme.getString(team.getNodeName())));
+			addCell(location, getState(team.getNodeName()));
 		}
 		myNullCells -= xVals.length;
 	}
@@ -253,7 +250,7 @@ public class Parser {
 		while (population != 0) {
 			Pair newXY = new Pair(myRandom.nextInt(myWidth), myRandom.nextInt(myHeight));
 			if (myCells.get(newXY) != null) continue;
-			addCell(newXY, getState(myColorScheme.getString(teamName)));
+			addCell(newXY, getState(teamName));
 			population--;
 		}
 	}
@@ -277,8 +274,7 @@ public class Parser {
 	}
 
 	private State getState(String color) {
-		Color c = Color.web(color);
-		State s = mySim.findState(c);
+		State s = mySim.findState(color);
 		return s;
 	}
 }
