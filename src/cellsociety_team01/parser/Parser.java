@@ -178,7 +178,7 @@ public class Parser {
 			fillMap("empty", 1.0);
 		}
 
-		myGrid.updateGrid(myCells);
+//		myGrid.updateGrid(myCells);
 	}
 
 	private void checkCells() throws CellLocationException {
@@ -190,12 +190,31 @@ public class Parser {
 	}
 
 	private void placeRandomCells(NodeList gridList) {
-		for (int i = 0 ; i < gridList.getLength() ; i++) {
-			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
-				Element team = (Element)gridList.item(i);
-				fillMap(team.getNodeName(), myRandom.nextDouble());
-			}
-		}
+//		for (int i = 0 ; i < gridList.getLength() ; i++) {
+//			if (gridList.item(i).getNodeType() == Node.ELEMENT_NODE) {
+//				Element team = (Element)gridList.item(i);
+//				fillMap(team.getNodeName(), myRandom.nextDouble());
+//		ArrayList<Cell> cells = new ArrayList<Cell>();
+//
+//		NodeList rowList = grid.getChildNodes();
+//		
+//		for(int i = 0 ; i < rowList.getLength() ; i++) {
+//			if (rowList.item(i) instanceof Element == false)
+//				continue;
+//			Element row = (Element)rowList.item(i);
+//			NodeList cellList = row.getChildNodes();
+//			for (int j = 0 ; j < cellList.getLength() ; j++) {
+//				if (cellList.item(j) instanceof Element == false)
+//					continue;
+//
+//				Element cellEl = (Element)cellList.item(j);
+//				String color = getTextValue(cellEl,"state");
+//				Cell newCell = new Cell(j, i, getState(color)); // THIS LINE CAUSES ERRORS BC of the comparison. Somewhere in the XML - doesn't parse colors well
+//				cells.add(newCell);
+//			}
+//		}
+//		myGrid.updateGrid(cells);
+		//myGrid.update();
 	}
 
 	private void placeDistributedCells(NodeList gridList) {
@@ -266,6 +285,7 @@ public class Parser {
 	private State getState(String color) {
 		Color c = Color.web(color);
 		State s = mySim.findState(c);
+		//System.out.println(s.getName());
 		return s;
 	}
 }

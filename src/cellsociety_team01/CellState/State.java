@@ -2,18 +2,23 @@ package cellsociety_team01.CellState;
 import javafx.scene.paint.Color;
 
 public class State {
-	private Color myColor;
-	private String myName;
+	protected Color myColor;
+	protected String myName;
 
 	public State(Color c, String s) {
-		myName = s;
 		myColor = c;
+		myName = s;
+	}
+	
+	public State newInstanceOf(){
+		return new State(myColor, myName);
 	}
 
-	public boolean equals(State s) {
-		if(this.getName().equals(s.getName()))
-			return true;
-		return false;
+	//Updated -- equals MUST take an arg of type Object, not of a specific state - PW
+	public boolean equals(Object s) {
+		if(s == this) return true;
+		State that = (State) s;
+		return (this.getName().equals(that.getName()));
 	}
 
 	public int hashCode() {
@@ -41,10 +46,24 @@ public class State {
 		return myColor;
 	}
 	
-	public int getInt() {
-		return 0;
-	}
+	//public void setInt(int a, int b){}
+	public int getInt(int a){return 0;}
+	
+	public int getNumArgs(){return 0;} // THIS IS BAD - SHOULD MAKE EACH STATE HAVE A REINITIALIZE AS WELL
 
-	public void setInt (int i) {
+	public void setInt(int a, int b) {}
+		// TODO Auto-generated method stub
+
+	public boolean comparePopulations(State curState) {
+		
+		return(this.getName().equals(curState.getName()));
 	}
-}
+		
+	public String getDemonym(){return null;}
+	
+
+	public boolean getFunc(){
+		return false;
+	}}
+	
+
