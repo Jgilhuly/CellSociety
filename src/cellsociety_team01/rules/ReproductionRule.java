@@ -29,7 +29,7 @@ public class ReproductionRule extends MovementRule {
 		if(!(cur.getCurState().getInt(myDataIndex) >= myTurnsThreshold)) //checking turns since reproducing
 			return;
 		
-		Cell s = findRandomAdjacent(myTargetState, myNeighbors);
+		Cell s = pickCell(myTargetState, myNeighbors);
 		if(s == null) // if there are no available Cells
 			return;
 		

@@ -23,7 +23,7 @@ public class MovementRule extends Rule{
 		if(cur.isUpdated())
 			return;
 
-		Cell c = findRandomAdjacent(myTargetState, myNeighbors);
+		Cell c = pickCell(myTargetState, myNeighbors);
 
 		if(!(c == null)){
 			//cur.setNextState(c.getCurState());
@@ -42,7 +42,7 @@ public class MovementRule extends Rule{
 
 	//RETURNS a random, non-updated cell of the given type out of the List
 	//null if no such cell exists
-	public Cell findRandomAdjacent(State target, ArrayList<Cell> myNeighbors){
+	public Cell pickCell(State target, ArrayList<Cell> myNeighbors){
 		ArrayList<Cell> temp = new ArrayList<Cell>();
 		for (Cell c: myNeighbors)
 			if ((c.getCurState().equals(target))&&(!(c.isUpdated()))) //REVISE THIS COMPARISON

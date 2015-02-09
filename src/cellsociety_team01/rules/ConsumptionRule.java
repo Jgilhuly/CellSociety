@@ -32,7 +32,7 @@ public class ConsumptionRule extends MovementRule{
 		}
 
 		//this DOES NOT randomize 
-		Cell c = findRandomAdjacent(myTargetState, myNeighbors);
+		Cell c = pickCell(myTargetState, myNeighbors);
 		if(!(c == null)){
 			eat(c, cur);
 			return;
