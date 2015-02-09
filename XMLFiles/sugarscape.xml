@@ -2,7 +2,7 @@
 	<info>
 		<name>Sugarscape Simulation</name>
 		<author>Peter Moseley</author>
-		<type>SugarScape</type>
+		<type>Sugarscape</type>
 	</info>
 	<config>
 		<grid_shape>Square</grid_shape>
