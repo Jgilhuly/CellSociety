@@ -9,6 +9,7 @@ public class Cell {
 
 	private int myX;
 	private int myY;
+	private ArrayList<Cell> myNeighbors;
 	
 	private State myCurState;
 	private State myNextState;
@@ -17,6 +18,7 @@ public class Cell {
 	public Cell(int x, int y, State s){
 		myX = x;
 		myY = y;
+		myNeighbors = new ArrayList<Cell>();
 		
 		myCurState = s;
 		myNextState = null;
@@ -26,7 +28,9 @@ public class Cell {
 		updated = target;
 	}
 	
-	
+	public ArrayList<Cell> getNeighbors() {
+		return myNeighbors;
+	}
 	
 	public boolean isUpdated(){
 		return updated;
