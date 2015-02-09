@@ -14,6 +14,7 @@ import java.util.Set;
 import javafx.scene.paint.Color;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
+import cellsociety_team01.exceptions.BadStateException;
 import cellsociety_team01.rules.Rule;
 
 public class Simulation {
@@ -57,11 +58,16 @@ public class Simulation {
 
 
 	public State findState(String identifier){
+		try {
 		for (State s: myData.keySet()){
 			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){//if(s.getColor().equals(c))
 				return s.newInstanceOf();}
 		}
-		return new State(Color.BLACK, "test"); // TEST PURPOSES ONLY
+		throw new BadStateException();
+		} catch (BadStateException e) {
+			e.handleException();
+			return null;
+		}
 	}
 	
 	public Set<State> getStates(){
