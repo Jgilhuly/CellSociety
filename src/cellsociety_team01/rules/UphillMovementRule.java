@@ -16,6 +16,28 @@ public class UphillMovementRule extends MovementRule{
 		myDataIndex = dataIndex;
 	}
 	
+	public void apply(Cell cur, ArrayList<Cell> myNeighbors){ 
+		if(cur.isUpdated())
+			return;
+
+		Cell c = pickCell(myTargetState, myNeighbors);
+
+		if(!(c == null)){
+			//cur.setNextState(c.getCurState());
+			c.setNextState(cur.getCurState());
+			c.getNextState().setInt(myDataIndex, c.getCurState().getInt(myDataIndex) + cur.getCurState().getInt(myDataIndex)); // consumes the sugar
+			cur.setCurState(c.getCurState());
+			c.setUpdated(true);
+			return;
+		}
+
+		else{
+			cur.setNextState(cur.getCurState());
+			cur.setUpdated(true);
+			return;
+		}
+	}
+	
 	public Cell pickCell(State target, ArrayList<Cell> myNeighbors){
 		int k = Integer.MIN_VALUE;
 		Cell d = null;

@@ -37,6 +37,8 @@ public class GameOfLife extends Simulation{
 		if(!cur.isUpdated())
 			cur.setNextState(cur.getCurState());	
 		}
+	
+	public int getNeighborType(){return 1;}
 	}
 
 

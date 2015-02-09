@@ -48,6 +48,8 @@ public class AntForaging extends Simulation{
 		myData.get(emptyAnt).add(antMovement);
 	}
 	
+	public int getNeighborType(){return 1;}
+	
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){
 		for(Rule r: myData.get(cur.getCurState()))
 			r.apply(cur, myNeighbors);

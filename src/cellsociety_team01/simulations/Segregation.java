@@ -1,7 +1,7 @@
 package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.Race;
@@ -13,13 +13,14 @@ import javafx.scene.paint.Color;
 public class Segregation extends Simulation {
 	
 	private double[] myConfigs = new double[1];;
+	private double mySatisfactionThreshold;
 	
 	public Segregation(){
 		super();
-		myConfigs[0] = 0.5; //satisfaction threshold
+		
 		initialize();
 	}
-	
+	public int getNeighborType(){return 1;}
 	private void initialize(){
 		State race1 = new Race(Color.RED, "race1");
 		State race2 = new Race(Color.BLUE, "race2");
@@ -32,11 +33,13 @@ public class Segregation extends Simulation {
 		//we want the .get function to properly call the Rules
 		myData.put(empty, new ArrayList<Rule>());
 		
-		Rule segMove = new ThresholdMovementRule(empty, myConfigs[0]);
+		Rule segMove = new ThresholdMovementRule(empty, mySatisfactionThreshold);
 		
 		myData.get(race1).add(segMove);
 		myData.get(race2).add(segMove);
 	}
+	
+	
 	
 	public void setConfigs(ArrayList<String> configs){
 		myConfigs = new double[configs.size()];
@@ -58,4 +61,8 @@ public class Segregation extends Simulation {
 			cur.setNextState(cur.getCurState()); // because you didn't update them in the TMR
 	
 			}
+	
+	public void setConfigs(HashMap<String, String> configs){
+		mySatisfactionThreshold = Double.parseDouble(configs.get("sim_satisfaction_threshold"));
+}
 }
