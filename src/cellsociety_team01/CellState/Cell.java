@@ -60,12 +60,8 @@ public class Cell {
 		return myNextState;
 	}
 	public void updateCurState(){
-		//if (myNextState == null) return;
 		myCurState = myNextState;
 		myNextState = new State(Color.PINK, "future - shouldn't show");
-
-		
-		
 	}
 
 	public void setCurState(State s) {

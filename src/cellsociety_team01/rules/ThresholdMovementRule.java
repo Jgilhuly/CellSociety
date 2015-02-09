@@ -7,7 +7,7 @@ import cellsociety_team01.CellState.State;
 
 public class ThresholdMovementRule extends MovementRule{
 	
-	public double myThreshold; // number of neighbors which have to be the same to be satisfied 
+	protected double myThreshold; // number of neighbors which have to be the same to be satisfied 
 	
 	public ThresholdMovementRule(State emptyState, double threshold) {
 		super(emptyState);
@@ -28,7 +28,7 @@ public class ThresholdMovementRule extends MovementRule{
 		if((numSimilarNeighbors/myNeighbors.size()) >= myThreshold) {
 			cur.setNextState(cur.getCurState());
 			cur.setUpdated(true);
-			return; //not sure which to use... percent of A
+			return; 
 		}
 
 		Cell c = pickCell(myTargetState, myNeighbors);

@@ -1,11 +1,7 @@
 package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -48,7 +44,7 @@ public class Simulation {
 	public State findState(String identifier){
 		try {
 		for (State s: myData.keySet()){
-			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){//if(s.getColor().equals(c))
+			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){
 				return s.newInstanceOf();}
 		}
 		throw new BadStateException();
@@ -75,7 +71,7 @@ public class Simulation {
 		return;
 	}
 	
-	public State cycleNextState(State s){ // UNTESTED
+	public State cycleNextState(State s){ 
 		ArrayList<State> states = new ArrayList<State>();
 		states.addAll(myData.keySet());
 		int i = states.indexOf(s);

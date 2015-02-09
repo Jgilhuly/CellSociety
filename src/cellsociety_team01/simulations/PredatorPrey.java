@@ -15,8 +15,7 @@ import cellsociety_team01.rules.Rule;
 
 public class PredatorPrey extends Simulation {
 	
-	Random myRandom = new Random();
-	//private double[] myConfigs = new double[2];
+	private Random myRandom = new Random();
 	private int myReproductionThreshold;
 	private int myDeathThreshold;
 	
