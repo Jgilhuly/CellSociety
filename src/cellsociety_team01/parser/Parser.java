@@ -274,6 +274,7 @@ public class Parser {
 	private State getState(String color) {
 		Color c = Color.web(color);
 		State s = mySim.findState(c);
+		//System.out.println(s.getName());
 		return s;
 	}
 }
