@@ -5,12 +5,11 @@
 		<type>Segregation</type>
 	</info>
 	<config>
-		<grid_shape>Square</grid_shape>
+		<grid_shape>Triangle</grid_shape>
 		<grid_edge>Finite</grid_edge>
 		<grid_outline>Yes</grid_outline>
 		<cell_placement>Location</cell_placement>
 		<sim_color_scheme>Default</sim_color_scheme>
-		<cell_neighbors>Cardinal</cell_neighbors>
 		<sim_satisfaction_threshold>0.4</sim_satisfaction_threshold>
 	</config>
 	<grid width="10" height="5">

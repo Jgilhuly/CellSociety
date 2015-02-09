@@ -10,7 +10,6 @@
 		<grid_outline>Yes</grid_outline>
 		<cell_placement>Location</cell_placement>
 		<sim_color_scheme>Default</sim_color_scheme>
-		<cell_neighbors>Cardinal</cell_neighbors>
 		<sim_flammability>0.6</sim_flammability>
 	</config>
 	<grid width="10" height="5">
@@ -24,10 +23,10 @@
 			<yVals>1 1 2 2 3 3</yVals>
 			<population_percent>0.2</population_percent>
 		</teamB>
-		<teamC>
+		<empty>
 			<xVals>4 5</xVals>
 			<yVals>2 2</yVals>
 			<population_percent>0.1</population_percent>
-		</teamC>
+		</empty>
 	</grid>
 </simulation>

@@ -1,0 +1,28 @@
+<simulation>
+	<info>
+		<name>Ant Foraging Simulation</name>
+		<author>Peter Moseley</author>
+		<type>AntForaging</type>
+	</info>
+	<config>
+		<grid_shape>Square</grid_shape>
+		<grid_edge>Finite</grid_edge>
+		<grid_outline>Yes</grid_outline>
+		<cell_placement>Location</cell_placement>
+		<sim_color_scheme>Default</sim_color_scheme>
+		<sim_max_level>100</sim_max_level>
+	</config>
+	<grid>
+		<empty>
+			60
+		</empty>
+		<teamA>
+			30
+		</teamA>
+		<teamB>
+			5
+		</teamB>
+		<teamC>
+			5
+		</teamC>
+	</grid>
