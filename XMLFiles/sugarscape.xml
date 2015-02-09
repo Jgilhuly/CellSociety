@@ -13,7 +13,7 @@
 		<sim_vision_range>5</sim_vision_range>
 		<sim_max_sugar>10</sim_max_sugar>
 	</config>
-	<grid>
+	<grid width="10" height="5">
 		<teamA>
 			<xVals>2 6 1 7 3 5 4 8 5 9</xVals>
 			<yVals>0 0 1 1 2 2 3 3 4 4</yVals>
