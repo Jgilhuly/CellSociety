@@ -6,9 +6,9 @@ import cellsociety_team01.CellState.Cell;
 
 public class ThresholdStatusRule extends Rule{
 	
-	public int myStatusIndex;
-	public int myChangeAmtIndex;
-	public int myThresholdIndex;
+	protected int myStatusIndex;
+	protected int myChangeAmtIndex;
+	protected int myThresholdIndex;
 	
 	public ThresholdStatusRule(int statusIndex, int changeAmtIndex, int thresholdIndex){
 		 	myStatusIndex = statusIndex;

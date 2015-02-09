@@ -1,11 +1,7 @@
 package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -33,20 +29,8 @@ public class Simulation {
 	
 	//default implementation - used for SoF and GoL
 	//essentially sums affecting neighbors and determines if they meet the threshold
-	public ArrayList<ArrayList<Cell>> getShuffledCopy(ArrayList<ArrayList<Cell>> g){
-		ArrayList<ArrayList<Cell>> copy = new ArrayList<ArrayList<Cell>>(g);
-		for(ArrayList<Cell> a: copy)
-			Collections.shuffle(a);
-		Collections.shuffle(copy);
-		return copy;
-	}
-	
-	
 	
 	public int getNeighborType(){return 0;}
-	//REALLY WANT EACH CELL TO HAVE A GETNEIGHBORS
-	
-	
 	
 	public void update(Cell cur, ArrayList<Cell> myNeighbors){	
 		return;
@@ -60,7 +44,7 @@ public class Simulation {
 	public State findState(String identifier){
 		try {
 		for (State s: myData.keySet()){
-			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){//if(s.getColor().equals(c))
+			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){
 				return s.newInstanceOf();}
 		}
 		throw new BadStateException();
@@ -87,10 +71,11 @@ public class Simulation {
 		return;
 	}
 	
-	public State cycleNextState(State s){ // UNTESTED
+	public State cycleNextState(State s){ 
 		ArrayList<State> states = new ArrayList<State>();
 		states.addAll(myData.keySet());
 		int i = states.indexOf(s);
+		i++;
 			if(i == states.size())
 				i = 0;
 		return states.get(i);	

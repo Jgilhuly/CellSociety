@@ -31,9 +31,9 @@ public class AntForaging extends Simulation{
 		State home = new State(Color.web(myColorScheme.getString("teamC")), "home");
 		State empty= new IntState(Color.web(myColorScheme.getString("empty")), "empty", 2);
 		
-		myData.put(emptyAnt, new ArrayList<Rule>()); // update empty ones next
-		myData.put(fullAnt, new ArrayList<Rule>());	//update full ones first
-		myData.put(empty, new ArrayList<Rule>()); // do you update at all?
+		myData.put(emptyAnt, new ArrayList<Rule>()); 
+		myData.put(fullAnt, new ArrayList<Rule>());	
+		myData.put(empty, new ArrayList<Rule>()); 
 		myData.put(food, new ArrayList<Rule>());
 		myData.put(home, new ArrayList<Rule>());
 		

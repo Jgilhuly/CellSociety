@@ -13,8 +13,8 @@ public class PriorityForwardRule extends MovementRule{
 	
 	private int getIndex(State s, boolean b){
 		if(b) // b = hasFood
-			return 0; // return home pheremones
-		return 1; // return food pheremones
+			return 0; 
+		return 1; 
 	}
 	
 	

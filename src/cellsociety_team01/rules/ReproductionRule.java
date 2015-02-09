@@ -8,11 +8,11 @@ import cellsociety_team01.CellState.State;
 public class ReproductionRule extends MovementRule {
 	
 	 // types of States that you can switch with
-	public double myTurnsThreshold;
+	protected double myTurnsThreshold;
 
 	private int myDataIndex;
 	
-	public ReproductionRule(State targetCellType, double t, int dataIndex){ // myConfigs[0] in P/P
+	public ReproductionRule(State targetCellType, double t, int dataIndex){ 
 		super(targetCellType);
 		
 		myTurnsThreshold = t;
@@ -36,11 +36,11 @@ public class ReproductionRule extends MovementRule {
 		
 		
 		cur.setNextState(cur.getCurState());
-		cur.getNextState().setInt(myDataIndex, 0); // would probably throw an NPE if not for the previous line
+		cur.getNextState().setInt(myDataIndex, 0); 
 		cur.setUpdated(true);
 		
 		
-		s.setNextState(cur.getCurState().newInstanceOf()); // SHOULD GIVE IT A NEW STATE EQUAL TO THE FIRST BUT WITH 0 AS VALUES FOR INTS
+		s.setNextState(cur.getCurState().newInstanceOf()); 
 		s.setUpdated(true);
 	}
 }

@@ -7,7 +7,7 @@ public class Race extends State{
 	protected String myDemonym;
 
 	public Race(Color c, String demonym) { // demonym(n) : the name (-onym) for a people (demos)
-		super(c, "Race"); // BAD PRACTICE TO AUTOMATICALLY SET THE NAME OF THE THO?
+		super(c, "Race"); 
 		myDemonym = demonym;
 	}
 	

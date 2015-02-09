@@ -23,7 +23,7 @@ public class RandomRule extends ChangingRule{
 		int k = 0;
 		
 		for(Cell c: myNeighbors)
-			if(c.getCurState().equals(myCause)) //MAYBE PUT THE "UPDATED" CHECK IN GETNEIGHBORS?
+			if(c.getCurState().equals(myCause)) 
 				k++;
 			
 		if(applies(k)){

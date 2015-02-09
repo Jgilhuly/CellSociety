@@ -15,20 +15,16 @@ import cellsociety_team01.rules.Rule;
 
 public class PredatorPrey extends Simulation {
 	
-	Random myRandom = new Random();
-	//private double[] myConfigs = new double[2];
+	private Random myRandom = new Random();
 	private int myReproductionThreshold;
 	private int myDeathThreshold;
 	
 	
 	public PredatorPrey(){
 		super();
-		 //reproduction threshold for sharks and fish
-	 //death threshold for sharks
-		//initialize();
 	}
 	
-	//shark -> fish -> ocean
+	
 	public int getNeighborType(){return 1;}
 	public void initialize(){
 		//for this simulation, the first arg is the turns since reproduction (both), second is turns since eating (shark)

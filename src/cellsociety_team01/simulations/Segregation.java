@@ -26,10 +26,7 @@ public class Segregation extends Simulation {
 		State empty = new State(Color.web(myColorScheme.getString("empty")), "empty");
 		
 		myData.put(race1, new ArrayList<Rule>());
-		myData.put(race2, new ArrayList<Rule>()); // technically redundant to add this bc iteratively checking for the first will also do to the second due to .equals() equality, but STILL USEFUL for findState
-		//HashMap SHOULD take this, because hashCodes depend on Color, and they have different colors
-		//We WANT .equals() to be fooled because we want to a) iterate through the states independent of Race or Color, and b) because
-		//we want the .get function to properly call the Rules
+		myData.put(race2, new ArrayList<Rule>()); 
 		myData.put(empty, new ArrayList<Rule>());
 		
 		Rule segMove = new ThresholdMovementRule(empty, mySatisfactionThreshold);
@@ -48,7 +45,7 @@ public class Segregation extends Simulation {
 			r.apply(cur,myNeighbors);
 		
 		if(!cur.isUpdated())
-			cur.setNextState(cur.getCurState()); // because you didn't update them in the TMR
+			cur.setNextState(cur.getCurState());
 	
 			}
 	

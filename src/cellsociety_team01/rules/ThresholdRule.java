@@ -7,8 +7,8 @@ import cellsociety_team01.CellState.State;
 
 public class ThresholdRule extends ChangingRule{
 
-	public int myMin;
-	public int myMax;
+	protected int myMin;
+	protected int myMax;
 	protected State myCause;
 	
 	public ThresholdRule(State start, State end, State cause, int min, int max){
@@ -28,7 +28,6 @@ public class ThresholdRule extends ChangingRule{
 			cur.setUpdated(true);
 			return;
 		}
-		//cur.setNextState(cur.getCurState());
 	}
 	
 	public boolean applies(int k){
