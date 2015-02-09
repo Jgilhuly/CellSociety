@@ -123,12 +123,12 @@ public class GUI {
 	 */
 	private Node makeSlider() {
 		slider = new Slider();
-		slider.setMin(0);
-		slider.setMax(1000);
-		slider.setValue(500);
+		slider.setMin(1);
+		slider.setMax(300);
+		slider.setValue(150);
 		slider.setShowTickLabels(true);
 		slider.setShowTickMarks(true);
-		slider.setMajorTickUnit(500);
+		slider.setMajorTickUnit(149);
 		slider.setMinorTickCount(10);
 		return slider;
 	}
