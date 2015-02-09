@@ -8,12 +8,12 @@
 		<grid_shape>Square</grid_shape>
 		<grid_edge>Finite</grid_edge>
 		<grid_outline>Yes</grid_outline>
-		<cell_placement>Location</cell_placement>
+		<cell_placement>Percent</cell_placement>
 		<sim_color_scheme>Default</sim_color_scheme>
-		<sim_vision_range>5</sim_vision_range>
+		<sim_vision_range>3</sim_vision_range>
 		<sim_max_sugar>10</sim_max_sugar>
 	</config>
-	<grid width="10" height="5">
+	<grid width="30" height="20">
 		<teamA>
 			<xVals>2 6 1 7 3 5 4 8 5 9</xVals>
 			<yVals>0 0 1 1 2 2 3 3 4 4</yVals>

@@ -2,14 +2,11 @@ package cellsociety_team01.parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
-
-import javafx.scene.paint.Color;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,12 +29,13 @@ import cellsociety_team01.simulations.GameOfLife;
 import cellsociety_team01.simulations.PredatorPrey;
 import cellsociety_team01.simulations.Segregation;
 import cellsociety_team01.simulations.Simulation;
+import cellsociety_team01.simulations.SlimeMolds;
 import cellsociety_team01.simulations.SpreadingOfFire;
 import cellsociety_team01.simulations.Sugarscape;
 
 
 public class Parser {
-	
+
 	private static final String DEFVALS_RESOURCE_PACKAGE = "resources/DefVals/DefVals";
 	private ResourceBundle myDefVals;
 
@@ -63,19 +61,13 @@ public class Parser {
 	public void parseXmlFile(){
 		try {		
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-
 			//Using factory get an instance of document builder
 			DocumentBuilder db = dbf.newDocumentBuilder();
-
 			//parse using builder to get DOM representation of the XML file
-			Document dom = db.parse(myFilename);
-			
+			Document dom = db.parse(myFilename);			
 			//get the root element
 			myRoot = dom.getDocumentElement();
-
-		}catch(ParserConfigurationException pce) {
-			
-			
+		}catch(ParserConfigurationException pce) {			
 			pce.printStackTrace();
 		}catch(IOException ioe) {
 			ioe.printStackTrace();
@@ -83,6 +75,7 @@ public class Parser {
 			e.printStackTrace();
 		}
 
+		//parse data from the three sections of the XML file
 		parseInfo((Element)myRoot.getElementsByTagName("info").item(0));
 		parseConfig((Element)myRoot.getElementsByTagName("config").item(0));
 		parseGrid((Element)myRoot.getElementsByTagName("grid").item(0));
@@ -90,7 +83,7 @@ public class Parser {
 	}
 
 	private void parseInfo(Element info) {		
-		HashMap<String, String> infoMap = getChildValues(info);
+		Map<String, String> infoMap = getChildValues(info);
 		myGrid.setTitle(infoMap.get("name"));
 		myGrid.setAuthor(infoMap.get("author"));
 		mySim = makeSim(infoMap.get("type"));
@@ -110,7 +103,7 @@ public class Parser {
 			case "GameOfLife" :
 				return new GameOfLife();
 			case "SlimeMolds" :
-//				return new SlimeMolds();
+				return new SlimeMolds();
 			case "AntForaging" :
 				return new AntForaging();
 			case "Sugarscape" :
@@ -126,7 +119,6 @@ public class Parser {
 
 	private void parseConfig(Element config) {
 		Map<String, String> configMap = getChildValues(config);
-//		configMap = checkFilled(configMap);
 		Map<String, String> gridConfigMap = new HashMap<>();
 		Map<String, String> simConfigMap = new HashMap<>();
 		for (String s : configMap.keySet()) {
@@ -142,15 +134,9 @@ public class Parser {
 		myCellPlacement = configMap.get("cell_placement");
 	}
 
-//	private HashMap<String, String> checkFilled(Map<String, String> configMap) {
-//		//possibly checking for whether element tag is there at all (not just empty)
-//
-//		return configMap;
-//	}
-
-	private HashMap<String, String> getChildValues(Element element) {
+	private Map<String, String> getChildValues(Element element) {
 		NodeList nl = element.getChildNodes();
-		HashMap<String, String> values = new HashMap<>();
+		Map<String, String> values = new HashMap<>();
 		for (int i = 0 ; i < nl.getLength() ; i++){
 			if (nl.item(i).getNodeType() == Node.ELEMENT_NODE) {
 				String tagName = nl.item(i).getNodeName();
@@ -170,7 +156,7 @@ public class Parser {
 		myWidth = Integer.parseInt(grid.getAttribute("width"));
 		myHeight = Integer.parseInt(grid.getAttribute("height"));
 		myNullCells = myWidth*myHeight;
-		
+
 		myGrid.setBounds(new Pair(myWidth, myHeight));
 
 		myCells = new HashMap<Pair, Cell>();
@@ -189,7 +175,6 @@ public class Parser {
 				}
 			}
 		}
-		
 		try {
 			if (myNullCells != 0) {
 				throw new CellLocationException();
@@ -197,7 +182,7 @@ public class Parser {
 		} catch (CellLocationException e) {
 			e.handleException();
 		}
-		
+
 		myGrid.setNeighbors(myCells);
 
 		myGrid.updateGrid(myCells.values());
@@ -224,7 +209,7 @@ public class Parser {
 		}
 		myNullCells -= xVals.length;
 	}
-	
+
 	private void placeDistributedCells(Element team) {
 		Double popPercent = null;
 		try {
@@ -237,7 +222,7 @@ public class Parser {
 		fillMap(team.getNodeName(), population);
 		myNullCells -= population;
 	}
-	
+
 	private void placeRandomCells(Element team, boolean last) {
 		int population;
 		if (last) {
