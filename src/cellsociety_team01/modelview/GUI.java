@@ -270,6 +270,7 @@ public class GUI {
 		int cellX = (int) (x / (gridCanvas.getWidth() / numCols));
 		int cellY = (int) (y / (gridCanvas.getHeight() / numRows));
 		System.out.println(cellX + ", " + cellY);
+		
 	}
 	
 	/**
