@@ -8,11 +8,11 @@ import cellsociety_team01.CellState.State;
 public class UphillMovementRule extends MovementRule{
 
 	private int myDataIndex;
-	//private State myEmpty;
+
 	
 	public UphillMovementRule(State targetCellType, int dataIndex){
 		super(targetCellType);
-		//myEmpty = emptyCellType;
+		
 		myDataIndex = dataIndex;
 	}
 	
@@ -26,6 +26,7 @@ public class UphillMovementRule extends MovementRule{
 			//cur.setNextState(c.getCurState());
 			c.setNextState(cur.getCurState());
 			c.getNextState().setInt(myDataIndex, c.getCurState().getInt(myDataIndex) + cur.getCurState().getInt(myDataIndex)); // consumes the sugar
+			cur.setNextState(c.getCurState());
 			cur.setCurState(c.getCurState());
 			c.setUpdated(true);
 			return;

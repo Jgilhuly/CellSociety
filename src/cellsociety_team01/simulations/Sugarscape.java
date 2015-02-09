@@ -53,10 +53,10 @@ public class Sugarscape extends Simulation{
 		if(cur.isUpdated())
 			return;
 		
-		for(Rule r: myData.get(cur))
+	
+		for(Rule r: myData.get(cur.getCurState()))
 			r.apply(cur, myNeighbors);
-		
-		cur.getNextState().updateColor();
+	
 		
 		if(!cur.isUpdated())
 			cur.setNextState(cur.getCurState());

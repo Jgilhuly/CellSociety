@@ -93,7 +93,7 @@ public abstract class GridModel {
 	}
 
 	/**
-	 * Checks the array of neighbors for legality, this will be overiden by
+	 * Checks the array of neighbors for legality, this will be overridden by
 	 * subclasses
 	 * 
 	 * @param cellMap

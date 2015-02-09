@@ -20,7 +20,7 @@ public class SpreadingOfFire extends Simulation {
 		
 		//initialize();
 	}
-	public int getNeighborType(){return 0;}
+	public int getNeighborType(){return 1;}
 	
 	public void initialize(){
 		

@@ -165,7 +165,6 @@ public class Grid {
 	 */
 	public KeyFrame start(double frameRate) {
 		updateRate = frameRate;
-		System.out.println("Update Rate: " + updateRate);
 		return new KeyFrame(Duration.millis(updateRate*10),
 				e -> update());
 	}
