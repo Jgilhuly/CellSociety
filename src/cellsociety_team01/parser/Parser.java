@@ -233,13 +233,13 @@ public class Parser {
 		Long L = Math.round((popPercent * myWidth * myHeight));
 		int population = Integer.valueOf(L.intValue());
 		fillMap(team.getNodeName(), population);
-		myNullCells = myNullCells - population;
+		myNullCells -= population;
 	}
 	
 	private void placeRandomCells(Element team) {
 		int population = myRandom.nextInt(myNullCells);
 		fillMap(team.getNodeName(), population);
-//		myNullCells -= population;
+		myNullCells -= population;
 	}
 
 	private void checkLocation(Pair location) throws CellLocationException {
@@ -251,15 +251,16 @@ public class Parser {
 	}
 
 	private void fillMap(String teamName, int population) {
-		while (population != 0) {
+		wLoop : while (population != 0) {
 			Pair newXY = new Pair(myRandom.nextInt(myWidth), myRandom.nextInt(myHeight));
-			if (myCells.containsKey(newXY)) {
-				continue;
+			for (Pair checkXY : myCells.keySet()) {
+				if ((newXY.getX() == checkXY.getX()) && (newXY.getY() == checkXY.getY())) {
+					continue wLoop;
+				}
 			}
 			addCell(newXY, getState(teamName));
 			population--;
 		}
-		System.out.printf("%d", population);
 	}
 
 	private void addCell(Pair location, State state) {

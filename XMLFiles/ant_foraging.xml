@@ -8,11 +8,11 @@
 		<grid_shape>Square</grid_shape>
 		<grid_edge>Finite</grid_edge>
 		<grid_outline>Yes</grid_outline>
-		<cell_placement>Location</cell_placement>
+		<cell_placement>Percent</cell_placement>
 		<sim_color_scheme>Default</sim_color_scheme>
 		<sim_max_level>100</sim_max_level>
 	</config>
-	<grid width="10" height="5">
+	<grid width="50" height="50">
 		<empty>
 			<xVals>0 1 3 4 6 8 9 0 4 5 7 8 0 1 3 4 8 9 0 1 2 4 7 9 0 1 3 5 8</xVals>
 			<yVals>0 0 0 0 0 0 0 1 1 1 1 1 2 2 2 2 2 2 3 3 3 3 3 3 4 4 4 4 4</yVals>
