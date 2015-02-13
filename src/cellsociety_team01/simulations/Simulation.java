@@ -47,7 +47,7 @@ public class Simulation {
 			if(Color.web(myColorScheme.getString(identifier)).equals(s.getColor())){
 				return s.newInstanceOf();}
 		}
-		throw new BadStateException();
+		throw new BadStateException(identifier);
 		} catch (BadStateException e) {
 			e.handleException();
 			return null;

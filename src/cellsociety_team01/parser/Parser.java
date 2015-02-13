@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Peter Moseley
+
 package cellsociety_team01.parser;
 
 import java.io.File;
