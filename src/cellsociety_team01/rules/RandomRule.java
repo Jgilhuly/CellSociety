@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Patrick Wickham
+
 package cellsociety_team01.rules;
 
 import java.util.ArrayList;
@@ -6,7 +9,7 @@ import java.util.Random;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
 
-public class RandomRule extends ChangingRule{
+public class RandomRule extends ThresholdChangingRule{
 	
 	private double myProb;
 	Random myGen = new Random();
@@ -19,18 +22,9 @@ public class RandomRule extends ChangingRule{
 	}
 	
 	public void apply(Cell cur, ArrayList<Cell> myNeighbors){
-		if(cur.isUpdated()) return;
-		int k = 0;
 		
-		for(Cell c: myNeighbors)
-			if(c.getCurState().equals(myCause)) 
-				k++;
-			
-		if(applies(k)){
-			cur.setNextState(myEnd);
-			cur.setUpdated(true);
-			return;
-			}
+		process(cur, myNeighbors, myCause);
+
 	}
 	
 	public boolean applies(int k){

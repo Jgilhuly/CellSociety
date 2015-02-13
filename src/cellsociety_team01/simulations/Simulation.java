@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Patrick Wickham
+
 package cellsociety_team01.simulations;
 
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class Simulation {
 	public Simulation(){
 		myData = new LinkedHashMap<State, ArrayList<Rule>>();
 	}
-
+	
 	public int getNumPossibleStates(){
 		return myData.keySet().size();
 	}
@@ -39,7 +42,6 @@ public class Simulation {
 	public void setUpdated(Cell c){
 		c.setUpdated(true);
 	}
-
 
 	public State findState(String identifier){
 		try {
@@ -67,9 +69,7 @@ public class Simulation {
 	
 	public void initialize(){return;}
 	
-	public void parseConfigs(Map<String, String> a){
-		return;
-	}
+	public void parseConfigs(Map<String, String> a){return;}
 	
 	public State cycleNextState(State s){ 
 		ArrayList<State> states = new ArrayList<State>();

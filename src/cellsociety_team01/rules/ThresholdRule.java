@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Patrick Wickham
+
 package cellsociety_team01.rules;
 
 import java.util.ArrayList;
@@ -5,7 +8,7 @@ import java.util.ArrayList;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.CellState.State;
 
-public class ThresholdRule extends ChangingRule{
+public class ThresholdRule extends ThresholdChangingRule{
 
 	protected int myMin;
 	protected int myMax;
@@ -19,20 +22,10 @@ public class ThresholdRule extends ChangingRule{
 	}
 	
 	public void apply(Cell cur, ArrayList<Cell> myNeighbors){
-		int k = 0;
-		for(Cell c: myNeighbors)
-			if(c.getCurState().equals(myCause))
-				k++;
-		if(applies(k)){
-			cur.setNextState(myEnd);
-			cur.setUpdated(true);
-			return;
-		}
+		process(cur,myNeighbors, myCause);
 	}
 	
 	public boolean applies(int k){
 		return (k <= myMax && k >= myMin);
 	}
-	
-
 }
