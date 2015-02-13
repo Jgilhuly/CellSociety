@@ -6,9 +6,9 @@ import cellsociety_team01.Pair;
 import cellsociety_team01.CellState.Cell;
 import cellsociety_team01.modelview.Grid.gridEdgeTypes;
 
-public class TriangularGridModel extends GridModel {
+public class TriangleGridModel extends GridModel {
 
-	public TriangularGridModel(gridEdgeTypes myEdgeTypeIn) {
+	public TriangleGridModel(gridEdgeTypes myEdgeTypeIn) {
 		super(myEdgeTypeIn);
 	}
 

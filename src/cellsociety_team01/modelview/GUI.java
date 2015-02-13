@@ -1,5 +1,8 @@
 package cellsociety_team01.modelview;
 
+//This entire file is part of my masterpiece.
+//John Gilhuly
+
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ResourceBundle;
@@ -78,7 +81,7 @@ public class GUI {
 		myRoot = new BorderPane();
 		myRoot.setBottom(makeButtonsAndSlider());
 		myRoot.setTop(makeMenuBar());
-		// myRoot.setLeft(makePrefPanel());
+		 myRoot.setLeft(makePrefPanel());
 		// myRoot.setRight(makeGraph());
 
 		enableButtons();
@@ -310,24 +313,20 @@ public class GUI {
 		inputGrid.setHgap(5);
 		inputGrid.setVgap(5);
 
-		textField1 = new TextField();
-		textField1.setPromptText(myResources.getString("TextField1"));
-		inputGrid.add(textField1, 0, 0);
-		Button b1 = makeButton("EnterCommand", event -> myModel.play());
-		inputGrid.add(b1, 1, 0);
-
-		textField2 = new TextField();
-		textField2.setPromptText(myResources.getString("TextField1"));
-		inputGrid.add(textField2, 0, 1);
-		Button b2 = makeButton("EnterCommand", event -> myModel.play());
-		inputGrid.add(b2, 1, 1);
-
-		textField3 = new TextField();
-		textField3.setPromptText(myResources.getString("TextField1"));
-		inputGrid.add(textField3, 0, 2);
-		Button b3 = makeButton("EnterCommand", event -> myModel.play());
-		inputGrid.add(b3, 1, 2);
+		textField1 = makeTextInputField ("TextField1", "EnterCommand", event -> myModel.play(), inputGrid, 0, 0);
+		textField2 = makeTextInputField ("TextField1", "EnterCommand", event -> myModel.play(), inputGrid, 1, 0);
+		textField3 = makeTextInputField ("TextField1", "EnterCommand", event -> myModel.play(), inputGrid, 2, 0);
 
 		return inputGrid;
+	}
+	
+	private TextField makeTextInputField (String fieldLabel, String buttonLabel, EventHandler<ActionEvent> handler, GridPane inputGrid, int row, int col) {
+		TextField textField = new TextField();
+		textField.setPromptText(myResources.getString(fieldLabel));
+		inputGrid.add(textField, col, row);
+		
+		Button button = makeButton(buttonLabel, handler);
+		inputGrid.add(button, col+1, row);
+		return textField;
 	}
 }

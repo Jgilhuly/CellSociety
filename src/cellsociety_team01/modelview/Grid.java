@@ -67,7 +67,7 @@ public class Grid {
 			myGridModel = new SquareGridModel(myEdgeType);
 			myCellShape = gridShapeTypes.SQUARE;
 		} else if (grid_shape.equals("Triangle")) {
-			myGridModel = new TriangularGridModel(myEdgeType);
+			myGridModel = new TriangleGridModel(myEdgeType);
 			myCellShape = gridShapeTypes.TRIANGULAR;
 		} else {
 			BadGridConfigException e = new BadGridConfigException();
@@ -245,7 +245,7 @@ public class Grid {
 	}
 
 	/**
-	 * Cycles the state of a given cell
+	 * Cycles the state of a given cell used for clicking on a cell
 	 * 
 	 * @param cellX
 	 * @param cellY
