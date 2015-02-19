@@ -1,0 +1,15 @@
+<map id="cellsociety_team01.exceptions.ElementValueException.getTag" name="cellsociety_team01.exceptions.ElementValueException.getTag">
+<area shape="rect" id="node2" href="$d7/db9/classcellsociety__team01_1_1exceptions_1_1_element_value_exception.html#a43c39c1bb5e3254025a34f927500de7a" title="cellsociety_team01.exceptions.\lElementValueException.handleException" alt="" coords="278,102,559,143"/>
+<area shape="rect" id="node3" href="$db/d40/classcellsociety__team01_1_1parser_1_1_parser.html#afa9ffc367d1b97d4ebec0de216a89d0a" title="cellsociety_team01.parser.\lParser.getChildValues" alt="" coords="611,37,805,78"/>
+<area shape="rect" id="node12" href="$db/d40/classcellsociety__team01_1_1parser_1_1_parser.html#a6328c0a6b8dab4bc6d860e80739fadca" title="cellsociety_team01.parser.\lParser.placeGivenCells" alt="" coords="611,102,805,143"/>
+<area shape="rect" id="node14" href="$db/d40/classcellsociety__team01_1_1parser_1_1_parser.html#a0ed864ecdf8cf6ee778114ebe5c605ea" title="cellsociety_team01.parser.\lParser.placeDistributedCells" alt="" coords="609,167,807,209"/>
+<area shape="rect" id="node4" href="$db/d40/classcellsociety__team01_1_1parser_1_1_parser.html#ae652e938cb743e128a14b1181392eeda" title="cellsociety_team01.parser.\lParser.parseInfo" alt="" coords="857,5,1050,46"/>
+<area shape="rect" id="node11" href="$db/d40/classcellsociety__team01_1_1parser_1_1_parser.html#af56783c2ed199d7cd1925b54e6497642" title="cellsociety_team01.parser.\lParser.parseConfig" alt="" coords="857,70,1050,111"/>
+<area shape="rect" id="node5" href="$db/d40/classcellsociety__team01_1_1parser_1_1_parser.html#a31a05836dde41569f62542b9ea327f95" title="cellsociety_team01.parser.\lParser.parseXmlFile" alt="" coords="1099,70,1293,111"/>
+<area shape="rect" id="node6" href="$db/d10/classcellsociety__team01_1_1modelview_1_1_g_u_i.html#afa183319cc9816a6147cba0869ef82eb" title="cellsociety_team01.modelview.\lGUI.loadXML" alt="" coords="1341,37,1560,78"/>
+<area shape="rect" id="node9" href="$db/d10/classcellsociety__team01_1_1modelview_1_1_g_u_i.html#a5c5e37ae72fe72af97fab2cb9a12b045" title="cellsociety_team01.modelview.\lGUI.reset" alt="" coords="1341,102,1560,143"/>
+<area shape="rect" id="node7" href="$db/d10/classcellsociety__team01_1_1modelview_1_1_g_u_i.html#a4072ce794f518e806e7a912892f1e9da" title="cellsociety_team01.modelview.\lGUI.makeMenuBar" alt="" coords="1608,37,1827,78"/>
+<area shape="rect" id="node8" href="$db/d10/classcellsociety__team01_1_1modelview_1_1_g_u_i.html#a07bcff60812627c8dfe97f1aadc671e5" title="cellsociety_team01.modelview.\lGUI.GUI" alt="" coords="1875,70,2093,111"/>
+<area shape="rect" id="node10" href="$db/d10/classcellsociety__team01_1_1modelview_1_1_g_u_i.html#aa924c28ce131195d3f377b18177f6cb9" title="cellsociety_team01.modelview.\lGUI.makeButtonsAndSlider" alt="" coords="1608,102,1827,143"/>
+<area shape="rect" id="node13" href="$db/d40/classcellsociety__team01_1_1parser_1_1_parser.html#afa693f17f280ab1cf88baf2565c593a9" title="cellsociety_team01.parser.\lParser.parseGrid" alt="" coords="857,135,1050,177"/>
+</map>

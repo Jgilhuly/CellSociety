@@ -1,0 +1,5 @@
+<map id="cellsociety_team01.modelview.Grid.play" name="cellsociety_team01.modelview.Grid.play">
+<area shape="rect" id="node2" href="$db/d10/classcellsociety__team01_1_1modelview_1_1_g_u_i.html#aa924c28ce131195d3f377b18177f6cb9" title="cellsociety_team01.modelview.\lGUI.makeButtonsAndSlider" alt="" coords="272,5,491,46"/>
+<area shape="rect" id="node4" href="$db/d10/classcellsociety__team01_1_1modelview_1_1_g_u_i.html#aae1a2f0b1178e105c76ad20b167d6256" title="cellsociety_team01.modelview.\lGUI.makePrefPanel" alt="" coords="272,70,491,111"/>
+<area shape="rect" id="node3" href="$db/d10/classcellsociety__team01_1_1modelview_1_1_g_u_i.html#a07bcff60812627c8dfe97f1aadc671e5" title="cellsociety_team01.modelview.\lGUI.GUI" alt="" coords="539,5,757,46"/>
+</map>

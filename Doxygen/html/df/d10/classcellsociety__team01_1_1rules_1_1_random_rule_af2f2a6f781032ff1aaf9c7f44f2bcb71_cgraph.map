@@ -1,0 +1,6 @@
+<map id="cellsociety_team01.rules.RandomRule.apply" name="cellsociety_team01.rules.RandomRule.apply">
+<area shape="rect" id="node2" href="$df/d10/classcellsociety__team01_1_1rules_1_1_random_rule.html#a7d766f94d5794cf03b93976ff4b8e2e1" title="cellsociety_team01.rules.\lRandomRule.applies" alt="" coords="251,5,435,46"/>
+<area shape="rect" id="node3" href="$d2/d25/classcellsociety__team01_1_1_cell_state_1_1_cell.html#ae0b32ba9532fbce3c09d4200e70eedc4" title="cellsociety_team01.CellState.\lCell.isUpdated" alt="" coords="237,70,448,111"/>
+<area shape="rect" id="node4" href="$d2/d25/classcellsociety__team01_1_1_cell_state_1_1_cell.html#a555615a89d24bf27ad94d192d8df8465" title="cellsociety_team01.CellState.\lCell.setNextState" alt="" coords="237,135,448,177"/>
+<area shape="rect" id="node5" href="$d2/d25/classcellsociety__team01_1_1_cell_state_1_1_cell.html#a13f1c90701e1d1ab91e47b03eada7a69" title="cellsociety_team01.CellState.\lCell.setUpdated" alt="" coords="237,201,448,242"/>
+</map>

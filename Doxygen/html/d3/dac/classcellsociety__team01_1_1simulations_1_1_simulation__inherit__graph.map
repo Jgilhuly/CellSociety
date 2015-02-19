@@ -1,0 +1,9 @@
+<map id="cellsociety_team01.simulations.Simulation" name="cellsociety_team01.simulations.Simulation">
+<area shape="rect" id="node2" href="$d2/dd4/classcellsociety__team01_1_1simulations_1_1_ant_foraging.html" title="cellsociety_team01.simulations.\lAntForaging" alt="" coords="280,5,507,46"/>
+<area shape="rect" id="node3" href="$dc/d72/classcellsociety__team01_1_1simulations_1_1_game_of_life.html" title="cellsociety_team01.simulations.\lGameOfLife" alt="" coords="280,70,507,111"/>
+<area shape="rect" id="node4" href="$d6/dcf/classcellsociety__team01_1_1simulations_1_1_predator_prey.html" title="cellsociety_team01.simulations.\lPredatorPrey" alt="" coords="280,135,507,177"/>
+<area shape="rect" id="node5" href="$d8/d2f/classcellsociety__team01_1_1simulations_1_1_segregation.html" title="cellsociety_team01.simulations.\lSegregation" alt="" coords="280,201,507,242"/>
+<area shape="rect" id="node6" href="$df/df3/classcellsociety__team01_1_1simulations_1_1_slime_molds.html" title="cellsociety_team01.simulations.\lSlimeMolds" alt="" coords="280,266,507,307"/>
+<area shape="rect" id="node7" href="$d3/d2a/classcellsociety__team01_1_1simulations_1_1_spreading_of_fire.html" title="cellsociety_team01.simulations.\lSpreadingOfFire" alt="" coords="280,331,507,373"/>
+<area shape="rect" id="node8" href="$d7/d89/classcellsociety__team01_1_1simulations_1_1_sugarscape.html" title="cellsociety_team01.simulations.\lSugarscape" alt="" coords="280,397,507,438"/>
+</map>

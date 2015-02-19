@@ -1,0 +1,5 @@
+<map id="cellsociety_team01.rules.ThresholdRule.apply" name="cellsociety_team01.rules.ThresholdRule.apply">
+<area shape="rect" id="node2" href="$d1/de7/classcellsociety__team01_1_1rules_1_1_threshold_rule.html#ab4c24204fc53f14b8b1f07c0bc7cf9ce" title="cellsociety_team01.rules.\lThresholdRule.applies" alt="" coords="251,5,435,46"/>
+<area shape="rect" id="node3" href="$d2/d25/classcellsociety__team01_1_1_cell_state_1_1_cell.html#a555615a89d24bf27ad94d192d8df8465" title="cellsociety_team01.CellState.\lCell.setNextState" alt="" coords="237,70,448,111"/>
+<area shape="rect" id="node4" href="$d2/d25/classcellsociety__team01_1_1_cell_state_1_1_cell.html#a13f1c90701e1d1ab91e47b03eada7a69" title="cellsociety_team01.CellState.\lCell.setUpdated" alt="" coords="237,135,448,177"/>
+</map>

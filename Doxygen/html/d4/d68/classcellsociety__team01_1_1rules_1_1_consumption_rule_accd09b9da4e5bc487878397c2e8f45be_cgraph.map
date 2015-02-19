@@ -1,0 +1,4 @@
+<map id="cellsociety_team01.rules.ConsumptionRule.kill" name="cellsociety_team01.rules.ConsumptionRule.kill">
+<area shape="rect" id="node2" href="$d2/d25/classcellsociety__team01_1_1_cell_state_1_1_cell.html#ae02ddaa5eb4249785047ccdf957c712e" title="cellsociety_team01.CellState.\lCell.setCurState" alt="" coords="237,5,448,46"/>
+<area shape="rect" id="node3" href="$d2/d25/classcellsociety__team01_1_1_cell_state_1_1_cell.html#a555615a89d24bf27ad94d192d8df8465" title="cellsociety_team01.CellState.\lCell.setNextState" alt="" coords="237,70,448,111"/>
+</map>
